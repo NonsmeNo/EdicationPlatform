@@ -238,23 +238,23 @@ footer a {
     Адаптация горизонтальная для телефона
 ========================= */
 @media (max-width: 1050px) and (orientation: landscape) {
-.preview-block {
-    padding-top: 0;
-}
+    .preview-block {
+        padding-top: 0;
+    }
 
-.text2 p {
-    width: 90%;
-}
+    .text2 p {
+        width: 90%;
+    }
 
-.img-text {
-    width: 10%;
-}
+    .img-text {
+        width: 10%;
+    }
 
-.reg-btns {
-    margin-top: 0;
-}
+    .reg-btns {
+        margin-top: 0;
+    }
 
-.slogan {
-    padding: 10px 0 10px 30px;
-}
+    .slogan {
+        padding: 10px 0 10px 30px;
+    }
 }

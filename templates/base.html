@@ -23,8 +23,8 @@
                     <div class="menu-hover {% if current_path == '/' %}active{% endif %}"></div>
                     <a href="/">Главная</a>
                 </div>
-                <div class="menu-block">
-                    <div class="menu-hover"></div>
+                <div class="menu-block {% if current_path == '/calculate' %}active{% endif %}">
+                    <div class="menu-hover {% if current_path == '/calculate' %}active{% endif %}"></div>
                     <a href="/calculate">Графический калькулятор</a>
                 </div>
                 <div class="menu-block">

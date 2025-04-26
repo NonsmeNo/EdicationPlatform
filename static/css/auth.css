@@ -1,0 +1,131 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+:root {
+    --white: #ffffff;
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+    --hover-color: #FF5959;
+}
+
+.content {
+    background-image: linear-gradient(var(--blue), var(--light-pink));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content .logo {
+    color: var(--white);
+    font-size: 35px;
+    padding: 20px;
+    font-weight: 700;
+}
+
+.content form {
+    background-color: var(--white);
+    padding: 20px 30px;
+    border: 5px solid rgba(50, 0, 251, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(50, 0, 251, 0.3);
+    
+    display: flex;
+    flex-direction: column; 
+    margin: 0 20px 50px 20px;  
+    min-width: 90%; 
+}
+
+.content form .form-title{
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content form .input-block {
+    font-size: 15px;
+    padding-bottom: 10px;
+}
+
+.content form .input-block {
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 15px;
+ }
+
+ .content form label {
+    margin-bottom: 5px;
+ }
+
+ .content form input:focus {
+    outline: none;
+    border-color: #2E9AFF;
+    box-shadow: 0 0 15px rgba(123, 191, 255); 
+}
+
+.content form #submit-btn {
+    margin-top: 15px;
+    background-color: var(--blue);
+    text-align: center;
+    color: var(--white);
+    padding: 12px 0;
+    font-size: 18px;
+
+    transition: background-color 0.3s ease;
+}
+
+.content form #submit-btn:hover {
+    background-color: var(--hover-color);
+}
+
+.content form .form-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.content form .form-footer a{
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.content form .form-footer a:hover{
+    color: #0764bb;
+}
+
+ @media (min-width: 768px) {
+    .content form {
+        width: 450px; 
+        min-width: 0; 
+        margin: 0;
+    }
+
+    .content form .form-title {
+        margin-bottom: 30px;
+    }
+
+    .content form .input-block {
+        padding-bottom: 20px;
+    }
+
+    
+}

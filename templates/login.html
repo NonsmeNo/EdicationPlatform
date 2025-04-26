@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Авторизация - MathHelper</title>
+</head>
+<body>
+
+<div class="content">
+    <div class="logo">
+        MathHelper
+    </div>
+    <form action="/register" method="post" class="">
+        <div class="form-title">
+            Вход в аккакунт
+        </div>
+        <div class="input-block">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-block">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <input id="submit-btn" type="submit" value="Вход" />
+
+        <div class="form-footer">
+            У вас еще нет аккаунта? <a href="{{ url_for('register') }}">Регистрация</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

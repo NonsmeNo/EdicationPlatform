@@ -25,5 +25,18 @@ def index():
     return render_template('index.html', current_path=request.path)
 
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/calculate')
+def calculate():
+    return render_template('calculate.html', current_path=request.path)
+
+
 if __name__ == "__main__":  # для того чтобы проект запускался как приложение flask
     app.run(debug=True)  # debug чтобы выводились на страничке все ошибки
