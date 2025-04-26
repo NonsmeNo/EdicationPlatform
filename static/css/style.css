@@ -3,175 +3,216 @@
 ========================= */
 :root {
     --white: #ffffff;
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+    --text-color: #555;
+    --hover-color: #FF5959;
+    --divider-color: #979797;
 }
-
-/* =========================
-   ОБЩИЙ КОНТЕЙНЕР .content
-========================= */
+  
+  /* =========================
+     БАЗОВАЯ РАЗМЕТКА (Mobile First)
+  ========================= */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+  
 .content {
-    background-image: linear-gradient(#2E9AFF, #f3ccd5);
+    background-image: linear-gradient(var(--blue), var(--light-pink));
     min-height: calc(100vh - 81px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-
-/* =========================
-   ПРЕВЬЮ
-========================= */
-.content .preview-block {
-    padding-top: 100px;
-    display: flex;
-    flex-direction: row;
-}
-
-/* =========================
-   ЛЕВАЯ ЧАСТЬ ПРЕВЬЮ .preview-block1
-========================= */
-.content .preview-block .preview-block1 {
-    width: 60%;
-}
-
-/* Анимация для плавного появления и исчезновения */
-@keyframes fadeInOut {
-    0% {
-        opacity: 0.2;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0.2;
-    }
-}
-
-/* Слоган */
-.content .preview-block .preview-block1 .slogan {
-    background-color: rgba(0, 0, 0, 0.5);
-    font-weight: 300;
-    font-size: 40px;
-    color: var(--white);
-    padding: 20px 10px 20px 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.content .preview-block .preview-block1 .slogan span {
-    animation: fadeInOut 10s infinite;
-}
-
-.content .preview-block .preview-block1 .text-block {
-    display: flex;
-    flex-direction: row;
-}
-
-/* Отступ до текста*/
-.content .preview-block .preview-block1 .text-block .space-box {
-    width: 30%;
-}
-
-/* текст блок */
-.content .preview-block .preview-block1 .text-block .text-box {
-    background-color: var(--white);
-    width: 70%;
-    padding: 30px 40px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  
+.preview-block {
+    padding-top: 5%;
     display: flex;
     flex-direction: column;
 }
-
-.content .preview-block .text-box .img-graph img {
-    opacity: 0.7;
-    width: 70%;
+  
+.preview-block1 {
+    width: 100%;
 }
-
-.content .preview-block .text-box .img-time img {
+  
+  .slogan {
+    background-color: rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+    font-size: 25px;
+    color: var(--white);
+    padding: 20px 10px 20px 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .slogan span {
+    animation: fadeInOut 10s infinite;
+  }
+  
+  .text-block {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .space-box {
+    width: 15%;
+  }
+  
+  .text-box {
+    background-color: var(--white);
+    width: 85%;
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .img-graph img, .img-time img {
+    width: 70%;
+    opacity: 0.7;
+  }
+  
+  .img-time img {
     width: 60%;
     opacity: 0.6;
-}
-
-.content .preview-block .text-box .text1 {
-    color: #555;
+  }
+  
+  .text1 {
+    color: var(--text-color);
     font-size: 16px;
     font-weight: 700;
     padding-bottom: 10px;
-}
-
-.content .preview-block .text-box .text2 {
-    color: #555;
+  }
+  
+  .text2 {
+    color: var(--text-color);
     font-size: 16px;
     font-weight: 400;
     padding-bottom: 10px;
     display: flex;
     flex-direction: row;
-}
-
-.content .preview-block .text-box .text2 p {
-    width: 87%;
+  }
+  
+  .text2 p {
+    width: 80%;
     margin: 0;
-}
-
-.content .preview-block .text-box .img-text {
-    width: 13%;
-}
-
-/* =========================
-   КНОПКИ АВТОРИЗАЦИИ / РЕГИСТРАЦИИ
-========================= */
-.content .preview-block .text-box .reg-btns {
+  }
+  
+  .img-text {
+    width: 20%;
+  }
+  
+  .reg-btns {
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-}
-
-.content .preview-block .text-box .reg-btns a {
-    color: #2E9AFF;
+  }
+  
+  .reg-btns a {
+    color: var(--blue);
     font-size: 14px;
-}
-
-.content .preview-block .text-box .reg-btns a:hover {
-    color: #2E9AFF;
+  }
+  
+  .reg-btns a:hover {
+    color: var(--blue);
     text-decoration: underline;
-}
-
-/* Разделительная линия между кнопками */
-.content .preview-block .text-box .divider {
+  }
+  
+  .divider {
     width: 1.2px;
     height: 16px;
-    background-color: #979797;
+    background-color: var(--divider-color);
     margin: 3px 10px;
+  }
+  
+  .preview-block2 {
+    display: none;
+  }
+  
+  footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  footer a {
+    padding: 20px 5px;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+  }
+  
+  footer a:hover {
+    text-decoration: underline;
+  }
+  
+@keyframes fadeInOut {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
 }
-
-
-
+  
 /* =========================
-   ПРАВАЯ ЧАСТЬ .preview-block2
+    Адаптация десктоп
 ========================= */
-.content .preview-block .preview-block2 {
-    width: 40%;
+@media (min-width: 1050px) {
+.preview-block {
+    flex-direction: row;
 }
 
-.content .preview-block .preview-block2 .preview-img {
+.preview-block1 {
+    width: 60%;
+}
+
+.space-box {
+    width: 30%;
+}
+
+.text-box {
+    width: 70%;
+    padding: 30px 40px;
+}
+
+.text2 p {
+    width: 87%;
+}
+
+.img-text {
+    width: 13%;
+}
+
+.slogan {
+    font-size: 40px;
+}
+
+.preview-block2 {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+}
+
+.preview-img {
     width: 42%;
     display: flex;
     align-items: flex-end;
 }
 
-.content .preview-block .preview-block2 img {
+.preview-block2 img {
     width: 100%;
     height: 100%;
     animation: fadeInOut 10s infinite;
 }
 
-/* Кнопка "Построить график" */
-.content .preview-block .preview-block2 a {
-    display: block;
+.preview-block2 a {
     width: 50%;
-    color: #ffffff;
+    color: var(--white);
     font-size: 35px;
     font-weight: 500;
+    text-align: center;
 }
 
-.content .preview-block .preview-block2 .calculate-btn {
+.calculate-btn {
     background-color: rgba(46, 154, 255, 0.5);
     width: 100%;
     height: 120px;
@@ -181,93 +222,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
 }
 
-.content .preview-block .preview-block2 .calculate-btn:hover {
-    background-color: #FF5959;
-}
-
-/* =========================
-   ФУТЕР
-========================= */
-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.calculate-btn:hover {
+    background-color: var(--hover-color);
 }
 
 footer a {
     padding: 20px;
-    color: rgba(0, 0, 0, 0.5);
     font-size: 13px;
 }
-
-footer a:hover {
-    text-decoration: underline;
+}
+  
+/* =========================
+    Адаптация горизонтальная для телефона
+========================= */
+@media (max-width: 1050px) and (orientation: landscape) {
+.preview-block {
+    padding-top: 0;
 }
 
+.text2 p {
+    width: 90%;
+}
 
-/* =========================
-   АДАПТИВ (мобильная версия)
-========================= */
-@media screen and (max-width: 1050px) {
-    .content .preview-block .preview-block2 {
-        display: none;
-    }
+.img-text {
+    width: 10%;
+}
 
-    .content .preview-block{
-        padding-top: 5%;
-    }
+.reg-btns {
+    margin-top: 0;
+}
 
-    .content .preview-block .preview-block1 {
-        width: 100%;
-    }
-
-    .content .preview-block .preview-block1 .slogan{
-        font-size: 25px;
-    }
-
-    .content .preview-block .preview-block1 .text-block .space-box {
-        width: 15%;
-    }
-
-    /* текст блок */
-    .content .preview-block .preview-block1 .text-block .text-box {
-        width: 85%;
-        padding: 10px 20px;
-    }
-    .content .preview-block .text-box .text2 p {
-        width: 80%;
-    }
-
-    .content .preview-block .text-box .img-text {
-        width: 20%;
-    }
-
-    footer a {
-        font-size: 12px;
-        padding: 20px 5px;
-    }
-
-    @media screen and (max-width: 1050px) and (orientation: landscape) {
-        .content .preview-block {
-            padding-top: 0;
-        }
-
-        .content .preview-block .text-box .text2 p {
-            width: 90%;
-        }
-        
-        .content .preview-block .text-box .img-text {
-            width: 10%;
-        }
-
-        .content .preview-block .text-box .reg-btns {
-            margin-top: 0;
-        }
-        .content .preview-block .preview-block1 .slogan {
-            padding: 10px 0 10px 30px;
-        }
-    }
+.slogan {
+    padding: 10px 0 10px 30px;
+}
 }

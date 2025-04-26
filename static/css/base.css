@@ -36,7 +36,6 @@ header {
     background-color: var(--header-color);
 }
 
-/* --- Логотип и навигация слева --- */
 header .logo-menu {
     display: flex;
     flex-direction: row;
@@ -44,7 +43,6 @@ header .logo-menu {
     flex-wrap: nowrap;
 }
 
-/* --- Логотип --- */
 header .logo {
     padding: 10px 0 15px 20px;
 }
@@ -54,42 +52,44 @@ header .logo a {
     font-weight: 700;
     color: var(--header-logo-color);
     transition: color 0.4s ease;
-    margin-right: 40px;
+    margin-right: 5px;
 }
 
 header .logo a:hover {
     color: var(--header-hover-color);
 }
 
-/* --- Навигация (десктоп) --- */
-header .menu {
-    display: flex;
-    flex-direction: row;
-    margin-top: 0;
+header .menu-mobile-btn {
+    display: block;
+    margin-right: 20px;
+}
 
+header .menu-mobile-btn img {
+    height: 40px;
+    width: 40px;
+}
+
+header .menu {
+    display: none;
+}
+
+header .menu.active {
+    display: block;
+    position: absolute;
+    top: 81px;
+    width: 100%;
+    background-color: var(--header-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+header .menu .menu-hover {
+    display: none;
 }
 
 header .menu-block {
     flex-direction: column;
-}
-
-header .menu-block .menu-hover {
-    height: 10px;
-    margin-bottom: 25px;
-    background-color: var(--header-color);
-
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: 
-        background-color 0.4s ease,
-        transform 0.4s ease,
-        opacity 0.4s ease;
-}
-
-header .menu-block:hover .menu-hover {
-    background-color: var(--header-active-color);
-    opacity: 1;
-    transform: translateY(0);
+    padding: 15px 5px;
 }
 
 header .menu .menu-block a {
@@ -99,77 +99,71 @@ header .menu .menu-block a {
     opacity: 1;
 }
 
-header .menu-block.active .menu-hover {
-    background-color: var(--header-hover-color);
-    opacity: 1;
-    transform: translateY(0);
-    transition: none;
-}
-
-header .menu .menu-block a:hover {
-    color: var(--header-text-hover-color);
-}
-
-/* --- Кнопка меню (мобилка) --- */
-header .menu-mobile-btn {
-    display: none;
-}
-
 /* =========================
    ОСТАЛЬНОЕ
 ========================= */
-
-/* --- Линия под хедером --- */
 .head-line {
     background-color: #dad8d8;
     height: 1px;
 }
 
-/* =========================
-   АДАПТИВ (мобильная версия)
-========================= */
-@media screen and (max-width: 1050px) {
-    header {
-        justify-content: space-between;
-    }
-    header .logo a{
-        margin-right: 5px;
-    }
-    header .menu-mobile-btn {
-        display: block;
-        margin-right: 20px;
-    }
-    header .menu-mobile-btn img{
-        height: 40px;
-        width: 40px;
-    }
 
-    header .menu {
-        display: none;
-    }
-    header .menu.active {
-        display: block;
-        position: absolute;
-        top: 81px;
-        width: 100%;
-        background-color: var(--header-color);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        z-index: 10; 
-    }
-
-    header .menu .menu-hover {
-        display: none;
-    }
-
+@media screen and (max-width: 1049px) {
     header .menu-block.active {
         background-color: var(--header-active-color);
     }
-
-    header .menu-block.active a{
+    header .menu-block.active a {
         color: var(--header-color);
     }
+}
 
-    header .menu .menu-block {
-        padding: 15px 5px;
+@media screen and (min-width: 1050px) {
+    header .logo a {
+        margin-right: 40px;
+    }
+
+    header .menu-mobile-btn {
+        display: none;
+    }
+
+    header .menu {
+        display: flex;
+        flex-direction: row;
+        margin-top: 0;
+        position: static;
+        box-shadow: none;
+    }
+
+    header .menu-block {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    header .menu-block .menu-hover {
+        height: 10px;
+        margin-bottom: 25px;
+        background-color: var(--header-color);
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: background-color 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
+        display: block;
+    }
+
+    header .menu-block:hover .menu-hover {
+        background-color: var(--header-active-color);
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    header .menu .menu-block a:hover {
+        color: var(--header-text-hover-color);
+    }
+    
+
+    header .menu-block.active .menu-hover {
+        background-color: var(--header-hover-color);
+        opacity: 1;
+        transform: translateY(0);
+        transition: none;
     }
 }
