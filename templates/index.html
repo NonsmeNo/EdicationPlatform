@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}
+MathHelper - цифровой помощник преподавателя!
+{% endblock %}
+{% block myhead %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="{{ url_for('static', filename='js/sloganSwitcher.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+    <div class="preview-block">
+        <div class="preview-block1">
+            <div class="slogan">
+                <span id="slogan">Добро пожаловать в MathHelper!</span>
+            </div>
+            <div class="text-block">
+                <div class="space-box">
+                </div>
+                <div class="text-box">
+                    <div class="text1">
+                        Улучшите преподавание математики с помощью MathHelper!
+                    </div>
+                    <div class="text2">
+                        <div class="img-graph img-text">
+                            <img src="static/img/main/graph.png">
+                        </div>
+                        <p>
+                            Стройте наглядные графики функций и создавайте разнообразные
+                            задания для всех уровней обучения.
+                        </p>
+                    </div>
+                    <div class="text2">
+                        <div class="img-time img-text">
+                            <img src="static/img/main/time.png">
+                        </div>
+                        <p>
+                            Сэкономьте время на подготовке
+                            к урокам и сделайте процесс обучения более эффективным и увлекательным.
+                        </p>
+                    </div>
+                    <div class="reg-btns">
+                        <div class="reg-btn"><a href="/login">Авторизация</a></div>
+                        <div class="divider"></div>
+                        <div class="reg-btn"><a href="/register">Регистрация</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="preview-block2">
+            <div class="preview-img">
+                <img id="sloganImage" src="static/img/main/preview1.png" alt="">
+            </div>
+            <a href="/calculate">
+                <div class="calculate-btn">
+                    Построить график
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#">О проекте</a>
+        <a href="#">Контакты</a>
+        <a href="#">Вопросы и предложения</a>
+    </footer>
+</div>
+
+{% endblock %}

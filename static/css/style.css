@@ -1,0 +1,273 @@
+/* =========================
+   ПЕРЕМЕННЫЕ CSS
+========================= */
+:root {
+    --white: #ffffff;
+}
+
+/* =========================
+   ОБЩИЙ КОНТЕЙНЕР .content
+========================= */
+.content {
+    background-image: linear-gradient(#2E9AFF, #f3ccd5);
+    min-height: calc(100vh - 81px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* =========================
+   ПРЕВЬЮ
+========================= */
+.content .preview-block {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* =========================
+   ЛЕВАЯ ЧАСТЬ ПРЕВЬЮ .preview-block1
+========================= */
+.content .preview-block .preview-block1 {
+    width: 60%;
+}
+
+/* Анимация для плавного появления и исчезновения */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
+/* Слоган */
+.content .preview-block .preview-block1 .slogan {
+    background-color: rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+    font-size: 40px;
+    color: var(--white);
+    padding: 20px 10px 20px 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.content .preview-block .preview-block1 .slogan span {
+    animation: fadeInOut 10s infinite;
+}
+
+.content .preview-block .preview-block1 .text-block {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Отступ до текста*/
+.content .preview-block .preview-block1 .text-block .space-box {
+    width: 30%;
+}
+
+/* текст блок */
+.content .preview-block .preview-block1 .text-block .text-box {
+    background-color: var(--white);
+    width: 70%;
+    padding: 30px 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.content .preview-block .text-box .img-graph img {
+    opacity: 0.7;
+    width: 70%;
+}
+
+.content .preview-block .text-box .img-time img {
+    width: 60%;
+    opacity: 0.6;
+}
+
+.content .preview-block .text-box .text1 {
+    color: #555;
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.content .preview-block .text-box .text2 {
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.content .preview-block .text-box .text2 p {
+    width: 87%;
+    margin: 0;
+}
+
+.content .preview-block .text-box .img-text {
+    width: 13%;
+}
+
+/* =========================
+   КНОПКИ АВТОРИЗАЦИИ / РЕГИСТРАЦИИ
+========================= */
+.content .preview-block .text-box .reg-btns {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.content .preview-block .text-box .reg-btns a {
+    color: #2E9AFF;
+    font-size: 14px;
+}
+
+.content .preview-block .text-box .reg-btns a:hover {
+    color: #2E9AFF;
+    text-decoration: underline;
+}
+
+/* Разделительная линия между кнопками */
+.content .preview-block .text-box .divider {
+    width: 1.2px;
+    height: 16px;
+    background-color: #979797;
+    margin: 3px 10px;
+}
+
+
+
+/* =========================
+   ПРАВАЯ ЧАСТЬ .preview-block2
+========================= */
+.content .preview-block .preview-block2 {
+    width: 40%;
+}
+
+.content .preview-block .preview-block2 .preview-img {
+    width: 42%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.content .preview-block .preview-block2 img {
+    width: 100%;
+    height: 100%;
+    animation: fadeInOut 10s infinite;
+}
+
+/* Кнопка "Построить график" */
+.content .preview-block .preview-block2 a {
+    display: block;
+    width: 50%;
+    color: #ffffff;
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.content .preview-block .preview-block2 .calculate-btn {
+    background-color: rgba(46, 154, 255, 0.5);
+    width: 100%;
+    height: 120px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    transition: background-color 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.content .preview-block .preview-block2 .calculate-btn:hover {
+    background-color: #FF5959;
+}
+
+/* =========================
+   ФУТЕР
+========================= */
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+footer a {
+    padding: 20px;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   АДАПТИВ (мобильная версия)
+========================= */
+@media screen and (max-width: 1050px) {
+    .content .preview-block .preview-block2 {
+        display: none;
+    }
+
+    .content .preview-block{
+        padding-top: 5%;
+    }
+
+    .content .preview-block .preview-block1 {
+        width: 100%;
+    }
+
+    .content .preview-block .preview-block1 .slogan{
+        font-size: 25px;
+    }
+
+    .content .preview-block .preview-block1 .text-block .space-box {
+        width: 15%;
+    }
+
+    /* текст блок */
+    .content .preview-block .preview-block1 .text-block .text-box {
+        width: 85%;
+        padding: 10px 20px;
+    }
+    .content .preview-block .text-box .text2 p {
+        width: 80%;
+    }
+
+    .content .preview-block .text-box .img-text {
+        width: 20%;
+    }
+
+    footer a {
+        font-size: 12px;
+        padding: 20px 5px;
+    }
+
+    @media screen and (max-width: 1050px) and (orientation: landscape) {
+        .content .preview-block {
+            padding-top: 0;
+        }
+
+        .content .preview-block .text-box .text2 p {
+            width: 90%;
+        }
+        
+        .content .preview-block .text-box .img-text {
+            width: 10%;
+        }
+
+        .content .preview-block .text-box .reg-btns {
+            margin-top: 0;
+        }
+        .content .preview-block .preview-block1 .slogan {
+            padding: 10px 0 10px 30px;
+        }
+    }
+}
