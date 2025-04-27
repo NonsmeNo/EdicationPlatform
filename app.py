@@ -1,29 +1,26 @@
-import os
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-
- # делаем app основным файлом для работы с Flask
+from flask_login import LoginManager, UserMixin
+from config import Config  # Импортируем конфигурацию
+from models import db, Users
+# Создаем приложение
 app = Flask(__name__)  
-app.secret_key = 'K5s2G9jP4FvA7rL3tQ1W6eD8'
+app.config.from_object(Config)  # Загружаем конфигурацию
 
-# Настройки конфигурации
-basedir = os.path.abspath(os.path.dirname(__file__))
-class Config:
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'app.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-app.config.from_object(Config)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+# Инициализируем SQLAlchemy и LoginManager
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
+# Настройка user_loader для Flask-Login
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(int(user_id))
 
-
-@app.route('/')  # отслеживаем главную страничку
+# Роуты
+@app.route('/')
 def index():
     return render_template('index.html', current_path=request.path)
-
 
 @app.route('/register')
 def register():
@@ -37,6 +34,9 @@ def login():
 def calculate():
     return render_template('calculate.html', current_path=request.path)
 
+# Создаем таблицы в базе данных
+with app.app_context():
+    db.create_all()
 
 if __name__ == "__main__":  # для того чтобы проект запускался как приложение flask
     app.run(debug=True)  # debug чтобы выводились на страничке все ошибки
