@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+MathHelper - личный кабинет
+{% endblock %}
+{% block myhead %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="{{ url_for('static', filename='js/sloganSwitcher.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+    Hi, {{ user.name }}!
+    <a href="/logout">Выйти из аккаунта</a>
+</div>
+
+{% endblock %}

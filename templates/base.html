@@ -31,9 +31,9 @@
                     <div class="menu-hover"></div>
                     <a href="#">Генератор задач</a>
                 </div>
-                <div class="menu-block">
-                    <div class="menu-hover"></div>
-                    <a href="#">Личный кабинет</a>
+                <div class="menu-block {% if current_path == '/profile' %}active{% endif %}">
+                    <div class="menu-hover menu-hover {% if current_path == '/profile' %}active{% endif %}"></div>
+                    <a href="/profile">Личный кабинет</a>
                 </div>
             </div>
         </div>

@@ -155,7 +155,7 @@ header .menu .menu-block a {
         transform: translateY(0);
     }
 
-    header .menu .menu-block a:hover {
+    header .menu .menu-block:hover a{
         color: var(--header-text-hover-color);
     }
     

@@ -6,6 +6,8 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='js/removeInputErrors.js') }}" defer></script>
     <title>Авторизация - MathHelper</title>
 </head>
 <body>
@@ -14,17 +16,25 @@
     <div class="logo">
         MathHelper
     </div>
-    <form action="/register" method="post" class="">
+    <form action="/login" method="post" class="">
         <div class="form-title">
             Вход в аккакунт
         </div>
         <div class="input-block">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" value="{{ email }}"
+            class="{% if errors and errors.get('email') %}error-input{% endif %}">
+            {% if errors and errors.get('email') %}
+                <div class="error-msg">{{ errors['email'] }}</div>
+            {% endif %}
         </div>
         <div class="input-block">
             <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" value="{{ password }}"
+            class="{% if errors and errors.get('password') %}error-input{% endif %}">
+            {% if errors and errors.get('password') %}
+                <div class="error-msg">{{ errors['password'] }}</div>
+            {% endif %}    
         </div>
         
         <input id="submit-btn" type="submit" value="Вход" />
@@ -33,6 +43,16 @@
             У вас еще нет аккаунта? <a href="{{ url_for('register') }}">Регистрация</a>
         </div>
     </form>
+
+    
+    {% if msg %}
+        <div class="block-{{ msg_type }}">
+            <div class="msg">
+                {{ msg }}
+            </div>
+            <button class="close-btn">&times;</button>
+        </div>
+    {% endif %}
 </div>
 </body>
 </html>

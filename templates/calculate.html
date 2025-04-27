@@ -1,13 +1,155 @@
 {% extends 'base.html' %}
 {% block title %}
-MathHelper - цифровой помощник преподавателя!
+Графический калькулятор
 {% endblock %}
+
 {% block myhead %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/calculate.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
 {% endblock %}
+
 {% block body %}
 <div class="content">
 
-</div>
+    <div class="canvas">
+        <canvas id="canvas" width = 1000px height = 500px >
+            Ваш браузер не поддерживает Canvas
+        </canvas>
+    </div>
 
+    <div class="line"></div>
+
+    <div class="parameters">
+        <div class="settingparam">
+
+            <div class="selector">
+                <select name="functions_select" id="functions_select">
+                    <option value="" selected="true" disabled="disabled">Выберите кривую</option>
+                    <option value="simple">Функция от одной переменной</option>
+                    <option value="param">Параметрическая функция</option>
+                    <option value="centre_circle">Окружность по центру и радиусу</option>
+                    <option value="centre_ellips">Эллипс по центру и полуосям</option>
+                    <option value="focus_ellips">Эллипс по двум фокусам и точке на нём</option>
+                </select>
+            </div>
+            <div class="input">
+                <div class="func" id="f1">
+                    <div class="input_func">
+                        Введите функцию от x:<br>
+                        F(x) = <input type = "text" id = "func" value = "sin(x)">
+                    </div>
+                    <div class="input_btn">
+                        <button id = 'btn' class="rend_btn">
+                            <div>Отобразить</div>
+                            <img src="static/img/tick.png">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="func" id="f2" >
+                    <div class="input_func">
+                        Введите параметрическую функцию от t:<br>
+                        x = <input type = "text" id = "func1" value = "2*sin(7*t)"><br>
+                        y = <input type = "text" id = "func2" value = "3*cos(5*t)">
+                        <input type = "text" id = "min_t" value = "0">
+                        ⩽ t ⩽
+                        <input type = "text" id = "max_t" value = "10">
+                    </div>
+                    <div class="input_btn">
+                        <button id = 'param_btn' class="rend_btn">
+                            <div>Отобразить</div>
+                            <img src="static/img/tick.png">
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="func" id="f3">
+                    <div class="input_func">
+                        Введите радиус окружности<br>
+                         и координаты центра:<br>
+                        R = <input type = "text" id = "radius" value = "5"><br>
+                        Центр:
+                        x = <input type = "text" id = "x_centre" value = "0">
+                        y = <input type = "text" id = "y_centre" value = "0">
+                    </div>
+                    <div class="input_btn">
+                        <button id = 'circle_centre_btn' class="rend_btn">
+                            <div>Отобразить</div>
+                            <img src="static/img/tick.png">
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="func" id="f4">
+                    <div class="input_func ellips_centre">
+                        Введите полуоси эллипса<br> и координаты центра:<br>
+                        <div class="param_ellips_cent_block">
+                            <div class="param_ellips_cent1">
+                                Полуоси:<br>
+                            a = <input type = "text" id = "ellips_a" value = "2">
+                            b = <input type = "text" id = "ellips_b" value = "3"><br>
+                            </div>
+                            <div class="param_ellips_cent2">
+                                Центр:<br>
+                            x = <input type = "text" id = "x_centre_ellips" value = "0">
+                            y = <input type = "text" id = "y_centre_ellips" value = "0">
+                            </div>
+                        </div>
+
+                    </div>
+                    <button id = 'ellipse_centre_btn' class="rend_btn">
+                        <div>Отобразить</div>
+                        <img src="static/img/tick.png">
+                    </button>
+                </div>
+
+                <div class="func" id="f5">
+                    <div class="input_func">
+                        Введите точку на эллисе эллипса<br> и координаты его фокусов:<br>
+                        <div class="param_ellips3">
+                            Точка на эллипсе:<br>
+                        x = <input type = "text" id = "x_ellips" value = "0">
+                        y = <input type = "text" id = "y_ellips" value = "3"><br>
+                        </div>
+                        <div class="param_ellips_cent_block">
+                            <div class="param_ellips_cent1">
+                                Координаты 1 фокуса эллипса:<br>
+                            x_f1 = <input type = "text" id = "x_f1" value = "-4">
+                            y_f1 = <input type = "text" id = "y_f1" value = "0"><br>
+                            </div>
+                            <div class="param_ellips_cent2">
+                                Координаты 2 фокуса эллипса:<br>
+                            x_f2 = <input type = "text" id = "x_f2" value = "4">
+                            y_f2 = <input type = "text" id = "y_f2" value = "0">
+                            </div>
+                        </div>
+
+                    </div>
+                    <button id = 'ellipse_focus_btn' class="rend_btn">
+                        <div>Отобразить</div>
+                        <img src="static/img/tick.png">
+                    </button>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="btns" id="btns">
+                <button id = 'clearbtn'>стереть все</button>
+                <button id = 'savebtn'>скачать</button>
+            </div>
+
+
+            <div class="functions" id="functions">
+
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

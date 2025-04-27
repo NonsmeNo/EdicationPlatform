@@ -239,22 +239,22 @@ footer a {
 ========================= */
 @media (max-width: 1050px) and (orientation: landscape) {
     .preview-block {
-        padding-top: 0;
+      padding-top: 0;
     }
 
     .text2 p {
-        width: 90%;
+      width: 90%;
     }
 
     .img-text {
-        width: 10%;
+      width: 10%;
     }
 
     .reg-btns {
-        margin-top: 0;
+      margin-top: 0;
     }
 
     .slogan {
-        padding: 10px 0 10px 30px;
+      padding: 10px 0 10px 30px;
     }
 }

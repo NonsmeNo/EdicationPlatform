@@ -42,7 +42,7 @@ body {
     
     display: flex;
     flex-direction: column; 
-    margin: 0 20px 50px 20px;  
+    margin: 0 20px 20px 20px;  
     min-width: 90%; 
 }
 
@@ -112,7 +112,68 @@ body {
     color: #0764bb;
 }
 
- @media (min-width: 768px) {
+.content form .input-block .error-msg{
+    color: #FF5959;
+}
+
+.content form .input-block input.error-input{
+    border-color: #FF5959;
+}
+.content form .input-block input.error-input:focus{
+    box-shadow: 0 0 15px #FF5959; 
+}
+
+.content .block-error,.block-success {
+    width: 80%;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: #ffffff;
+}
+
+.content .block-error {
+    background-color: #FF5959;
+    border: 5px solid rgb(255, 89, 89);
+}
+
+.content .block-success {
+    background-color: #29d470;
+    border: 5px solid #29d470;
+}
+
+.content .block-error .msg,.block-success .msg{
+    padding: 10px 5px 10px 0;
+}
+.content .block-error .close-btn{
+    font-size: 20px;
+    background-color: #FF5959;
+    border: 0;
+    color: #ffffff;
+}
+
+.content .block-success .close-btn{
+    font-size: 20px;
+    background-color: #29d470;
+    border: 0;
+    color: #ffffff;
+}
+
+.content .block-error .close-btn:hover, 
+.content .block-success .close-btn:hover {
+    color: #6b6b6b;
+}
+
+
+
+
+ @media (min-width: 1050px) {
     .content form {
         width: 450px; 
         min-width: 0; 
@@ -127,5 +188,13 @@ body {
         padding-bottom: 20px;
     }
 
+    .content .block-error, .block-success {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        width: 340px; 
+        min-width: 0; 
+    }
+    
     
 }

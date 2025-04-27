@@ -1,0 +1,214 @@
+
+/*графический калькулятор*/
+:root {
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+}
+
+.content {
+    background-image: linear-gradient(var(--blue), var(--light-pink));
+
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	position: fixed;
+	width: 100%;
+	order: 2;
+}
+
+.line {
+	width: 2px;
+
+}
+.content .canvas {
+	width: 70%;
+	margin: 0 auto;
+	display: flex;
+	align-items: flex-start;
+
+}
+.content .canvas canvas {
+	border: 3px solid rgb(255, 255, 255);
+	background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	margin: 0;
+	border-radius: 5px;
+}
+
+
+.content .parameters {
+	width: 30%;
+	background-color: antiquewhite;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.content .parameters .selector select {
+	padding: 10px 0;
+	font-size: 20px;
+	text-align: center;
+	width: 500px;
+}
+
+.content .parameters .settingparam {
+	margin: 50px 0;
+	box-sizing: border-box;
+}
+
+
+.content .parameters .settingparam .input {
+	font-size: 20px;
+	margin: 20px 0;
+
+}
+.content .parameters .settingparam .input input{
+	padding: 5px 5px;
+	font-size: 15px;
+	margin: 10px 0;
+}
+
+.content .parameters .settingparam #min_t, #max_t {
+	width: 30px;
+}
+
+.content .parameters .settingparam .input select{
+	padding: 5px 5px;
+	font-size: 15px;
+	margin: 10px 0 0 5px;
+	border-radius:36px;
+	width: 20%;
+}
+
+.content .parameters .settingparam .btns {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 20px;
+	box-sizing: border-box;
+	display: none;
+}
+
+.content .parameters .settingparam .btns #clearbtn{
+	background-color: #815959;
+	color: aliceblue;
+	border-width: 0;
+	height: 50px;
+	font-size: 20px;
+	box-sizing: border-box;
+	width: 49%;
+}
+
+.content .parameters #savebtn {
+	height: 50px;
+	font-size: 20px;
+	background-color: #548c94;
+	color: aliceblue;
+	border: 0;
+	width: 49%;
+}
+.content .parameters .input .func {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 0px;
+	background-color: rgb(226, 215, 199);
+	padding: 20px;
+	display: none;
+}
+
+.content .parameters .rend_btn {
+	height: 50px;
+	font-size: 20px;
+	background-color: rgb(38, 39, 39);
+	color: aliceblue;
+	border: 0;
+	width: 49%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 20px;
+}
+.content .parameters .param_ellips_cent_block {
+	display: flex;
+	flex-direction: row;
+	margin-top: 20px;
+}
+
+.content .parameters .param_ellips_cent_block input{
+	width: 30px;
+}
+
+.content .parameters .param_ellips_cent1 {
+	margin-right: 30px;
+}
+
+.content .parameters .param_ellips3 {
+	width: 50%;
+	padding: 20px 0 0 30px;
+}
+.content .parameters .param_ellips3 input{
+	width: 30px;
+}
+
+.content .parameters #f1 input{
+	width: 34%;
+}
+
+.content .parameters #f3 input{
+	width: 30px;
+}
+
+
+.content .parameters .rend_btn:hover {
+	background-color: black;
+}
+.content .parameters .rend_btn img {
+	width: 30px;
+}
+
+.content .parameters .functions {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}
+.content .parameters .functions .func_block{
+	background-color: rgb(184, 204, 201);
+	margin-bottom: 10px;
+	border: 1px aliceblue;
+	border-radius: 5px;
+	padding: 10px 5px;
+
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+.content .parameters .functions .func_block .color_func{
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	margin-right: 20px;
+}
+.content .parameters .functions .func_block button {
+	background-color: rgb(184, 223, 194);
+	border-width: 0;
+}
+.content .parameters .functions .func_block button img{
+	width: 20px;
+	height: 20px;
+}
+
+.content .parameters .circle1 input{
+	width: 40px;
+}
+
+@media screen and (min-width: 800px) {
+
+	.content  {
+		flex-direction: row;
+		margin: 0 auto;
+		height: 100vh;
+	}
+
+}
