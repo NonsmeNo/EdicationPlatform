@@ -27,9 +27,9 @@
                     <div class="menu-hover {% if current_path == '/calculate' %}active{% endif %}"></div>
                     <a href="/calculate">Графический калькулятор</a>
                 </div>
-                <div class="menu-block">
-                    <div class="menu-hover"></div>
-                    <a href="#">Генератор задач</a>
+                <div class="menu-block {% if current_path == '/taskThemes' %}active{% endif %}">
+                    <div class="menu-hover {% if current_path == '/taskThemes' %}active{% endif %}"></div>
+                    <a href="/taskThemes">Генератор задач</a>
                 </div>
                 <div class="menu-block {% if current_path == '/profile' %}active{% endif %}">
                     <div class="menu-hover menu-hover {% if current_path == '/profile' %}active{% endif %}"></div>

@@ -129,10 +129,15 @@ def logout():
     return redirect(url_for('index'))
 
 
-# Роуты графический калькулятор
+# Роут графический калькулятор
 @app.route('/calculate')
 def calculate():
     return render_template('calculate.html', current_path=request.path)
+
+# Роуты задачи
+@app.route('/taskThemes')
+def task_themes():
+    return render_template('taskThemes.html', current_path=request.path)
 
 # Создаем таблицы в базе данных
 with app.app_context():
