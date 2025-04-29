@@ -34,13 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const ellipse_centre_btn = el('ellipse_centre_btn');
 	const ellipse_focus_btn = el('ellipse_focus_btn');
 
-
-	const f1 = el('f1');
-	const f2 = el('f2');
-	const f3 = el('f3');
-	const f4 = el('f4');
-	const f5 = el('f5');
 	const btns = el('btns');
+	btns.style.display = 'none';
 
 
 	//на старте
@@ -53,45 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	drow_start();
 	drow_axes();
 
-	//СОБЫТИЯ
-	//добавление блока и отрисовка графика
-	document.querySelector("select").addEventListener('change', (e) => {
-		if (e.target.value == 'simple') {
-			f1.style.display = 'block';
-			f2.style.display = 'none';
-			f3.style.display = 'none';
-			f4.style.display = 'none';
-			f5.style.display = 'none';
-		}
-		else if (e.target.value == 'param') {
-			f1.style.display = 'none';
-			f2.style.display = 'block';
-			f3.style.display = 'none';
-			f4.style.display = 'none';
-			f5.style.display = 'none';
-		}
-		else if (e.target.value == 'centre_circle') {
-			f1.style.display = 'none';
-			f2.style.display = 'none';
-			f3.style.display = 'block';
-			f4.style.display = 'none';
-			f5.style.display = 'none';
-		}
-		else if (e.target.value == 'centre_ellips') {
-			f1.style.display = 'none';
-			f2.style.display = 'none';
-			f3.style.display = 'none';
-			f4.style.display = 'block';
-			f5.style.display = 'none';
-		}
-		else if (e.target.value == 'focus_ellips') {
-			f1.style.display = 'none';
-			f2.style.display = 'none';
-			f3.style.display = 'none';
-			f4.style.display = 'none';
-			f5.style.display = 'block';
-		}
-	  })
 
 	//графики
 	simple_btn.addEventListener('click', () => {

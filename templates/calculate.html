@@ -4,7 +4,10 @@
 {% endblock %}
 
 {% block myhead %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/calculate.js') }}"></script>
+<script type="text/javascript" 
+src="{{ url_for('static', filename='js/calculate.js') }}"></script>
+<script type="text/javascript" 
+src="{{ url_for('static', filename='js/dropdownMenu.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
 {% endblock %}
 
@@ -23,39 +26,33 @@
 <div class="parameters">
     <div class="header-param">
         <div class="select-title">
-            Эллипс по двум фокусам и точке на нём
         </div>
+
         <button class="select-btn">
             <img src="static/img/calculate/addBtn.png" alt="add button">
         </button>
     </div>
+    <div class="header-param-line"></div>
 
-
-
-    <div class="selector">
-        <select name="functions_select" id="functions_select">
-            <option value="" selected="true" disabled="disabled">Выберите кривую</option>
-            <option value="simple">Функция от одной переменной</option>
-            <option value="param">Параметрическая функция</option>
-            <option value="centre_circle">Окружность по центру и радиусу</option>
-            <option value="centre_ellips">Эллипс по центру и полуосям</option>
-            <option value="focus_ellips">Эллипс по двум фокусам и точке на нём</option>
-        </select>
+    <div class="dropdown-options" id="dropdown-options">
+        <div class="option" data-value="simple">Функция от одной переменной</div>
+        <div class="option" data-value="param">Параметрическая функция</div>
+        <div class="option" data-value="centre_circle">Окружность по центру и радиусу</div>
+        <div class="option" data-value="centre_ellips">Эллипс по центру и полуосям</div>
+        <div class="option" data-value="focus_ellips">Эллипс по двум фокусам и точке на нём</div>
     </div>
-
+    
 
     <div class="input">
         <div class="func" id="f1">
             <div class="input_func">
-                Введите функцию от x:<br>
-                F(x) = <input type = "text" id = "func" value = "sin(x)">
+                введите функцию от x:<br>
+                <input type = "text" id = "func" value = "sin(x)">
             </div>
-            <div class="input_btn">
-                <button id = 'btn' class="rend_btn">
-                    <div>Отобразить</div>
-                    <img src="static/img/tick.png">
-                </button>
-            </div>
+            <button id = 'btn' class="rend_btn">
+                <div>ОТОБРАЗИТЬ</div>
+                <img src="static/img/calculate/pencil.png">
+            </button>
         </div>
 
         <div class="func" id="f2" >
@@ -67,12 +64,10 @@
                 ⩽ t ⩽
                 <input type = "text" id = "max_t" value = "10">
             </div>
-            <div class="input_btn">
-                <button id = 'param_btn' class="rend_btn">
-                    <div>Отобразить</div>
-                    <img src="static/img/tick.png">
-                </button>
-            </div>
+            <button id = 'param_btn' class="rend_btn">
+                <div>Отобразить</div>
+                <img src="static/img/tick.png">
+            </button>
         </div>
 
 

@@ -26,7 +26,7 @@
 	width: 75%;
 	margin: 0;
 	padding: 0;
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.2);
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -71,6 +71,8 @@
 	display: flex;
 	flex-direction: column;
 	padding: 10px 20px;
+
+	position: relative;
 }
 
 /* =========================
@@ -91,10 +93,15 @@
 	font-weight: 700;
 	color: #696969;
 	padding-right: 15px;
+	transition: color 0.4s ease;
+}
+.content .parameters .header-param .select-title:hover {
+    color: #2E9AFF;
 }
 
 .content .parameters .header-param .select-btn{
 	width: 15%;
+	cursor: pointer;
 }
 .content .parameters .header-param button{
 	background-color: white;
@@ -110,8 +117,82 @@
 	width: 100%;
 }
 
+
+
+/* =========================
+   МЕНЮШКА
+========================= */
+
+.content .parameters .dropdown-options {
+	position: absolute;
+	top: 80px;
+	left: 20px;
+	right: 20px;
+  
+	background-color: white;
+	border: 1px solid #ccc;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+	z-index: 1000;
+  
+	display: none;
+	border-radius: 5px;
+	
+  }
+
+  .content .parameters .dropdown-options .option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.content .parameters .dropdown-options .option:hover {
+    background-color: #f0f0f0;
+}
+
+/* =========================
+   INPUT BLOCK
+========================= */
+.content .parameters .input {
+	color: #444444;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.content .parameters .input input{
+	width: 100%;
+	padding: 10px 5px;
+	margin-top: 10px;
+}
+
+
+.content .parameters .input .rend_btn{
+	width: 40%;
+	padding: 5px;
+	margin-top: 20px;
+	background-color: #5C5C5C;
+	border: 1px solid #5C5C5C;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: 600;
+	margin-left: auto; 
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.content .parameters .input .rend_btn:hover{
+	background-color: #333333;
+	
+}
+.content .parameters .input .rend_btn img{
+	margin-left: 10px;
+	width: 20%;
+}
+
+
 /* ================================================== */
-.content .parameters .settingparam .btns {
+.content .parameters .settingparam .btns button{
 	display: none;
 }
 
