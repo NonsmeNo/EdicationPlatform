@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	const clear_btn = el('clearbtn');
 
 
-	const width = 1000;
-	const height = 500;
 	const functions_print = el('functions');
 
 	let func_cnt = 0;
@@ -44,9 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	const f5 = el('f5');
 	const btns = el('btns');
 
+
 	//на старте
 	const canv = el('canvas');
 	const ctx = canv.getContext('2d');
+	canv.width = canv.clientWidth;
+    canv.height = canv.clientHeight;
+	const width = canv.width;
+	const height = canv.height;
 	drow_start();
 	drow_axes();
 
@@ -344,6 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function drow_axes(){
+		ctx.globalAlpha = 1.0;
 		//рисуем ось Х
 		y0_canv = y2canv(0)
 		ctx.beginPath();
@@ -362,6 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		ctx.strokeStyle = 'black';
 		ctx.stroke();
 	}
+	
 
 	function message_max () {
 		alert('максимальное число графиков - 5, пожалуйста, очистите доску');
@@ -499,7 +504,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			var X = canv2x(x_canv);
 			var Y = canv2y(y_canv);
 
-			ctx.clearRect(width-100,10, 70, 70);
+			ctx.clearRect(width-100, 10, 70, 70);
 			ctx.fillText("X: "+X, width-100, 30);
 			ctx.fillText("Y: "+Y, width-100, 50);
 		});

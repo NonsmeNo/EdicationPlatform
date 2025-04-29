@@ -23,8 +23,12 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    height: 100%;
+	overflow: hidden;
 }
-
+html {
+    height: 100%;
+}
 /* =========================
    СТИЛИ HEADER (Шапки)
 ========================= */
@@ -34,6 +38,8 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: var(--header-color);
+    position: relative;
+    z-index: 10;
 }
 
 header .logo-menu {
@@ -105,6 +111,8 @@ header .menu .menu-block a {
 .head-line {
     background-color: #dad8d8;
     height: 1px;
+    position: relative;
+    z-index: 10;
 }
 
 
