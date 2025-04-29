@@ -1,9 +1,11 @@
-var MQ = MathQuill.getInterface(2);  // Получаем интерфейс MathQuill для работы с формулами
+document.addEventListener('DOMContentLoaded', function() {
+
+    var MQ = MathQuill.getInterface(2);  // Получаем интерфейс MathQuill для работы с формулами
     
 // Инициализируем поле ввода MathQuill
 var mathFieldSpan = document.getElementById('math-field');  // Находим элемент для ввода
 var latexSpan = document.getElementById('latex');  // Находим элемент для отображения LaTeX
-var processedLatexSpan = document.getElementById('processed-latex'); // Для отображения обработанного выражения
+var processedLatexSpan = document.getElementById('func'); // Для отображения обработанного выражения
 
 var mathField = MQ.MathField(mathFieldSpan, {
     spaceBehavesLikeTab: true,  // Пробел будет работать как табуляция
@@ -40,7 +42,7 @@ latex = latex.replace(/(x)\(/g, '$1*(');
 
 
 // Преобразуем LaTeX функции в JavaScript
-latex = latex.replace(/\\sin/g, 'Math.sin');
+latex = latex.replace(/\\sin/g, 'sin');
 latex = latex.replace(/\\cos/g, 'Math.cos');
 latex = latex.replace(/\\tan/g, 'Math.tan');
 latex = latex.replace(/\\sqrt/g, 'Math.sqrt');
@@ -63,3 +65,5 @@ latex = latex.replace(/{/g, '(').replace(/}/g, ')'); // Заменяем фиг�
 
 return latex;
 }
+
+});

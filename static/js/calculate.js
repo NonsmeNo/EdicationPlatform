@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (func_cnt < max_funcs)
 		{
 			creat_block_func(1);
-			str_func = el('func').value;
+			str_func = el('func').textContent;
+			alert(str_func);
 			draw_graph(str_func, colors[func_cnt]);
 			if (func_cnt == 0) {
 				drow_axes();
@@ -214,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		input_func.classList.add('input_func');
 
 		if (type == 1) {
-			str_func = el('func').value;
+			str_func = el('func').textContent;
 			input_func.innerHTML += `F(x) = ${str_func}`;
 			adds_func.push('1'+str_func);
 			func_block.append(input_func);

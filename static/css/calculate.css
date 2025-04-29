@@ -291,3 +291,20 @@
 	width: 20px;
 	height: 20px;
 }
+
+
+
+/* =========================
+   MathQuill
+========================= */
+.content .parameters #math-field{
+	display: block;
+}
+
+.content .parameters #latex{
+	display: none;
+}
+
+.content .parameters #func{
+	display: none;
+}
