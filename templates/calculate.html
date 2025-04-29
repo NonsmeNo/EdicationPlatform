@@ -32,7 +32,6 @@ src="{{ url_for('static', filename='js/dropdownMenu.js') }}"></script>
             <img src="static/img/calculate/addBtn.png" alt="add button">
         </button>
     </div>
-    <div class="header-param-line"></div>
 
     <div class="dropdown-options" id="dropdown-options">
         <div class="option" data-value="simple">Функция от одной переменной</div>
@@ -142,15 +141,17 @@ src="{{ url_for('static', filename='js/dropdownMenu.js') }}"></script>
     </div>
 
 
-
-    <div class="btns" id="btns">
-        <button id = 'clearbtn'>стереть все</button>
-        <button id = 'savebtn'>скачать</button>
-    </div>
-
-
-    <div class="functions" id="functions">
-
+    <div class="func-block" id="func-block">
+        <div class="clip">
+            <img src="static/img/calculate/clip.png" alt="clip img">
+        </div>
+        <div class="functions" id="functions">
+        </div>
+    
+        <div class="btns" id="btns">
+            <button id = 'clearbtn'>СТЕРЕТЬ ВСЕ</button>
+            <button id = 'savebtn'>СКАЧАТЬ</button>
+        </div>
     </div>
 
 </div>

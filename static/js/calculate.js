@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const ellipse_centre_btn = el('ellipse_centre_btn');
 	const ellipse_focus_btn = el('ellipse_focus_btn');
 
-	const btns = el('btns');
-	btns.style.display = 'none';
+	const funk_block_class = el('func-block');
+	funk_block_class.style.display = 'none';
 
 
 	//на старте
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			draw_graph(str_func, colors[func_cnt]);
 			if (func_cnt == 0) {
 				drow_axes();
-				btns.style.display = 'block';
+				funk_block_class.style.display = 'block';
 			}
 			func_cnt += 1;
 		} else {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
 			if (func_cnt == 0) {
 				drow_axes();
-				btns.style.display = 'block';
+				funk_block_class.style.display = 'block';
 			}
 
 			func_cnt += 1;
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
 			if (func_cnt == 0) {
 				drow_axes();
-				btns.style.display = 'block';
+				funk_block_class.style.display = 'block';
 			}
 
 			func_cnt += 1;
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
 			if (func_cnt == 0) {
 				drow_axes();
-				btns.style.display = 'block';
+				funk_block_class.style.display = 'block';
 			}
 
 			func_cnt += 1;
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			creat_block_func(5);
 			if (func_cnt == 0) {
 				drow_axes();
-				btns.style.display = 'block';
+				funk_block_class.style.display = 'block';
 			}
 			func_cnt += 1;
 		} else {
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	//стереть все
 	clear_btn.addEventListener('click', () => {
 		clear_canv();
-		btns.style.display = 'none';
+		funk_block_class.style.display = 'none';
 	});
 
 

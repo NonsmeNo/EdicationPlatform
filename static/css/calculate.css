@@ -84,12 +84,12 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
 }
 
 .content .parameters .header-param .select-title{
-	width: 85%;
-	font-size: 20px;
+	width: 90%;
+	font-size: 18px;
 	font-weight: 700;
 	color: #696969;
 	padding-right: 15px;
@@ -100,7 +100,7 @@
 }
 
 .content .parameters .header-param .select-btn{
-	width: 15%;
+	width: 10%;
 	cursor: pointer;
 }
 .content .parameters .header-param button{
@@ -129,13 +129,14 @@
 	left: 20px;
 	right: 20px;
   
-	background-color: white;
+	background-color: rgb(255, 254, 201);
 	border: 1px solid #ccc;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 	z-index: 1000;
   
 	display: none;
 	border-radius: 5px;
+	
 	
   }
 
@@ -154,7 +155,7 @@
 .content .parameters .input {
 	color: #444444;
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 400;
 }
 
 .content .parameters .input input{
@@ -172,7 +173,7 @@
 	border: 1px solid #5C5C5C;
 	border-radius: 5px;
 	color: #fff;
-	font-weight: 600;
+	font-weight: 400;
 	margin-left: auto; 
 
 	display: flex;
@@ -203,19 +204,69 @@
 
 
 
+/* =========================
+   БЛОК ФУНКЦИЙ
+========================= */
+
+.content .parameters .btns {
+	display: flex;
+	flex-direction: row;
+	margin-top: 10px;
+}
+
+.content .parameters .btns button {
+	width: 40%;
+	padding: 12px;
+	background-color: #797979;
+	border: 1px solid #797979;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: 400;
+	margin-right: 10px;
+}
+
+.content .parameters .btns button:hover {
+	background-color: #4d4d4d;
+	border: 1px solid #4d4d4d;
+}
+
+
+.content .parameters .func-block {
+	background-color: rgb(255, 251, 201);
+	border: 1px solid #ccc;
+	box-shadow: 0 0px 8px rgba(0,0,0,0.3);
+	padding: 20px;
+	
+	border-radius: 10px;
+	margin-top: 40px;
+	display: none;
+	position: relative;
+}
+
 
 
 /* =========================
    ВИЗУАЛИЗИРОВАННЫЕ ФУНКЦИИ
 ========================= */
 
+.content .parameters .func-block .clip{
+	position: absolute;
+	width: 10%;
+	top: -20px;
+	right: 10px;   
+}
+.content .parameters .func-block .clip img{
+	width: 100%;
+}
+
+
 .content .parameters .functions {
-	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
+	margin-top: 10px;
 }
 .content .parameters .functions .func_block{
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.2);
 	color: white;
 	margin-bottom: 10px;
 	border: 1px aliceblue;
