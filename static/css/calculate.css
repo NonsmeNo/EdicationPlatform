@@ -17,6 +17,11 @@
 	justify-content: space-between;
 }
 
+
+/* =========================
+   БЛОК CANVAS
+========================= */
+
 .content .canvas {
 	width: 75%;
 	margin: 0;
@@ -53,18 +58,59 @@
 }
 
 
+/* ================================================== */
 
-
+/* =========================
+   БЛОК ПАРАМЕТРЫ
+========================= */
 
 .content .parameters {
 	width: 25%;
+	background-color: rgb(255, 255, 255);
+
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	background-color: rgb(255, 255, 255);
+	padding: 10px 20px;
 }
 
+/* =========================
+   HEADER ПАРАМЕТРЫ
+========================= */
 
+.content .parameters .header-param{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 30px;
+}
+
+.content .parameters .header-param .select-title{
+	width: 85%;
+	font-size: 20px;
+	font-weight: 700;
+	color: #696969;
+	padding-right: 15px;
+}
+
+.content .parameters .header-param .select-btn{
+	width: 15%;
+}
+.content .parameters .header-param button{
+	background-color: white;
+	border: 0;
+	opacity: 0.8;
+}
+
+.content .parameters .header-param button:hover{
+	opacity: 1;
+}
+
+.content .parameters .header-param .select-btn img{
+	width: 100%;
+}
+
+/* ================================================== */
 .content .parameters .settingparam .btns {
 	display: none;
 }
@@ -76,13 +122,20 @@
 
 
 
+
+
+/* =========================
+   ВИЗУАЛИЗИРОВАННЫЕ ФУНКЦИИ
+========================= */
+
 .content .parameters .functions {
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
 }
 .content .parameters .functions .func_block{
-	background-color: rgb(184, 204, 201);
+	background-color: rgba(0, 0, 0, 0.3);
+	color: white;
 	margin-bottom: 10px;
 	border: 1px aliceblue;
 	border-radius: 5px;
@@ -91,8 +144,6 @@
 	display: flex;
 	flex-direction: row;
 }
-
-
 
 .content .parameters .functions .func_block .color_func{
 	width: 20px;
