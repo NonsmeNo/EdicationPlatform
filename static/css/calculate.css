@@ -185,11 +185,6 @@
 	font-weight: 400;
 }
 
-.content .parameters .input input{
-	width: 100%;
-	padding: 10px 5px;
-	margin-top: 10px;
-}
 
 
 .content .parameters .input .rend_btn{
@@ -340,11 +335,11 @@
     box-shadow: 0 0 15px rgba(123, 191, 255); 
 }
 
-.content .parameters #latex{
+#latex, #func1-latex, #func2-latex{
 	display: none;
 }
 
-.content .parameters #func{
+#func, #func1, #func2{
 	display: none;
 }
 

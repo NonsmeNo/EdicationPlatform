@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('param_btn').addEventListener('click', () => {
         if (func_cnt < max_funcs) {
             creat_block_func(2);
-            const str_func1 = el('func1').value;
-            const str_func2 = el('func2').value;
+            const str_func1 = el('func1').textContent;
+            const str_func2 = el('func2').textContent;
             const min_t = el('min_t').value;
             const max_t = el('max_t').value;
             draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
@@ -248,10 +248,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		input_func.classList.add('input_func');
 
 		if (type == 1) {
-			str_func = el('latex').textContent;
+			latex_func = el('latex').textContent;
 			const func_display = document.createElement('div');
 			func_display.classList.add('mathquill-output');
-			func_display.innerHTML = `F(x) = ${str_func}`;
+			func_display.innerHTML = `F(x) = ${latex_func}`;
 			const MQ = MathQuill.getInterface(2);
 			MQ.StaticMath(func_display);
 			input_func.append(func_display);
@@ -261,12 +261,39 @@ document.addEventListener('DOMContentLoaded', function() {
 			adds_func.push('1' + orig_func);
 
 		} else if (type == 2) {
-			str_func1 = el('func1').value;
-			str_func2 = el('func2').value;
+			str_func1 = el('func1').textContent;
+			str_func2 = el('func2').textContent;
 			min_t = el('min_t').value;
 			max_t = el('max_t').value;
-			input_func.innerHTML += `x(t) = ${str_func1}<br>y(t) = ${str_func2}<br>${min_t}⩽t⩽${max_t}<br>`;
 			adds_func.push('2' + str_func1 + '%' + str_func2 + '%' + min_t + '%' + max_t);
+
+			latex_func1 = el('func1-latex').textContent;
+			latex_func2 = el('func2-latex').textContent;
+
+			const MQ = MathQuill.getInterface(2);
+
+			// Создаём контейнер для отображения
+			const func_display1 = document.createElement('div');
+			const func_display2 = document.createElement('div');
+			const range_display = document.createElement('div');
+
+			func_display1.classList.add('mathquill-output');
+			func_display2.classList.add('mathquill-output');
+			range_display.classList.add('mathquill-output');
+
+			// Задаём HTML с формулами
+			func_display1.innerHTML = `x(t) = ${latex_func1},  `;
+			func_display2.innerHTML = `y(t) = ${latex_func2},  `;
+			range_display.innerHTML = `${min_t} \\le t \\le ${max_t}`;
+
+			// Применяем MathQuill StaticMath для каждого
+			MQ.StaticMath(func_display1);
+			MQ.StaticMath(func_display2);
+			MQ.StaticMath(range_display);
+
+			input_func.append(func_display1);
+			input_func.append(func_display2);
+			input_func.append(range_display);
 			func_block.append(input_func);
 		} else if (type == 3) {
 			radius = el('radius').value;

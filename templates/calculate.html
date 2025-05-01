@@ -8,6 +8,8 @@
 src="{{ url_for('static', filename='js/calculate.js') }}"></script>
 <script type="text/javascript" 
 src="{{ url_for('static', filename='js/dropdownMenu.js') }}"></script>
+<script type="text/javascript" 
+src="{{ url_for('static', filename='js/hideParamPanel.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
 
 
@@ -33,6 +35,10 @@ src="{{ url_for('static', filename='js/mathQuill.js') }}"></script>
     <canvas id="canvas">
         Ваш браузер не поддерживает Canvas
     </canvas>
+
+    <button class="hide-param-btn">
+        <img src="static/img/calculate/hideParamBtn.png" alt="hide parameters panel button">
+    </button>
 </div>
 
 
@@ -75,15 +81,23 @@ src="{{ url_for('static', filename='js/mathQuill.js') }}"></script>
         <div class="func" id="f2" >
             <div class="input_func">
                 Введите параметрическую функцию от t:<br>
-                x = <input type = "text" id = "func1" value = "2*sin(7*t)"><br>
-                y = <input type = "text" id = "func2" value = "3*cos(5*t)">
+                x(t) = 
+                <span id="func1-field"></span>
+                <span id="func1-latex"></span>
+                <span id="func1"></span>
+                y(t) = 
+                <span id="func2-field"></span>
+                <span id="func2-latex"></span>
+                <span id="func2"></span>
+
                 <input type = "text" id = "min_t" value = "0">
                 ⩽ t ⩽
                 <input type = "text" id = "max_t" value = "10">
             </div>
+
             <button id = 'param_btn' class="rend_btn">
-                <div>Отобразить</div>
-                <img src="static/img/tick.png">
+                <div>ОТОБРАЗИТЬ</div>
+                <img src="static/img/calculate/pencil.png">
             </button>
         </div>
 
