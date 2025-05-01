@@ -157,18 +157,75 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 🔍 МАСШТАБИРОВАНИЕ ГРАФИКА
 
 	// масштабирование колесиком мыши 
-	  window.addEventListener("wheel", (ev) => {
-
-		if ((x_right > 1) && (ev.deltaY < 0)) {
+	canv.addEventListener("wheel", (ev) => {
+		ev.preventDefault(); // отключаем прокрутку страницы
+	
+		if (ev.deltaY < 0 && x_right > 1) {
+			// Приближение
 			x_left += 1;
 			x_right -= 1;
 			redrawing();
 		}
-
+	
 		if (ev.deltaY > 0) {
+			// Отдаление
 			x_left -= 1;
 			x_right += 1;
 			redrawing();
+		}
+	});
+
+	
+	let initialPinchDistance = null;
+	let isPinching = false;
+	
+	// Функция вычисления расстояния между двумя пальцами
+	function getDistance(touch1, touch2) {
+		const dx = touch2.clientX - touch1.clientX;
+		const dy = touch2.clientY - touch1.clientY;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+	
+	// Начало пинч-жеста
+	canv.addEventListener("touchstart", (ev) => {
+		if (ev.touches.length === 2) {
+			initialPinchDistance = getDistance(ev.touches[0], ev.touches[1]);
+			isPinching = true;
+		}
+	});
+	
+	// Обработка пинч-жеста
+	canv.addEventListener("touchmove", (ev) => {
+		if (isPinching && ev.touches.length === 2) {
+			const currentDistance = getDistance(ev.touches[0], ev.touches[1]);
+	
+			if (initialPinchDistance !== null) {
+				const scaleFactor = currentDistance / initialPinchDistance;
+	
+				if (scaleFactor > 1.05 && x_right - x_left > 2) {
+					// Пальцы разошлись → приближение
+					x_left += 1;
+					x_right -= 1;
+					initialPinchDistance = currentDistance;
+					redrawing();
+				} else if (scaleFactor < 0.95 && x_right < 1000) {
+					// Пальцы сошлись → отдаление
+					x_left -= 1;
+					x_right += 1;
+					initialPinchDistance = currentDistance;
+					redrawing();
+				}
+			}
+	
+			ev.preventDefault(); // блокируем прокрутку страницы
+		}
+	});
+	
+	// Конец касания
+	canv.addEventListener("touchend", (ev) => {
+		if (ev.touches.length < 2) {
+			isPinching = false;
+			initialPinchDistance = null;
 		}
 	});
 
@@ -191,10 +248,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		input_func.classList.add('input_func');
 
 		if (type == 1) {
-			str_func = el('func').textContent;
-			input_func.innerHTML += `F(x) = ${str_func}`;
-			adds_func.push('1'+str_func);
+			str_func = el('latex').textContent;
+			const func_display = document.createElement('div');
+			func_display.classList.add('mathquill-output');
+			func_display.innerHTML = `F(x) = ${str_func}`;
+			const MQ = MathQuill.getInterface(2);
+			MQ.StaticMath(func_display);
+			input_func.append(func_display);
 			func_block.append(input_func);
+
+			orig_func = el('func').textContent;
+			adds_func.push('1' + orig_func);
+
 		} else if (type == 2) {
 			str_func1 = el('func1').value;
 			str_func2 = el('func2').value;

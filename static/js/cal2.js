@@ -3,155 +3,234 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	// 🔧 ОСНОВНЫЕ ПЕРЕМЕННЫЕ И НАСТРОЙКИ
 
-	const functions_print = document.getElementById('functions');
-	const funk_block_class = document.getElementById('func-block');
-	const canv = document.getElementById('canvas');
-	const ctx = canv.getContext('2d');
+    // DOM-элементы и переменные
+    const functions_print = document.getElementById('functions');
+    const funk_block_class = document.getElementById('func-block');
+    const canv = document.getElementById('canvas');
+    const ctx = canv.getContext('2d');
 
-	let func_cnt = 0; // Счётчик функций
-	const max_funcs = 5;
-	const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
-	let adds_func = []; // Массив всех добавленных функций
+    // Максимальное количество функций
+    const max_funcs = 5;
+    const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
 
-	// Границы области графика
-	let x_left = -10, x_right = 10;
-	let y_down = x_left, y_up = x_right;
+    let func_cnt = 0; // Текущее количество функций
+    let adds_func = []; // Сохраненные функции для перерисовки
 
-	// Настройка canvas
-	canv.width = canv.clientWidth;
-	canv.height = canv.clientHeight;
-	const width = canv.width;
-	const height = canv.height;
+    // Границы координатной системы
+    let x_left = -10;
+    let x_right = 10;
+    let y_down = x_left;
+    let y_up = x_right;
 
-	funk_block_class.style.display = 'none';
+    // Скрытие блока функций при старте
+    funk_block_class.style.display = 'none';
 
-	drow_start();
-	drow_axes();
+    // Размеры canvas
+    canv.width = canv.clientWidth;
+    canv.height = canv.clientHeight;
+    const width = canv.width;
+    const height = canv.height;
+
+    drow_start();
+    drow_axes();
+
 
 
 	// 📌 КНОПКИ ДОБАВЛЕНИЯ РАЗЛИЧНЫХ ФУНКЦИЙ
 
-	// Кнопка обычной функции F(x)
-	document.getElementById('btn').addEventListener('click', () => {
-		if (func_cnt < max_funcs) {
-			creat_block_func(1);
-			let str_func = el('func').textContent;
-			draw_graph(str_func, colors[func_cnt]);
-			if (func_cnt == 0) showFuncBlock();
-			func_cnt++;
-		} else message_max();
-	});
+	// Построение графика y = f(x)
+    document.getElementById('btn').addEventListener('click', () => {
+        if (func_cnt < max_funcs) {
+            creat_block_func(1);
+            const str_func = el('func').textContent;
+            draw_graph(str_func, colors[func_cnt]);
+            if (func_cnt === 0) {
+                drow_axes();
+                funk_block_class.style.display = 'block';
+            }
+            func_cnt++;
+        } else {
+            message_max();
+        }
+    });
 
-	// Кнопка параметрической функции
-	document.getElementById('param_btn').addEventListener('click', () => {
-		if (func_cnt < max_funcs) {
-			creat_block_func(2);
-			let str_func1 = el('func1').value;
-			let str_func2 = el('func2').value;
-			let min_t = el('min_t').value;
-			let max_t = el('max_t').value;
-			draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
-			if (func_cnt == 0) showFuncBlock();
-			func_cnt++;
-		} else message_max();
-	});
+    // Построение параметрического графика
+    document.getElementById('param_btn').addEventListener('click', () => {
+        if (func_cnt < max_funcs) {
+            creat_block_func(2);
+            const str_func1 = el('func1').value;
+            const str_func2 = el('func2').value;
+            const min_t = el('min_t').value;
+            const max_t = el('max_t').value;
+            draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
+            if (func_cnt === 0) {
+                drow_axes();
+                funk_block_class.style.display = 'block';
+            }
+            func_cnt++;
+        } else {
+            message_max();
+        }
+    });
 
-	// Кнопка окружности
-	document.getElementById('circle_centre_btn').addEventListener('click', () => {
-		if (func_cnt < max_funcs) {
-			creat_block_func(3);
-			let str_func1 = el('x_centre').value + '+' + el('radius').value + '*sin(t)';
-			let str_func2 = el('y_centre').value + '+' + el('radius').value + '*cos(t)';
-			draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
-			if (func_cnt == 0) showFuncBlock();
-			func_cnt++;
-		} else message_max();
-	});
+    // Построение окружности по центру и радиусу
+    document.getElementById('circle_centre_btn').addEventListener('click', () => {
+        if (func_cnt < max_funcs) {
+            creat_block_func(3);
+            const str_func1 = `${el('x_centre').value}+${el('radius').value}*sin(t)`;
+            const str_func2 = `${el('y_centre').value}+${el('radius').value}*cos(t)`;
+            draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
+            if (func_cnt === 0) {
+                drow_axes();
+                funk_block_class.style.display = 'block';
+            }
+            func_cnt++;
+        } else {
+            message_max();
+        }
+    });
 
-	// Кнопка эллипса по центру
-	document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
-		if (func_cnt < max_funcs) {
-			creat_block_func(4);
-			let str_func1 = el('x_centre_ellips').value + '+' + el('ellips_a').value + '*sin(t)';
-			let str_func2 = el('y_centre_ellips').value + '+' + el('ellips_b').value + '*cos(t)';
-			draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
-			if (func_cnt == 0) showFuncBlock();
-			func_cnt++;
-		} else message_max();
-	});
+    // Построение эллипса по центру и осям
+    document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
+        if (func_cnt < max_funcs) {
+            creat_block_func(4);
+            const str_func1 = `${el('x_centre_ellips').value}+${el('ellips_a').value}*sin(t)`;
+            const str_func2 = `${el('y_centre_ellips').value}+${el('ellips_b').value}*cos(t)`;
+            draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
+            if (func_cnt === 0) {
+                drow_axes();
+                funk_block_class.style.display = 'block';
+            }
+            func_cnt++;
+        } else {
+            message_max();
+        }
+    });
 
-	// Кнопка эллипса по фокусам
-	document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
-		if (func_cnt < max_funcs) {
-			creat_block_func(5);
-			if (func_cnt == 0) showFuncBlock();
-			func_cnt++;
-		} else message_max();
-	});
-
+    // Построение эллипса по фокусам и точке (только визуализация)
+    document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
+        if (func_cnt < max_funcs) {
+            creat_block_func(5);
+            if (func_cnt === 0) {
+                drow_axes();
+                funk_block_class.style.display = 'block';
+            }
+            func_cnt++;
+        } else {
+            message_max();
+        }
+    });
 
 	// 💾 КНОПКИ СОХРАНЕНИЯ И ОЧИСТКИ ГРАФИКА
 
-	// Сохранить картинку
-	el('savebtn').addEventListener('click', () => {
-		if (adds_func.length) {
-			redrawing();
-			ctx.globalCompositeOperation = 'destination-over';
-			ctx.fillStyle = "#FAEBD7";
-			ctx.fillRect(0, 0, canv.width, canv.height);
+	document.getElementById('savebtn').addEventListener('click', () => {
+        if (adds_func.length) {
+            redrawing();
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, canv.width, canv.height);
+            const a = document.createElement("a");
+            a.href = canv.toDataURL("image/png");
+            a.download = "image.png";
+            a.click();
+            ctx.clearRect(0, 0, canv.width, canv.height);
+            ctx.globalCompositeOperation = 'source-over';
+            redrawing();
+        } else {
+            alert('Нельзя сохранить пустую картинку!');
+        }
+    });
 
-			if (window.navigator.msSaveBlob) {
-				window.navigator.msSaveBlob(canv.msToBlob(), "image.png");
-			} else {
-				const a = document.createElement("a");
-				document.body.appendChild(a);
-				a.href = canv.toDataURL("image/png");
-				a.download = "image.png";
-				a.click();
-				document.body.removeChild(a);
-			}
-
-			ctx.fillStyle = "black";
-			ctx.clearRect(0, 0, canv.width, canv.height);
-			ctx.globalCompositeOperation = 'source-over';
-			redrawing();
-		} else {
-			alert('Нельзя сохранить пустую картинку!');
-		}
-	});
-
-	// Очистить канву
-	el('clearbtn').addEventListener('click', () => {
-		ctx.clearRect(0, 0, canv.width, canv.height);
+    document.getElementById('clearbtn').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canv.width, canv.height);
 		functions_print.innerHTML = "";
 		func_cnt = 0;
 		adds_func.length = 0;
 
-		funk_block_class.style.display = 'none';
-	});
+        funk_block_class.style.display = 'none';
+		drow_start();
+    	drow_axes();
+    });
 
 
 
 	// 🔍 МАСШТАБИРОВАНИЕ ГРАФИКА
 
 	// масштабирование колесиком мыши 
-	  window.addEventListener("wheel", (ev) => {
-
-		if ((x_right > 1) && (ev.deltaY < 0)) {
+	canv.addEventListener("wheel", (ev) => {
+		ev.preventDefault(); // отключаем прокрутку страницы
+	
+		if (ev.deltaY < 0 && x_right > 1) {
+			// Приближение
 			x_left += 1;
 			x_right -= 1;
 			redrawing();
 		}
-
+	
 		if (ev.deltaY > 0) {
+			// Отдаление
 			x_left -= 1;
 			x_right += 1;
 			redrawing();
 		}
 	});
 
-	//**************************** */
+	let initialPinchDistance = null;
+	let isPinching = false;
+	
+	// Функция вычисления расстояния между двумя пальцами
+	function getDistance(touch1, touch2) {
+		const dx = touch2.clientX - touch1.clientX;
+		const dy = touch2.clientY - touch1.clientY;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+	
+	// Начало пинч-жеста
+	canv.addEventListener("touchstart", (ev) => {
+		if (ev.touches.length === 2) {
+			initialPinchDistance = getDistance(ev.touches[0], ev.touches[1]);
+			isPinching = true;
+		}
+	});
+	
+	// Обработка пинч-жеста
+	canv.addEventListener("touchmove", (ev) => {
+		if (isPinching && ev.touches.length === 2) {
+			const currentDistance = getDistance(ev.touches[0], ev.touches[1]);
+	
+			if (initialPinchDistance !== null) {
+				const scaleFactor = currentDistance / initialPinchDistance;
+	
+				if (scaleFactor > 1.05 && x_right - x_left > 2) {
+					// Пальцы разошлись → приближение
+					x_left += 1;
+					x_right -= 1;
+					initialPinchDistance = currentDistance;
+					redrawing();
+				} else if (scaleFactor < 0.95 && x_right < 1000) {
+					// Пальцы сошлись → отдаление
+					x_left -= 1;
+					x_right += 1;
+					initialPinchDistance = currentDistance;
+					redrawing();
+				}
+			}
+	
+			ev.preventDefault(); // блокируем прокрутку страницы
+		}
+	});
+	
+	// Конец касания
+	canv.addEventListener("touchend", (ev) => {
+		if (ev.touches.length < 2) {
+			isPinching = false;
+			initialPinchDistance = null;
+		}
+	});
 
+
+
+	//**************************** */
 
 	//ФУНКЦИИ
 	function creat_block_func(type) {
@@ -169,9 +248,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		input_func.classList.add('input_func');
 
 		if (type == 1) {
-			str_func = el('func').textContent;
-			input_func.innerHTML += `F(x) = ${str_func}`;
-			adds_func.push('1'+str_func);
+			str_func = el('latex').textContent;
+	
+			const func_display = document.createElement('div');
+			func_display.classList.add('mathquill-output');
+			func_display.innerHTML = `F(x) = ${str_func}`;
+			const MQ = MathQuill.getInterface(2);
+			MQ.StaticMath(func_display);
+	
+			input_func.append(func_display);
+	
+			// Добавляем функцию в массив
+			adds_func.push('1' + str_func);
 			func_block.append(input_func);
 		} else if (type == 2) {
 			str_func1 = el('func1').value;
@@ -203,10 +291,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			x_f2 = el('x_f2').value;
 			y_f1 = el('y_f1').value;
 			y_f2 = el('y_f2').value;
-		input_func.innerHTML += `Эллипс с фокусами: f1 = (${x_f1}, ${y_f1}) f2 = (${x_f2}, ${y_f2})<br> и точкой (${x}, ${y})`;
-		adds_func.push('5' + calc_ellipse_axes (x, y, x_f1, y_f1, x_f2, y_f2));
-		func_block.append(input_func);
-	}
+			input_func.innerHTML += `Эллипс с фокусами: f1 = (${x_f1}, ${y_f1}) f2 = (${x_f2}, ${y_f2})<br> и точкой (${x}, ${y})`;
+			adds_func.push('5' + calc_ellipse_axes (x, y, x_f1, y_f1, x_f2, y_f2));
+			func_block.append(input_func);
+		}
 
 	}
 

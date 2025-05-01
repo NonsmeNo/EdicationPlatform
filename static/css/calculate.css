@@ -26,12 +26,11 @@
 	width: 75%;
 	margin: 0;
 	padding: 0;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.1);
 	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 }
 
 .content .canvas canvas {
@@ -129,9 +128,10 @@
 	left: 20px;
 	right: 20px;
   
-	background-color: rgb(255, 254, 201);
-	border: 1px solid #ccc;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+	background-color: rgb(93, 92, 92);
+	color: #fff;
+	border: 1px solid rgb(93, 92, 92);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.9);
 	z-index: 1000;
   
 	display: none;
@@ -147,6 +147,7 @@
 
 .content .parameters .dropdown-options .option:hover {
     background-color: #f0f0f0;
+	color: #333333;
 }
 
 /* =========================
@@ -217,17 +218,18 @@
 .content .parameters .btns button {
 	width: 40%;
 	padding: 12px;
-	background-color: #797979;
-	border: 1px solid #797979;
+	background-color: #89abff;
+	border: 1px solid #89abff;
 	border-radius: 5px;
 	color: #fff;
 	font-weight: 400;
 	margin-right: 10px;
+	transition: background-color 0.4s ease;
 }
 
 .content .parameters .btns button:hover {
-	background-color: #4d4d4d;
-	border: 1px solid #4d4d4d;
+	background-color: #FF5959;
+	border: 1px solid #FF5959;
 }
 
 
@@ -266,10 +268,9 @@
 	margin-top: 10px;
 }
 .content .parameters .functions .func_block{
-	background-color: rgba(0, 0, 0, 0.2);
-	color: white;
 	margin-bottom: 10px;
-	border: 1px aliceblue;
+	color: #333333;
+	background-color: rgba(0, 0, 0, 0.05);
 	border-radius: 5px;
 	padding: 10px 5px;
 
@@ -299,6 +300,18 @@
 ========================= */
 .content .parameters #math-field{
 	display: block;
+	padding: 10px 5px;
+	background-color: #fffefe;
+	margin-top: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.content .parameters #math-field:focus {
+    outline: none;
+    border-color: #2E9AFF;
+    box-shadow: 0 0 15px rgba(123, 191, 255); 
 }
 
 .content .parameters #latex{
@@ -307,4 +320,28 @@
 
 .content .parameters #func{
 	display: none;
+}
+
+
+@media screen and (max-width: 1050px) {
+	.content {
+		flex-direction: column;
+		justify-content: start;
+		height: auto;
+	}
+	.content .canvas {
+		width: 100%;
+		align-items: flex-start;
+		padding: 30px;
+		height: auto;
+	}
+	.content .canvas canvas {
+		width: 100%;
+		height: auto;
+	}
+
+	.content .parameters {
+		width: 100%;
+		min-height: 100%;
+	}
 }

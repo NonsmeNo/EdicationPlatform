@@ -24,7 +24,8 @@
 body {
     font-family: 'Open Sans', sans-serif;
     height: 100%;
-	overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 html {
     height: 100%;
