@@ -42,7 +42,7 @@ latex = latex.replace(/(x)\(/g, '$1*(');
 
 
 // Преобразуем LaTeX функции в JavaScript
-latex = latex.replace(/\\sin/g, 'sin');
+latex = latex.replace(/\\sin/g, 'Math.sin');
 latex = latex.replace(/\\cos/g, 'Math.cos');
 latex = latex.replace(/\\tan/g, 'Math.tan');
 latex = latex.replace(/\\sqrt/g, 'Math.sqrt');

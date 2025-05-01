@@ -3,154 +3,132 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	// 🔧 ОСНОВНЫЕ ПЕРЕМЕННЫЕ И НАСТРОЙКИ
 
-    // DOM-элементы и переменные
-    const functions_print = document.getElementById('functions');
-    const funk_block_class = document.getElementById('func-block');
-    const canv = document.getElementById('canvas');
-    const ctx = canv.getContext('2d');
+	const functions_print = document.getElementById('functions');
+	const funk_block_class = document.getElementById('func-block');
+	const canv = document.getElementById('canvas');
+	const ctx = canv.getContext('2d');
 
-    // Максимальное количество функций
-    const max_funcs = 5;
-    const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
+	let func_cnt = 0; // Счётчик функций
+	const max_funcs = 5;
+	const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
+	let adds_func = []; // Массив всех добавленных функций
 
-    let func_cnt = 0; // Текущее количество функций
-    let adds_func = []; // Сохраненные функции для перерисовки
+	// Границы области графика
+	let x_left = -10, x_right = 10;
+	let y_down = x_left, y_up = x_right;
 
-    // Границы координатной системы
-    let x_left = -10;
-    let x_right = 10;
-    let y_down = x_left;
-    let y_up = x_right;
+	// Настройка canvas
+	canv.width = canv.clientWidth;
+	canv.height = canv.clientHeight;
+	const width = canv.width;
+	const height = canv.height;
 
-    // Скрытие блока функций при старте
-    funk_block_class.style.display = 'none';
+	funk_block_class.style.display = 'none';
 
-    // Размеры canvas
-    canv.width = canv.clientWidth;
-    canv.height = canv.clientHeight;
-    const width = canv.width;
-    const height = canv.height;
-
-    drow_start();
-    drow_axes();
-
+	drow_start();
+	drow_axes();
 
 
 	// 📌 КНОПКИ ДОБАВЛЕНИЯ РАЗЛИЧНЫХ ФУНКЦИЙ
 
-	// Построение графика y = f(x)
-    document.getElementById('btn').addEventListener('click', () => {
-        if (func_cnt < max_funcs) {
-            creat_block_func(1);
-            const str_func = el('func').textContent;
-            draw_graph(str_func, colors[func_cnt]);
-            if (func_cnt === 0) {
-                drow_axes();
-                funk_block_class.style.display = 'block';
-            }
-            func_cnt++;
-        } else {
-            message_max();
-        }
-    });
+	// Кнопка обычной функции F(x)
+	document.getElementById('btn').addEventListener('click', () => {
+		if (func_cnt < max_funcs) {
+			creat_block_func(1);
+			let str_func = el('func').textContent;
+			draw_graph(str_func, colors[func_cnt]);
+			if (func_cnt == 0) showFuncBlock();
+			func_cnt++;
+		} else message_max();
+	});
 
-    // Построение параметрического графика
-    document.getElementById('param_btn').addEventListener('click', () => {
-        if (func_cnt < max_funcs) {
-            creat_block_func(2);
-            const str_func1 = el('func1').value;
-            const str_func2 = el('func2').value;
-            const min_t = el('min_t').value;
-            const max_t = el('max_t').value;
-            draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
-            if (func_cnt === 0) {
-                drow_axes();
-                funk_block_class.style.display = 'block';
-            }
-            func_cnt++;
-        } else {
-            message_max();
-        }
-    });
+	// Кнопка параметрической функции
+	document.getElementById('param_btn').addEventListener('click', () => {
+		if (func_cnt < max_funcs) {
+			creat_block_func(2);
+			let str_func1 = el('func1').value;
+			let str_func2 = el('func2').value;
+			let min_t = el('min_t').value;
+			let max_t = el('max_t').value;
+			draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
+			if (func_cnt == 0) showFuncBlock();
+			func_cnt++;
+		} else message_max();
+	});
 
-    // Построение окружности по центру и радиусу
-    document.getElementById('circle_centre_btn').addEventListener('click', () => {
-        if (func_cnt < max_funcs) {
-            creat_block_func(3);
-            const str_func1 = `${el('x_centre').value}+${el('radius').value}*sin(t)`;
-            const str_func2 = `${el('y_centre').value}+${el('radius').value}*cos(t)`;
-            draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
-            if (func_cnt === 0) {
-                drow_axes();
-                funk_block_class.style.display = 'block';
-            }
-            func_cnt++;
-        } else {
-            message_max();
-        }
-    });
+	// Кнопка окружности
+	document.getElementById('circle_centre_btn').addEventListener('click', () => {
+		if (func_cnt < max_funcs) {
+			creat_block_func(3);
+			let str_func1 = el('x_centre').value + '+' + el('radius').value + '*sin(t)';
+			let str_func2 = el('y_centre').value + '+' + el('radius').value + '*cos(t)';
+			draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
+			if (func_cnt == 0) showFuncBlock();
+			func_cnt++;
+		} else message_max();
+	});
 
-    // Построение эллипса по центру и осям
-    document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
-        if (func_cnt < max_funcs) {
-            creat_block_func(4);
-            const str_func1 = `${el('x_centre_ellips').value}+${el('ellips_a').value}*sin(t)`;
-            const str_func2 = `${el('y_centre_ellips').value}+${el('ellips_b').value}*cos(t)`;
-            draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
-            if (func_cnt === 0) {
-                drow_axes();
-                funk_block_class.style.display = 'block';
-            }
-            func_cnt++;
-        } else {
-            message_max();
-        }
-    });
+	// Кнопка эллипса по центру
+	document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
+		if (func_cnt < max_funcs) {
+			creat_block_func(4);
+			let str_func1 = el('x_centre_ellips').value + '+' + el('ellips_a').value + '*sin(t)';
+			let str_func2 = el('y_centre_ellips').value + '+' + el('ellips_b').value + '*cos(t)';
+			draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
+			if (func_cnt == 0) showFuncBlock();
+			func_cnt++;
+		} else message_max();
+	});
 
-    // Построение эллипса по фокусам и точке (только визуализация)
-    document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
-        if (func_cnt < max_funcs) {
-            creat_block_func(5);
-            if (func_cnt === 0) {
-                drow_axes();
-                funk_block_class.style.display = 'block';
-            }
-            func_cnt++;
-        } else {
-            message_max();
-        }
-    });
+	// Кнопка эллипса по фокусам
+	document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
+		if (func_cnt < max_funcs) {
+			creat_block_func(5);
+			if (func_cnt == 0) showFuncBlock();
+			func_cnt++;
+		} else message_max();
+	});
+
 
 	// 💾 КНОПКИ СОХРАНЕНИЯ И ОЧИСТКИ ГРАФИКА
 
-	document.getElementById('savebtn').addEventListener('click', () => {
-        if (adds_func.length) {
-            redrawing();
-            ctx.globalCompositeOperation = 'destination-over';
-            ctx.fillStyle = "#fff";
-            ctx.fillRect(0, 0, canv.width, canv.height);
-            const a = document.createElement("a");
-            a.href = canv.toDataURL("image/png");
-            a.download = "image.png";
-            a.click();
-            ctx.clearRect(0, 0, canv.width, canv.height);
-            ctx.globalCompositeOperation = 'source-over';
-            redrawing();
-        } else {
-            alert('Нельзя сохранить пустую картинку!');
-        }
-    });
+	// Сохранить картинку
+	el('savebtn').addEventListener('click', () => {
+		if (adds_func.length) {
+			redrawing();
+			ctx.globalCompositeOperation = 'destination-over';
+			ctx.fillStyle = "#FAEBD7";
+			ctx.fillRect(0, 0, canv.width, canv.height);
 
-    document.getElementById('clearbtn').addEventListener('click', () => {
-        ctx.clearRect(0, 0, canv.width, canv.height);
+			if (window.navigator.msSaveBlob) {
+				window.navigator.msSaveBlob(canv.msToBlob(), "image.png");
+			} else {
+				const a = document.createElement("a");
+				document.body.appendChild(a);
+				a.href = canv.toDataURL("image/png");
+				a.download = "image.png";
+				a.click();
+				document.body.removeChild(a);
+			}
+
+			ctx.fillStyle = "black";
+			ctx.clearRect(0, 0, canv.width, canv.height);
+			ctx.globalCompositeOperation = 'source-over';
+			redrawing();
+		} else {
+			alert('Нельзя сохранить пустую картинку!');
+		}
+	});
+
+	// Очистить канву
+	el('clearbtn').addEventListener('click', () => {
+		ctx.clearRect(0, 0, canv.width, canv.height);
 		functions_print.innerHTML = "";
 		func_cnt = 0;
 		adds_func.length = 0;
 
-        funk_block_class.style.display = 'none';
-		drow_start();
-    	drow_axes();
-    });
+		funk_block_class.style.display = 'none';
+	});
 
 
 
