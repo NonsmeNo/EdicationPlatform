@@ -81,18 +81,28 @@ src="{{ url_for('static', filename='js/mathQuill.js') }}"></script>
         <div class="func" id="f2" >
             <div class="input_func">
                 Введите параметрическую функцию от t:<br>
-                x(t) = 
-                <span id="func1-field"></span>
-                <span id="func1-latex"></span>
-                <span id="func1"></span>
-                y(t) = 
-                <span id="func2-field"></span>
-                <span id="func2-latex"></span>
-                <span id="func2"></span>
-
-                <input type = "text" id = "min_t" value = "0">
-                ⩽ t ⩽
-                <input type = "text" id = "max_t" value = "10">
+                <div class="func-param-field">
+                    <div class="text-func-field">
+                        <span style="white-space: nowrap;">x(t) =  </span>
+                    </div>
+                    <span id="func1-field" tabindex="0"></span>
+                    <span id="func1-latex"></span>
+                    <span id="func1"></span>
+                </div>
+                <div class="func-param-field">
+                    <div class="text-func-field">
+                        <span style="white-space: nowrap;">y(t) =  </span>
+                    </div>
+                    <span id="func2-field"></span>
+                    <span id="func2-latex"></span>
+                    <span id="func2"></span>
+                </div>
+                
+                <div class="input-param-field">
+                    <input type="number" id="min_t" value="0" step="any">
+                        ⩽ t ⩽
+                    <input type="number" id="max_t" value="10" step="any">
+                </div>
             </div>
 
             <button id = 'param_btn' class="rend_btn">
@@ -104,70 +114,119 @@ src="{{ url_for('static', filename='js/mathQuill.js') }}"></script>
 
         <div class="func" id="f3">
             <div class="input_func">
-                Введите радиус окружности<br>
-                    и координаты центра:<br>
-                R = <input type = "text" id = "radius" value = "5"><br>
-                Центр:
-                x = <input type = "text" id = "x_centre" value = "0">
-                y = <input type = "text" id = "y_centre" value = "0">
+
+                <p>Введите радиус окружности:</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        R = 
+                    </div>
+                    <input type = "number" min="0.01" id = "radius" value = "5">
+                </div>
+
+                <p>Введите координаты центра:</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        x = 
+                    </div>
+                    <input type = "number" id = "x_centre" value = "0">
+                </div>
+
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        y = 
+                    </div>
+                    <input type = "number" id = "y_centre" value = "0">
+                </div>
+  
             </div>
-            <div class="input_btn">
-                <button id = 'circle_centre_btn' class="rend_btn">
-                    <div>Отобразить</div>
-                    <img src="static/img/tick.png">
-                </button>
-            </div>
+
+            <button id = 'circle_centre_btn' class="rend_btn">
+                <div>ОТОБРАЗИТЬ</div>
+                <img src="static/img/calculate/pencil.png">
+            </button>
         </div>
 
 
         <div class="func" id="f4">
             <div class="input_func ellips_centre">
-                Введите полуоси эллипса<br> и координаты центра:<br>
-                <div class="param_ellips_cent_block">
-                    <div class="param_ellips_cent1">
-                        Полуоси:<br>
-                    a = <input type = "text" id = "ellips_a" value = "2">
-                    b = <input type = "text" id = "ellips_b" value = "3"><br>
-                    </div>
-                    <div class="param_ellips_cent2">
-                        Центр:<br>
-                    x = <input type = "text" id = "x_centre_ellips" value = "0">
-                    y = <input type = "text" id = "y_centre_ellips" value = "0">
-                    </div>
-                </div>
 
+                <p>Введите длины полуосей эллипса:</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        a = 
+                    </div>
+                    <input type = "number" id = "ellips_a" value = "2">
+
+                    <div class="circle-ellips-text">
+                        b = 
+                    </div>
+                    <input type = "number" id = "ellips_b" value = "3">
+                </div>
+                
+                <p>Введите координаты центра эллипса:</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        x = 
+                    </div>
+                    <input type = "number" id = "x_centre_ellips" value = "0">
+
+                    <div class="circle-ellips-text">
+                        y = 
+                    </div>
+                    <input type = "number" id = "y_centre_ellips" value = "0">
+                </div>
             </div>
             <button id = 'ellipse_centre_btn' class="rend_btn">
-                <div>Отобразить</div>
-                <img src="static/img/tick.png">
+                <div>ОТОБРАЗИТЬ</div>
+                <img src="static/img/calculate/pencil.png">
             </button>
         </div>
 
         <div class="func" id="f5">
             <div class="input_func">
-                Введите точку на эллисе эллипса<br> и координаты его фокусов:<br>
-                <div class="param_ellips3">
-                    Точка на эллипсе:<br>
-                x = <input type = "text" id = "x_ellips" value = "0">
-                y = <input type = "text" id = "y_ellips" value = "3"><br>
-                </div>
-                <div class="param_ellips_cent_block">
-                    <div class="param_ellips_cent1">
-                        Координаты 1 фокуса эллипса:<br>
-                    x_f1 = <input type = "text" id = "x_f1" value = "-4">
-                    y_f1 = <input type = "text" id = "y_f1" value = "0"><br>
+                <p>Введите координаты точки на эллисе:</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        x = 
                     </div>
-                    <div class="param_ellips_cent2">
-                        Координаты 2 фокуса эллипса:<br>
-                    x_f2 = <input type = "text" id = "x_f2" value = "4">
-                    y_f2 = <input type = "text" id = "y_f2" value = "0">
+                    <input type = "number" id = "x_ellips" value = "0">
+
+                    <div class="circle-ellips-text">
+                        y = 
                     </div>
+                    <input type = "number" id = "y_ellips" value = "3">
                 </div>
 
+                <p>Координаты 1 фокуса эллипса (f1):</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        x = 
+                    </div>
+                    <input type = "number" id = "x_f1" value = "-4">
+
+                    <div class="circle-ellips-text">
+                        y = 
+                    </div>
+                    <input type = "number" id = "y_f1" value = "0">
+                </div>
+
+                <p>Координаты 2 фокуса эллипса (f2):</p>
+                <div class="input-circle-ellips-field">
+                    <div class="circle-ellips-text">
+                        x = 
+                    </div>
+                    <input type = "number" id = "x_f2" value = "4">
+
+                    <div class="circle-ellips-text">
+                        y = 
+                    </div>
+                    <input type = "number" id = "y_f2" value = "0">
+                </div>
             </div>
+
             <button id = 'ellipse_focus_btn' class="rend_btn">
-                <div>Отобразить</div>
-                <img src="static/img/tick.png">
+                <div>ОТОБРАЗИТЬ</div>
+                <img src="static/img/calculate/pencil.png">
             </button>
         </div>
     </div>

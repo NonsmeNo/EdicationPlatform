@@ -186,7 +186,6 @@
 }
 
 
-
 .content .parameters .input .rend_btn{
 	width: 40%;
 	padding: 5px;
@@ -329,6 +328,24 @@
     font-size: 20px;
 }
 
+.content .parameters .func-param-field {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.content .parameters #func1-field,
+.content .parameters #func2-field{
+	display: block;
+	padding: 8px 5px;
+	background-color: #fffefe;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    font-size: 20px;
+	width: 100%;
+	margin: 5px;
+}
+
 .content .parameters #math-field:focus {
     outline: none;
     border-color: #2E9AFF;
@@ -343,6 +360,59 @@
 	display: none;
 }
 
+/* =========================
+   ввод чисел
+========================= */
+/* для параметрической */
+.input .input-param-field{
+	display: flex;
+	flex-direction: row;
+	margin-top: 10px;
+
+	padding: 8px 5px;
+	background-color: #fffefe;
+}
+
+.input .input-param-field input {
+	width: 100px;
+	text-align: center;
+	margin: 0 5px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    font-size: 16px;
+	padding: 8px 5px;
+}
+
+.input .input-param-field input:focus, 
+.input .input-circle-ellips-field input:focus {
+    outline: none;
+    border-color: #2E9AFF;
+    box-shadow: 0 0 15px rgba(123, 191, 255); 
+}
+
+/* для окружности и эллипса */
+.input .input-circle-ellips-field {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.input .input-circle-ellips-field .circle-ellips-text{
+	white-space: nowrap;
+}
+
+.input .input-circle-ellips-field input{
+	width: 100px;
+	text-align: center;
+	margin: 5px 10px 5px 5px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    font-size: 16px;
+	padding: 8px 5px;
+}
+.input .input_func p {
+	margin-top: 10px;
+}
 
 @media screen and (max-width: 1050px) {
 	.content {
@@ -364,5 +434,11 @@
 	.content .parameters {
 		width: 100%;
 		min-height: 100%;
+		box-shadow: none;
+		border: none;
 	}
+
+	.content .parameters .dropdown-options {
+		top: -220px;
+	  }
 }
