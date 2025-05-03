@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}
+MathHelper - генератор задач
+{% endblock %}
+{% block myhead %}
+
+{% endblock %}
+
+{% block body %}
+
+<div class="gener_param_block">
+    <div class="title">
+        <h2>{{ current_theme.name }}</h2>
+    </div>
+
+    <form action="" method="POST">
+
+        <div class="gener">
+            <h3>Генерация уравнений</h3>
+            <label for="equation-type">Выберите шаблон</label><br>
+            <select id="equation-type" class="custom-select">
+                {% for el in templates %}
+                <option value="{{ el.id }}">{{ el.template_SHOW }}</option>
+                {% endfor %}
+            </select><br>
+
+            <a href="#" onclick="generateLink()" class="button generate-button">Сгенерировать</a>
+        </div>
+        <hr>
+        <div class="save">
+            <h3>Сохраненные задания</h3>
+            {% if current_user.get_id() %}
+                {% if saved_tasks | length > 0 %}
+                    <label for="task_id">Выберите задачу</label> <br>
+                    <select id="task_id" class="custom-select">
+                            {% for el in saved_tasks %}
+                                <option value="{{ el.id }}">{{ el.task }}</option>
+                            {% endfor %}
+
+                    </select><br>
+                    <a href="#" onclick="generateLink2()" class="button show-button">Показать</a>
+                {% else %}
+                        У вас пока нет <br> сохраненных задач :( <br><br>
+                        Чтобы сохранить задачу, <br> вам нужно сначало ее сгенерировать
+                {% endif %}
+            {% else %}
+                <br>
+                Чтобы иметь возможность сохранять задачи, вы должны <a href="/login">авторизироваться</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<script>
+    function generateLink() {
+        var selectedValue = document.getElementById('equation-type').value;
+        var themeId = '{{ current_theme.id }}';
+        var url = "{{ url_for('rend', theme_id=current_theme.id) }}" + "?equation_type=" + selectedValue;
+        document.querySelector('.generate-button').setAttribute('href', url);
+        console.log(url);
+    }
+    
+    function generateLink2() {
+        var selectedValue = document.getElementById('task_id').value;
+        var themeId = '{{ current_theme.id }}';
+        var url = "{{ url_for('rend2', theme_id=current_theme.id) }}" + "?task_id=" + selectedValue;
+        document.querySelector('.show-button').setAttribute('href', url);
+        console.log(url);
+    }
+</script>
+
+{% endblock %}
