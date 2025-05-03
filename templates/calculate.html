@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}
-Графический калькулятор
+MathHelper - Графический калькулятор
 {% endblock %}
 
 {% block myhead %}
 <script type="text/javascript" 
-src="{{ url_for('static', filename='js/calculate.js') }}"></script>
+src="{{ url_for('static', filename='js/calculate/calculate.js') }}"></script>
 <script type="text/javascript" 
-src="{{ url_for('static', filename='js/dropdownMenu.js') }}"></script>
+src="{{ url_for('static', filename='js/calculate/dropdownMenu.js') }}"></script>
 <script type="text/javascript" 
-src="{{ url_for('static', filename='js/hideParamPanel.js') }}"></script>
+src="{{ url_for('static', filename='js/calculate/hideParamPanel.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
 
 
@@ -25,7 +25,7 @@ src="{{ url_for('static', filename='js/hideParamPanel.js') }}"></script>
 
 
 <script type="text/javascript" 
-src="{{ url_for('static', filename='js/mathQuill.js') }}"></script>
+src="{{ url_for('static', filename='js/calculate/mathQuill.js') }}"></script>
 {% endblock %}
 
 {% block body %}

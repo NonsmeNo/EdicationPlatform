@@ -1,0 +1,44 @@
+{% extends './base.html' %}
+{% block title %}
+MathHelper - {{ current_theme.name }}
+{% endblock %}
+
+{% block myhead %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/rend.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/rend/rendSave.js') }}"></script>
+{% endblock %}
+{% block body %}
+
+<div class="content">
+    <input type="hidden" id="template-id" value="{{ current_task.template_id }}">
+    <input type="hidden" id="theme-id" value="{{ current_theme.id }}">
+    <input type="hidden" id="task-task" value="{{ current_task.task }}">
+
+    <div class="rend_block">
+        <div class="rend">
+            <div class="title">
+                <h2>{{ current_theme.name }}</h2><br>
+            </div>
+            <div class="task-block">
+                <div class="task">
+                    <h3>Задание:</h3>
+                    {{ task.task_text }}
+                    <div id="output"></div>
+                </div>
+                <div class="answer">
+                    <button id="btnShowGraph">Показать график</button>
+                    <button id="btnShowAnsw">Показать ответ</button>
+                    <div id="answer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas">
+            <canvas id="canvas" width = 800px height = 800px >
+                Ваш браузер не поддерживает Canvas
+            </canvas>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

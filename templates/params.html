@@ -1,54 +1,59 @@
 {% extends 'base.html' %}
 {% block title %}
-MathHelper - генератор задач
+MathHelper - {{ current_theme.name }}
 {% endblock %}
 {% block myhead %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/rend.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<div class="gener_param_block">
-    <div class="title">
-        <h2>{{ current_theme.name }}</h2>
-    </div>
-
-    <form action="" method="POST">
-
-        <div class="gener">
-            <h3>Генерация уравнений</h3>
-            <label for="equation-type">Выберите шаблон</label><br>
-            <select id="equation-type" class="custom-select">
-                {% for el in templates %}
-                <option value="{{ el.id }}">{{ el.template_SHOW }}</option>
-                {% endfor %}
-            </select><br>
-
-            <a href="#" onclick="generateLink()" class="button generate-button">Сгенерировать</a>
+<div class="content">
+    <a href="/taskThemes">Назад к темам</a>
+    
+    <div class="gener_param_block">
+        <div class="title">
+            <h2>{{ current_theme.name }}</h2>
         </div>
-        <hr>
-        <div class="save">
-            <h3>Сохраненные задания</h3>
-            {% if current_user.get_id() %}
-                {% if saved_tasks | length > 0 %}
-                    <label for="task_id">Выберите задачу</label> <br>
-                    <select id="task_id" class="custom-select">
-                            {% for el in saved_tasks %}
-                                <option value="{{ el.id }}">{{ el.task }}</option>
-                            {% endfor %}
 
-                    </select><br>
-                    <a href="#" onclick="generateLink2()" class="button show-button">Показать</a>
+        <form action="" method="POST">
+    
+            <div class="gener">
+                <h3>Генерация уравнений</h3>
+                <label for="equation-type">Выберите шаблон</label><br>
+                <select id="equation-type" class="custom-select">
+                    {% for el in templates %}
+                    <option value="{{ el.id }}">{{ el.template_show }}</option>
+                    {% endfor %}
+                </select><br>
+    
+                <a href="#" onclick="generateLink()" class="button generate-button">Сгенерировать</a>
+            </div>
+            <hr>
+            <div class="save">
+                <h3>Сохраненные задания</h3>
+                {% if current_user.get_id() %}
+                    {% if saved_tasks | length > 0 %}
+                        <label for="task_id">Выберите задачу</label> <br>
+                        <select id="task_id" class="custom-select">
+                                {% for el in saved_tasks %}
+                                    <option value="{{ el.id }}">{{ el.task }}</option>
+                                {% endfor %}
+    
+                        </select><br>
+                        <a href="#" onclick="generateLink2()" class="button show-button">Показать</a>
+                    {% else %}
+                            У вас пока нет <br> сохраненных задач :( <br><br>
+                            Чтобы сохранить задачу, <br> вам нужно сначало ее сгенерировать
+                    {% endif %}
                 {% else %}
-                        У вас пока нет <br> сохраненных задач :( <br><br>
-                        Чтобы сохранить задачу, <br> вам нужно сначало ее сгенерировать
+                    <br>
+                    Чтобы иметь возможность сохранять задачи, вы должны <a href="/login">авторизироваться</a>
                 {% endif %}
-            {% else %}
-                <br>
-                Чтобы иметь возможность сохранять задачи, вы должны <a href="/login">авторизироваться</a>
-            {% endif %}
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
+    
 </div>
 
 <script>

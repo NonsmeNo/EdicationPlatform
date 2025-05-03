@@ -1,0 +1,139 @@
+:root {
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+}
+
+.content {
+    background-image: linear-gradient(var(--blue), var(--light-pink));
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(100vh - 81px);
+	order: 2;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+
+
+.content .gener_param_block {
+    margin: 200px auto 0 auto;
+    width: 40%;
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+}
+.content .gener_param_block .title{
+    background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
+    background-color: #2980b9;
+    color: #fff;
+    text-align:center;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.content .gener_param_block form{
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    text-align:center;
+}
+.content .gener_param_block form h3{
+    padding-bottom: 15px;
+    color: #3498db;
+}
+
+.content .gener_param_block form .gener, .save{
+    width: 50%;
+}
+.content .gener_param_block .custom-select {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 5px;
+    width: 70%;
+}
+
+
+.content .gener_param_block .button{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 15px 0 30px 0;
+    width: 70%;
+}
+.content .gener_param_block .button input{
+    border: none;
+
+}
+
+.content .gener_param_block .button:hover {
+    background-color: #2980b9;
+}
+
+/*Отображение задачи*/
+.content .rend_block{
+    display: flex;
+    margin-top: 40px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content .rend {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
+    margin-right: 40px;
+    border-radius: 20px;
+}
+.content .rend h3{
+    color: #3498db;
+}
+
+.content .rend .task-block {
+    background: #fff;
+    padding: 20px;
+}
+
+.content .rend .title{
+    background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
+    color: #fff;
+    text-align:center;
+    padding: 20px 0 5px 0;
+    font-size: 20px;
+}
+
+.content .rend button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    width: 70%;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 15px 100px 15px 0px;
+    border: white;
+    font-size: 18px;
+}
+
+
+.content .canvas canvas {
+	border: 3px solid antiquewhite;
+	background-color: antiquewhite;
+	border-radius: 5px;
+}
+
+
+.content .canvas {
+    width: 800px;
+    height:800px;
+}

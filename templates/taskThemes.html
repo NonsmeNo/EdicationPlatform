@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-MathHelper - генератор задач
+MathHelper - темы задач
 {% endblock %}
 {% block myhead %}
 
@@ -10,8 +10,9 @@ MathHelper - генератор задач
 
 <div class="content">
     <div class="generate">
-        <a href="#">тема</a>
-        
+        {% for theme in themes %}
+        <a href="{{ url_for('params', theme_id=theme.id) }}">{{ theme.name }}</a>
+        {% endfor %}
     </div>
 </div>
 

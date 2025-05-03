@@ -3,8 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from email_validator import validate_email, EmailNotValidError
+
 from config import Config
-from models import db, Users
+from models import db, Users, Themes, Tasks, Templates, SavedTasks
 
 # Создаем приложение
 app = Flask(__name__)  
@@ -20,10 +21,19 @@ login_manager.init_app(app)
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-# Роуты
+
+
+# ----------------------------
+# 🗺️ Роуты
+# ----------------------------
+
+
 @app.route('/')
 def index():
     return render_template('index.html', current_path=request.path)
+
+
+# --- 🔐 Авторизация / регистрация ---
 
 @app.route('/profile')
 def profile():
@@ -31,7 +41,6 @@ def profile():
     if not user:
         return redirect(url_for('login'))
     return render_template('profile.html', current_path=request.path, user=user)
-
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
@@ -129,19 +138,141 @@ def logout():
     return redirect(url_for('index'))
 
 
-# Роут графический калькулятор
+
+# --- 📊 Графический калькулятор ---
+
 @app.route('/calculate')
 def calculate():
     return render_template('calculate.html', current_path=request.path)
 
-# Роуты задачи
+
+#  --- ⚙️ Генератор задач ---
+
 @app.route('/taskThemes')
 def task_themes():
-    return render_template('taskThemes.html', current_path=request.path)
+    themes = Themes.query.all()
+    return render_template('taskThemes.html', current_path=request.path, themes=themes)
 
-# Создаем таблицы в базе данных
+
+    
+@app.route('/params', methods=['POST', 'GET'])
+def params():
+    theme_id = request.args.get('theme_id')
+    
+    if request.method == "POST":
+        task_id = request.form['task_id']
+        return redirect(url_for('rend2', task_id=task_id))
+    else:
+        themes = Themes.query.all()
+        current_theme = Themes.query.filter_by(id=theme_id).first()
+        templates = Templates.query.filter_by(theme_id=current_theme.id).all()
+        saved_tasks = SavedTasks.query.filter_by(user_id=current_user.get_id()).filter_by(
+            theme_id=current_theme.id).all()
+        return render_template("params.html", current_path=request.path,
+                               saved_tasks=saved_tasks, themes=themes, 
+                               current_theme=current_theme, templates=templates)
+
+
+
+@app.route('/rend')
+def rend():
+    req = request.args.get('theme_id')
+    theme_id = req.split('?')[0]
+    template_id = req.split('?')[1].split('=')[1]
+    print(theme_id)
+    print(template_id)
+    current_theme = Themes.query.filter_by(id=theme_id).first()
+
+    current_template = Templates.query.filter_by(id=template_id).first()
+    task = Tasks.query.filter_by(theme_id=theme_id).first()
+    themes = Themes.query.all()
+    return render_template("rend.html", current_theme=current_theme, task=task, current_template=current_template, themes=themes)
+
+@app.route('/rend2')
+def rend2():
+    print("sdasd")
+    req = request.args.get('theme_id')
+    theme_id = req.split('?')[0]
+    task_id = req.split('?')[1].split('=')[1]
+    print(theme_id)
+    print(task_id)
+    current_theme = Themes.query.filter_by(id=theme_id).first()
+
+    current_task = SavedTasks.query.filter_by(id=task_id).first()
+    task = Tasks.query.filter_by(theme_id=theme_id).first()
+    themes = Themes.query.all()
+    return render_template("rend2.html", current_theme=current_theme, task=task, current_task=current_task, themes=themes)
+
+
+@app.route('/add_task', methods=['POST'])
+def add_task():
+    data = request.json
+    task = data.get('task')
+    theme_id = data.get('theme_id')
+    template_id = data.get('template_id')
+    print(theme_id)
+
+    new_saved_task = SavedTasks(task=task, theme_id=theme_id, user_id=current_user.get_id(), template_id=template_id)
+    db.session.add(new_saved_task)
+    db.session.commit()
+
+    return jsonify({'message': 'Task added successfully'})
+
+# ----------------------------
+# 🧱 Создаем таблицы в базе данных и заполняем
+# ----------------------------
+
+# Функция заполнения базы
+def seed_themes():
+    if Themes.query.count() == 0:
+        themes = [
+            Themes(id=1, name='Линейные уравнения'),
+            Themes(id=2, name='Квадратные уравнения'),
+            Themes(id=3, name='Тригонометрические уравнения')
+        ]
+        db.session.add_all(themes)
+        db.session.commit()
+        print("Темы успешно добавлены.")
+    else:
+        print("Темы уже существуют в бд")
+
+def seed_templates():
+    if Templates.query.count() == 0:
+        templates = [
+            Templates(template='$@*x$@=$@', template_show='a*x+b=c', theme_id=1),
+            Templates(template='$@*x=$@', template_show='a*x=b', theme_id=1),
+            Templates(template='$@*(x$@)=$@', template_show='a*(x-b)=c', theme_id=1),
+            Templates(template='$@*x^2$@*x$@=0', template_show='a*x^2+bx+c=0', theme_id=2),
+            Templates(template='$@*x^2$@*x=0', template_show='a*x^2+bx=0', theme_id=2),
+            Templates(template='$@*sin(x)$@=$@', template_show='a*sin(x)+b=c', theme_id=3),
+            Templates(template='$@*cos(x)$@=$@', template_show='a*cos(x)+b=c', theme_id=3),
+        ]
+        db.session.add_all(templates)
+        db.session.commit()
+        print("Шаблоны успешно добавлены.")
+    else:
+        print("Шаблоны уже существуют в бд")
+
+def seed_tasks():
+    if Tasks.query.count() == 0:
+        tasks = [
+            Tasks(task_text='Решите линейное уравнение', theme_id=1),
+            Tasks(task_text='Решите квадратное уравнение', theme_id=2),
+            Tasks(task_text='Решите тригонометрическое уравнение', theme_id=3),
+        ]
+        db.session.add_all(tasks)
+        db.session.commit()
+        print("Задачи успешно добавлены.")
+    else:
+        print("Задачи уже существуют в бд")
+
 with app.app_context():
     db.create_all()
+    seed_themes()
+    seed_templates()
+    seed_tasks()
+    pass
+    
 
 if __name__ == "__main__":  # для того чтобы проект запускался как приложение flask
     app.run(debug=True)  # debug чтобы выводились на страничке все ошибки
