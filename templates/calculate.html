@@ -10,6 +10,7 @@ src="{{ url_for('static', filename='js/calculate/calculate.js') }}"></script>
 src="{{ url_for('static', filename='js/calculate/dropdownMenu.js') }}"></script>
 <script type="text/javascript" 
 src="{{ url_for('static', filename='js/calculate/hideParamPanel.js') }}"></script>
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
 
 
@@ -23,9 +24,9 @@ src="{{ url_for('static', filename='js/calculate/hideParamPanel.js') }}"></scrip
 <!-- Подключаем сам MathQuill -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
 
-
 <script type="text/javascript" 
-src="{{ url_for('static', filename='js/calculate/mathQuill.js') }}"></script>
+src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
+
 {% endblock %}
 
 {% block body %}
@@ -85,7 +86,7 @@ src="{{ url_for('static', filename='js/calculate/mathQuill.js') }}"></script>
                     <div class="text-func-field">
                         <span style="white-space: nowrap;">x(t) =  </span>
                     </div>
-                    <span id="func1-field" tabindex="0"></span>
+                    <span id="func1-field"></span>
                     <span id="func1-latex"></span>
                     <span id="func1"></span>
                 </div>
@@ -244,7 +245,53 @@ src="{{ url_for('static', filename='js/calculate/mathQuill.js') }}"></script>
             <button id = 'savebtn'>СКАЧАТЬ</button>
         </div>
     </div>
+</div>
 
+<div class="keyboard">
+    <!-- Цифры и точка -->
+    <button data-latex="0">0</button>
+    <button data-latex="1">1</button>
+    <button data-latex="2">2</button>
+    <button data-latex="3">3</button>
+    <button data-latex="4">4</button>
+    <button data-latex="5">5</button>
+    <button data-latex="6">6</button>
+    <button data-latex="7">7</button>
+    <button data-latex="8">8</button>
+    <button data-latex="9">9</button>
+    <button data-latex=".">.</button>
+  
+    <!-- Переменные -->
+    <button data-latex="x">x</button>
+    <button data-latex="t">t</button>
+  
+    <!-- Скобки и символы -->
+    <button data-latex="("> ( </button>
+    <button data-latex=")"> ) </button>
+    <button data-latex="|">|x|</button> <!-- модуль -->
+    <button data-latex="\sqrt">√</button>
+    <button data-latex="^">xⁿ</button>
+    <button data-latex="\pi">π</button>
+    <button data-latex="e">e</button>
+  
+    <!-- Операции -->
+    <button data-latex="/">÷</button>
+    <button data-latex="\\cdot">×</button>
+    <button data-latex="+">+</button>
+    <button data-latex="-">−</button>
+  
+    <!-- Навигация -->
+    <button data-action="left">←</button>
+    <button data-action="right">→</button>
+    <button data-action="backspace">⌫</button>
+    <button data-action="enter">⏎</button>
+  
+    <!-- Функции -->
+    <button data-latex="\sin{}">sin</button>
+    <button data-latex="\cos">cos</button>
+    <button data-latex="\tan">tan</button>
+    <button data-latex="\log">log</button>
+    <button data-latex="\exp">exp</button>
 </div>
 
 </div>

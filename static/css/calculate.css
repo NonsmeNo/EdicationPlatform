@@ -414,6 +414,28 @@
 	margin-top: 10px;
 }
 
+/* =========================
+   КЛАВИАТУРА
+========================= */
+
+.keyboard {
+	position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+	bottom: 0;
+	background-color: #696969;
+  }
+
+.keyboard button {
+	flex: 1 0 60px;
+	margin: 4px;
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+
 @media screen and (max-width: 1050px) {
 	.content {
 		flex-direction: column;
