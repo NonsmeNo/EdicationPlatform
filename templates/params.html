@@ -68,7 +68,7 @@ MathHelper - {{ current_theme.name }}
     function generateLink2() {
         var selectedValue = document.getElementById('task_id').value;
         var themeId = '{{ current_theme.id }}';
-        var url = "{{ url_for('rend2', theme_id=current_theme.id) }}" + "?task_id=" + selectedValue;
+        var url = "{{ url_for('rendsave', theme_id=current_theme.id) }}" + "?task_id=" + selectedValue;
         document.querySelector('.show-button').setAttribute('href', url);
         console.log(url);
     }
