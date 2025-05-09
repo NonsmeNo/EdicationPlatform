@@ -188,9 +188,8 @@ def rend():
     themes = Themes.query.all()
     return render_template("rend.html", current_theme=current_theme, task=task, current_template=current_template, themes=themes)
 
-@app.route('/rend2')
-def rend2():
-    print("sdasd")
+@app.route('/rendsave')
+def rendsave():
     req = request.args.get('theme_id')
     theme_id = req.split('?')[0]
     task_id = req.split('?')[1].split('=')[1]
@@ -201,7 +200,7 @@ def rend2():
     current_task = SavedTasks.query.filter_by(id=task_id).first()
     task = Tasks.query.filter_by(theme_id=theme_id).first()
     themes = Themes.query.all()
-    return render_template("rend2.html", current_theme=current_theme, task=task, current_task=current_task, themes=themes)
+    return render_template("rendSave.html", current_theme=current_theme, task=task, current_task=current_task, themes=themes)
 
 
 @app.route('/add_task', methods=['POST'])
