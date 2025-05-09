@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (screenWidth < 1050) {
             canvas_block.style.width = '100%';
-        } else {
-            canvas_block.style.width = isHidden ? '80%' : '100%';
         }
     });
 });

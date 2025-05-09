@@ -100,9 +100,9 @@ src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
                 </div>
                 
                 <div class="input-param-field">
-                    <input type="number" id="min_t" value="0" step="any">
+                    <input class="input-key" type="number" id="min_t" value="0" step="any">
                         ⩽ t ⩽
-                    <input type="number" id="max_t" value="10" step="any">
+                    <input class="input-key" type="number" id="max_t" value="10" step="any">
                 </div>
             </div>
 
@@ -121,7 +121,7 @@ src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
                     <div class="circle-ellips-text">
                         R = 
                     </div>
-                    <input type = "number" min="0.01" id = "radius" value = "5">
+                    <input class="input-key" type = "number" min="0.01" id = "radius" value = "5">
                 </div>
 
                 <p>Введите координаты центра:</p>
@@ -129,14 +129,14 @@ src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
                     <div class="circle-ellips-text">
                         x = 
                     </div>
-                    <input type = "number" id = "x_centre" value = "0">
+                    <input class="input-key" type = "number" id = "x_centre" value = "0">
                 </div>
 
                 <div class="input-circle-ellips-field">
                     <div class="circle-ellips-text">
                         y = 
                     </div>
-                    <input type = "number" id = "y_centre" value = "0">
+                    <input class="input-key" type = "number" id = "y_centre" value = "0">
                 </div>
   
             </div>
@@ -156,12 +156,12 @@ src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
                     <div class="circle-ellips-text">
                         a = 
                     </div>
-                    <input type = "number" id = "ellips_a" value = "2">
+                    <input class="input-key" type = "number" id = "ellips_a" value = "2">
 
                     <div class="circle-ellips-text">
                         b = 
                     </div>
-                    <input type = "number" id = "ellips_b" value = "3">
+                    <input class="input-key" type = "number" id = "ellips_b" value = "3">
                 </div>
                 
                 <p>Введите координаты центра эллипса:</p>
@@ -169,12 +169,12 @@ src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
                     <div class="circle-ellips-text">
                         x = 
                     </div>
-                    <input type = "number" id = "x_centre_ellips" value = "0">
+                    <input class="input-key" type = "number" id = "x_centre_ellips" value = "0">
 
                     <div class="circle-ellips-text">
                         y = 
                     </div>
-                    <input type = "number" id = "y_centre_ellips" value = "0">
+                    <input class="input-key" type = "number" id = "y_centre_ellips" value = "0">
                 </div>
             </div>
             <button id = 'ellipse_centre_btn' class="rend_btn">
@@ -245,54 +245,76 @@ src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
             <button id = 'savebtn'>СКАЧАТЬ</button>
         </div>
     </div>
+
+
+    <button id="keyboard-icon-btn">
+        <img src="static/img/calculate/keyboard.png" alt="keybord button">
+    </button>
 </div>
 
-<div class="keyboard">
-    <!-- Цифры и точка -->
-    <button data-latex="0">0</button>
-    <button data-latex="1">1</button>
-    <button data-latex="2">2</button>
-    <button data-latex="3">3</button>
-    <button data-latex="4">4</button>
-    <button data-latex="5">5</button>
-    <button data-latex="6">6</button>
-    <button data-latex="7">7</button>
-    <button data-latex="8">8</button>
-    <button data-latex="9">9</button>
-    <button data-latex=".">.</button>
-  
-    <!-- Переменные -->
-    <button data-latex="x">x</button>
-    <button data-latex="t">t</button>
-  
-    <!-- Скобки и символы -->
-    <button data-latex="("> ( </button>
-    <button data-latex=")"> ) </button>
-    <button data-latex="|">|x|</button> <!-- модуль -->
-    <button data-latex="\sqrt">√</button>
-    <button data-latex="^">xⁿ</button>
-    <button data-latex="\pi">π</button>
-    <button data-latex="e">e</button>
-  
-    <!-- Операции -->
-    <button data-latex="/">÷</button>
-    <button data-latex="\\cdot">×</button>
-    <button data-latex="+">+</button>
-    <button data-latex="-">−</button>
-  
-    <!-- Навигация -->
-    <button data-action="left">←</button>
-    <button data-action="right">→</button>
-    <button data-action="backspace">⌫</button>
-    <button data-action="enter">⏎</button>
-  
-    <!-- Функции -->
-    <button data-latex="\sin{}">sin</button>
-    <button data-latex="\cos">cos</button>
-    <button data-latex="\tan">tan</button>
-    <button data-latex="\log">log</button>
-    <button data-latex="\exp">exp</button>
+
+<div class="keyboard" id="keyboard">
+
+    <!-- Блок 1 -->
+    <div class="keybord-block-1">
+        <!-- Переменные, скобки, константы, корень, модуль -->
+        <button class="key-btn-col2" data-latex="x">x</button>
+        <button class="key-btn-col2" data-latex="t">t</button>
+        <button class="key-btn-col2" data-latex="\pi">π</button>
+        <button class="key-btn-col2" data-latex="\e">e</button>
+
+        <button class="key-btn-col2" data-latex="(">(</button>
+        <button class="key-btn-col2" data-latex=")">)</button>
+        <button class="key-btn-col2" data-latex="|">|x|</button>
+        <button class="key-btn-col2" data-latex="\sqrt">√</button>
+    </div>
+
+    <!-- Блок 2 -->
+    <!-- Цифры, точка, операторы -->
+        <div class="keybord-block-2">
+        <button class="key-btn-col1" data-latex="7">7</button>
+        <button class="key-btn-col1" data-latex="8">8</button>
+        <button class="key-btn-col1" data-latex="9">9</button>
+        <button class="key-btn-col2" data-latex="/">÷</button>
+
+        <button class="key-btn-col1" data-latex="4">4</button>
+        <button class="key-btn-col1" data-latex="5">5</button>
+        <button class="key-btn-col1" data-latex="6">6</button>
+        <button class="key-btn-col2" data-latex="*">×</button>
+
+        <button class="key-btn-col1" data-latex="1">1</button>
+        <button class="key-btn-col1" data-latex="2">2</button>
+        <button class="key-btn-col1" data-latex="3">3</button>
+        <button class="key-btn-col2" data-latex="-">−</button>
+
+        <button class="key-btn-col2" data-latex="^">xⁿ</button>
+        <button class="key-btn-col1" data-latex="0">0</button>
+        <button class="key-btn-col1" data-latex=".">.</button>
+        <button class="key-btn-col2" data-latex="+">+</button>
+        </div>
+
+    <!-- Блок 3 -->
+        <div class="keybord-block-3">
+        <div class="keybord-functions">
+            <!-- Функции -->
+            <button class="key-btn-col2" data-latex="\sin{}">sin</button>
+            <button class="key-btn-col2" data-latex="\cos">cos</button>
+            <button class="key-btn-col2" data-latex="\tan">tan</button>
+            <button class="key-btn-col2" data-latex="\log">log</button>
+            <button class="key-btn-col2" data-latex="\exp">exp</button>
+        </div>
+        <button class="key-btn-col2" id="keybord-func-btn">функции</button>
+
+        <div class="keybord-nav-btns">
+            <button class="key-btn-col1" data-action="left">←</button>
+            <button class="key-btn-col1" data-action="right">→</button>
+        </div>
+
+        <button class="key-btn-col1" data-action="backspace">⌫</button>
+        <button class="key-enter-btn" data-action="enter">⏎</button>
+    </div>
 </div>
+
 
 </div>
 {% endblock %}

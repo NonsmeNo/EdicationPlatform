@@ -148,4 +148,81 @@ document.addEventListener('DOMContentLoaded', function () {
           }
       });
   });
+
+
+
+
+    // ---------------------------------
+    // Видимость клавиатуры 
+    const keyboard = document.querySelector('.keyboard');
+    const keyboardBtn = document.getElementById('keyboard-icon-btn');
+    const hideParamBtn = document.querySelector('.hide-param-btn');
+
+    const keyboardFuncBtn = document.getElementById('keybord-func-btn');
+    const keyboardFunc = document.querySelector('.keybord-functions');
+
+    keyboardBtn.addEventListener('click', () => {
+        const isVisible = keyboard.classList.toggle('visible');
+        keyboardFunc.style.display = 'none';
+    
+        if (isVisible) {
+            keyboard.style.display = 'flex';
+            keyboardBtn.style.bottom = '195px';
+        } else {
+            keyboard.style.display = 'none';
+            keyboardBtn.style.bottom = '10px';
+        }
+    });
+
+    hideParamBtn.addEventListener('click', () => {
+        keyboard.style.display = 'none';
+        keyboardBtn.style.bottom = '10px';
+        keyboard.classList.remove('visible');
+
+        keyboardFunc.style.display = 'none';
+    });
+
+    keyboardFuncBtn.addEventListener('click', () => {
+        keyboardFunc.style.display = keyboardFunc.style.display === 'grid' ? 'none' : 'grid';
+    });  
+
+
+
+    // Собираем все нужные элементы
+    const triggerElements = [
+        ...document.querySelectorAll('input.input-key'),
+        document.getElementById('math-field'),
+        document.getElementById('func1-field'),
+        document.getElementById('func2-field')
+    ].filter(Boolean); // убираем null, если каких-то id нет
+
+    function showKeyboard() {
+        if (window.innerWidth < 1050) {
+            keyboard.classList.add('visible');
+        }
+    }
+
+    function hideKeyboard() {
+        if (window.innerWidth < 1050) {
+            keyboard.classList.remove('visible');
+        }
+    }
+
+    // Показываем клавиатуру при касании или клике на нужные элементы
+    triggerElements.forEach(el => {
+        el.addEventListener('touchstart', showKeyboard);
+        el.addEventListener('click', showKeyboard);
+    });
+
+    // Скрываем клавиатуру при клике вне
+    document.addEventListener('click', (e) => {
+        if (
+            window.innerWidth < 1050 &&
+            !keyboard.contains(e.target) &&
+            !triggerElements.some(el => el.contains(e.target))
+        ) {
+            hideKeyboard();
+        }
+    });
+    
 });
