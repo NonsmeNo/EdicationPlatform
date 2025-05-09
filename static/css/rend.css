@@ -8,21 +8,82 @@
 	box-sizing: border-box;
 	width: 100%;
 	height: calc(100vh - 81px);
-	order: 2;
+    padding: 0 50px;
+}
 
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+/* =========================
+   СПИСОК ТЕМ
+========================= */
+.content .themes-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 50px 25%;
+}
+
+.content .themes-list .theme-item {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    color: #696969;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1; /* Квадратный блок */
+    transition: transform 0.2s ease;
+}
+
+.content .themes-list .theme-item:hover {
+    transform: translateY(-4px);
+    color:#2E9AFF;
+}
+
+.content .themes-list .theme-item img {
+    width: 75%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.content .themes-list .theme-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+@media (max-width: 1050px) {
+    .content {
+        padding: 0 20px;
+    }
+
+    .content .themes-list {
+        grid-template-columns: 1fr;
+        padding: 20px 50px;
+    }
+
+    .content .themes-list .theme-item {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
 }
 
 
+/* =========================
+   БЛОК ПАРАМЕТРОВ
+========================= */
 
 .content .gener_param_block {
-    margin: 200px auto 0 auto;
-    width: 40%;
-    font-size: 22px;
+    margin: 0 auto;
+    padding: 100px 0;
+    width: 45%;
     display: flex;
     flex-direction: column;
+
+    font-size: 18px;
+	font-weight: 700;
+    
 }
 .content .gener_param_block .title{
     background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
@@ -31,6 +92,8 @@
     text-align:center;
     padding: 20px 0;
     font-size: 20px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    z-index: 1;
 }
 
 .content .gener_param_block form{
@@ -39,7 +102,18 @@
     flex-direction: row;
     padding: 20px;
     text-align:center;
+    color: #666666;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
+.content .gener_param_block .auth-href a{
+    color: #FF5959;
+}
+
+.content .gener_param_block .auth-href a:hover{
+    color: #ca1818;
+}
+
+
 .content .gener_param_block form h3{
     padding-bottom: 15px;
     color: #3498db;
@@ -78,6 +152,30 @@
 .content .gener_param_block .button:hover {
     background-color: #2980b9;
 }
+
+@media (max-width: 1050px) {
+    .content .gener_param_block form{
+    flex-direction: column;
+    }
+
+    .content .gener_param_block {
+    width: 90%;
+    padding-top: 20px;
+    }
+
+    .content .gener_param_block form .gener, .save{
+    width: 100%;
+    }
+
+    .content .gener_param_block form  .save{
+        margin-top: 20px;
+    }
+}
+
+/* =========================
+   ГЕНЕРАЦИЯ
+========================= */
+
 
 /*Отображение задачи*/
 .content .rend_block{

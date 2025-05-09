@@ -9,7 +9,6 @@ MathHelper - {{ current_theme.name }}
 {% block body %}
 
 <div class="content">
-    <a href="/taskThemes">Назад к темам</a>
     
     <div class="gener_param_block">
         <div class="title">
@@ -47,8 +46,11 @@ MathHelper - {{ current_theme.name }}
                             Чтобы сохранить задачу, <br> вам нужно сначало ее сгенерировать
                     {% endif %}
                 {% else %}
+                <div class="auth-href">
                     <br>
-                    Чтобы иметь возможность сохранять задачи, вы должны <a href="/login">авторизироваться</a>
+                    Чтобы иметь возможность сохранять задачи, вы должны <a href="/login" class="auth-href">авторизироваться</a>
+                </div>
+
                 {% endif %}
             </div>
         </form>

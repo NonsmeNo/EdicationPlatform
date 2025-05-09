@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function convertLaTeXToJS(latex) {
-        latex = latex.replace(/\\left\(/g, '(').replace(/\\right\)/g, ')');
-        latex = latex.replace(/([0-9])([a-zA-Z\\sin|\\cos|\\tan|\\sqrt|\\log|\\exp|abs|acos|asin|atan|sign|pi|e])/g, '$1*$2');
-        latex = latex.replace(/(x|t)\(/g, '$1*(');
+        latex = latex.replace(/\\left\(/g, '(').replace(/\\right\)/g, ')'); //замена скобок latex на обычные
+
+        latex = latex.replace(/(x|t)\(/g, '$1*('); // добавление между (x или t) и скобкой знака умножения
 
         latex = latex.replace(/\\sin/g, 'Math.sin');
         latex = latex.replace(/\\cos/g, 'Math.cos');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         latex = latex.replace(/sign/g, 'Math.sign');
         latex = latex.replace(/pi/g, 'Math.PI');
         latex = latex.replace(/e/g, 'Math.E');
-        latex = latex.replace(/\\cdot/g, '*');
+        latex = latex.replace(/\cdot/g, '*');
         latex = latex.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1/($2))');
         latex = latex.replace(/{/g, '(').replace(/}/g, ')');
 

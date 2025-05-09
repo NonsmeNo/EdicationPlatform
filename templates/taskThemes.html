@@ -3,15 +3,18 @@
 MathHelper - темы задач
 {% endblock %}
 {% block myhead %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/rend.css') }}">
 {% endblock %}
 
 {% block body %}
 
 <div class="content">
-    <div class="generate">
+    <div class="themes-list">
         {% for theme in themes %}
-        <a href="{{ url_for('params', theme_id=theme.id) }}">{{ theme.name }}</a>
+        <a href="{{ url_for('params', theme_id=theme.id) }}" class="theme-item">
+            <img src="{{ url_for('static', filename='img/rend/theme' ~ loop.index ~ '.png') }}" alt="Theme image">
+            <div class="theme-name">{{ theme.name }}</div>
+        </a>
         {% endfor %}
     </div>
 </div>

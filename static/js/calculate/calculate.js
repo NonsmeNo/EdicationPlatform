@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Максимальное количество функций
     const max_funcs = 5;
     const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
+	//const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
 
     let func_cnt = 0; // Текущее количество функций
     let adds_func = []; // Сохраненные функции для перерисовки
@@ -432,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		ctx.beginPath(); //первоначальные параметры
 		ctx.moveTo(x_canv, y_canv);
-		ctx.lineWidth = 2;
+		ctx.lineWidth = 4;
 		ctx.strokeStyle = color;
 		f = 1;
 
