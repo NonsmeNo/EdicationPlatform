@@ -168,7 +168,7 @@ def params():
         templates = Templates.query.filter_by(theme_id=current_theme.id).all()
         saved_tasks = SavedTasks.query.filter_by(user_id=current_user.get_id()).filter_by(
             theme_id=current_theme.id).all()
-        return render_template("params.html", current_path=request.path,
+        return render_template("params.html", current_path='/taskThemes',
                                saved_tasks=saved_tasks, themes=themes, 
                                current_theme=current_theme, templates=templates)
 
@@ -186,7 +186,7 @@ def rend():
     current_template = Templates.query.filter_by(id=template_id).first()
     task = Tasks.query.filter_by(theme_id=theme_id).first()
     themes = Themes.query.all()
-    return render_template("rend.html", current_theme=current_theme, task=task, current_template=current_template, themes=themes)
+    return render_template("rend.html", current_path='/taskThemes', current_theme=current_theme, task=task, current_template=current_template, themes=themes)
 
 @app.route('/rendsave')
 def rendsave():
@@ -200,7 +200,7 @@ def rendsave():
     current_task = SavedTasks.query.filter_by(id=task_id).first()
     task = Tasks.query.filter_by(theme_id=theme_id).first()
     themes = Themes.query.all()
-    return render_template("rendSave.html", current_theme=current_theme, task=task, current_task=current_task, themes=themes)
+    return render_template("rendSave.html", current_path='/taskThemes', current_theme=current_theme, task=task, current_task=current_task, themes=themes)
 
 
 @app.route('/add_task', methods=['POST'])
