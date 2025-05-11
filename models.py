@@ -26,6 +26,7 @@ class Templates(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     template = db.Column(db.String(255), nullable=False)
     template_show = db.Column(db.String(255), nullable=False)
+    template_latex = db.Column(db.String(500), nullable=False)
     theme_id = db.Column(db.Integer, db.ForeignKey('themes.id'), nullable=False)
 
     theme = db.relationship('Themes', backref=db.backref('templates', lazy=True))

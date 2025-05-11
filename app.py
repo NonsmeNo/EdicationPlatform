@@ -238,13 +238,13 @@ def seed_themes():
 def seed_templates():
     if Templates.query.count() == 0:
         templates = [
-            Templates(template='$@*x$@=$@', template_show='a*x+b=c', theme_id=1),
-            Templates(template='$@*x=$@', template_show='a*x=b', theme_id=1),
-            Templates(template='$@*(x$@)=$@', template_show='a*(x-b)=c', theme_id=1),
-            Templates(template='$@*x^2$@*x$@=0', template_show='a*x^2+bx+c=0', theme_id=2),
-            Templates(template='$@*x^2$@*x=0', template_show='a*x^2+bx=0', theme_id=2),
-            Templates(template='$@*sin(x)$@=$@', template_show='a*sin(x)+b=c', theme_id=3),
-            Templates(template='$@*cos(x)$@=$@', template_show='a*cos(x)+b=c', theme_id=3),
+            Templates(template='$@*x$@=$@', template_show='a·x + b = c', template_latex=r'$@\cdot x$@=$@', theme_id=1),
+            Templates(template='$@*x=$@', template_show='a·x = b', template_latex=r'$@\cdot x=$@', theme_id=1),
+            Templates(template='$@*(x$@)=$@', template_show='a·(x - b) = c', template_latex=r'$@\cdot\left(x$@\right)=$@', theme_id=1),
+            Templates(template='$@*x^2$@*x$@=0', template_show='a·x² + b·x + c = 0', template_latex=r'$@\cdot x^2+$@\cdot x$@=0', theme_id=2),
+            Templates(template='$@*x^2$@*x=0', template_show='a·x² + b·x = 0 ', template_latex=r'$@\cdot x^2$@\cdot x=0', theme_id=2),
+            Templates(template='$@*sin(x)$@=$@', template_show='a·sin(x) + b = c', template_latex=r'$@\cdot\sin\left(x\right)$@=$@', theme_id=3),
+            Templates(template='$@*cos(x)$@=$@', template_show='a·cos(x) + b = c', template_latex=r'$@\cdot\cos\left(x\right)$@=$@', theme_id=3),
         ]
         db.session.add_all(templates)
         db.session.commit()

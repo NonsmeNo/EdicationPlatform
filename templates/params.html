@@ -21,9 +21,12 @@ MathHelper - {{ current_theme.name }}
                 <h3>Генерация уравнений</h3>
                 <label for="equation-type">Выберите шаблон</label><br>
                 <select id="equation-type" class="custom-select">
+                
                     {% for el in templates %}
                     <option value="{{ el.id }}">{{ el.template_show }}</option>
                     {% endfor %}
+                
+
                 </select><br>
     
                 <a href="#" onclick="generateLink()" class="button generate-button">Сгенерировать</a>

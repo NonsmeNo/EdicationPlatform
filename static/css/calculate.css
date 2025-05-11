@@ -353,7 +353,7 @@
 }
 
 #latex, #func1-latex, #func2-latex{
-	display: none;
+	display: block;
 }
 
 #func, #func1, #func2{
