@@ -207,11 +207,13 @@ def rendsave():
 def add_task():
     data = request.json
     task = data.get('task')
+    task_template = data.get('task_template')
+    task_latex = data.get('latex')
     theme_id = data.get('theme_id')
     template_id = data.get('template_id')
     print(theme_id)
 
-    new_saved_task = SavedTasks(task=task, theme_id=theme_id, user_id=current_user.get_id(), template_id=template_id)
+    new_saved_task = SavedTasks(task=task, task_template=task_template, task_latex= task_latex, theme_id=theme_id, user_id=current_user.get_id(), template_id=template_id)
     db.session.add(new_saved_task)
     db.session.commit()
 

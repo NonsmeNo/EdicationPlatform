@@ -4,15 +4,17 @@ MathHelper - {{ current_theme.name }}
 {% endblock %}
 
 {% block myhead %}
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/rend.css') }}">
 <script type="text/javascript" src="{{ url_for('static', filename='js/rend/rend.js') }}"></script>
+
 {% endblock %}
 {% block body %}
 <div class="content">
     <input type="hidden" id="template-value" value="{{ current_template.template }}">
     <input type="hidden" id="template-id" value="{{ current_template.id }}">
     <input type="hidden" id="theme-id" value="{{ current_theme.id }}">
-    <input id="template-latex" value="{{ current_template.template_latex }}">
+    <input type="hidden" id="template-latex" value="{{ current_template.template_latex }}">
 
     <div class="rend_block">
         <div class="rend">
@@ -23,18 +25,21 @@ MathHelper - {{ current_theme.name }}
                 <div class="task">
                     <h3>Задание:</h3>
                     {{ task.task_text }}
-                    <div id="output"></div>
-                    <div id="output-latex"></div>
+
+                    <br>
+                    <div id="output" class="mathquill-editable"></div>
                 </div>
                 <div class="answer">
+                    <div id="answer" class="mathquill-answer"></div>
                     <div class="answer-btns">
                         <button id="btnShowGraph">Показать график</button>
                         <button id="btnShowAnsw">Показать ответ</button>
                     </div>
-                    <div id="answer"></div>
                     {% if current_user.get_id() %}
                         <br>
-                        <button id="btnSave">Сохранить задачу</button>
+                        <div class="btn-save">
+                            <button id="btnSave">Сохранить задачу</button>
+                        </div>
                     {% else %}
                         <input type="hidden" id="btnSave" value="">
                     {% endif %}

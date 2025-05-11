@@ -39,7 +39,7 @@ MathHelper - {{ current_theme.name }}
                         <label for="task_id">Выберите задачу</label> <br>
                         <select id="task_id" class="custom-select">
                                 {% for el in saved_tasks %}
-                                    <option value="{{ el.id }}">{{ el.task }}</option>
+                                    <option value="{{ el.id }}">{{ el.task_template}}</option>
                                 {% endfor %}
     
                         </select><br>

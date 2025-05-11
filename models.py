@@ -35,6 +35,8 @@ class Templates(db.Model):
 class SavedTasks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(500), nullable=False)
+    task_template = db.Column(db.String(500), nullable=False)
+    task_latex = db.Column(db.String(500), nullable=False)
     theme_id = db.Column(db.Integer, db.ForeignKey('themes.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     template_id = db.Column(db.Integer, db.ForeignKey('templates.id'), nullable=False)

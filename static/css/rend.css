@@ -221,15 +221,28 @@
      padding-top: 20px;
 }
 
+.content .rend .mathquill-editable .mq-root-block {
+    font-weight: bold;
+    transform: scale(1.1);
+    transform-origin: left center;
+}
 
+.content .rend .mathquill-answer .mq-root-block {
+    font-weight: bold;
+    transform: scale(1);
+    transform-origin: left center;
+}
+.content .rend .answer {
+    margin-top: 10px;
+}
 .content .rend .answer-btns {
     display: flex;
     flex-direction: row;
-    margin: 20px 0;
+    margin-top: 10px;
     gap: 15px;
 }
 
-.content .rend .answer button {
+.content .rend .answer-btns button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #89abff;
@@ -243,11 +256,33 @@
     
 }
 
-.content .rend .answer button:hover {
+.content .rend .answer-btns button:hover {
     background-color: #FF5959;
     
 }
 
+.content .rend .btn-save button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #45eb98;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: white;
+    font-size: 18px;
+    width: 48%;
+    transition: background-color 0.4s ease;
+    
+}
+
+.content .rend .btn-save button:hover {
+    background-color: #FF5959;
+    
+}
+
+.content .rend #answer {
+    font-size: 20px;
+}
 
 /* холст */
 .content .rend_block .canvas {

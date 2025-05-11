@@ -36,8 +36,14 @@ drow_axes();
 
 
 // 🧪 ГЕНЕРАЦИЯ ЗАДАНИЯ
-const example_task = create_task();
-document.getElementById("output").innerHTML = example_task;
+const [example_task, latex] = create_task();
+
+const MQ = MathQuill.getInterface(2); // v2 интерфейс
+
+// красивый вывод задания
+const outputDiv = document.getElementById("output");
+const mathField = MQ.StaticMath(outputDiv);
+mathField.latex(latex);
 
 
 // -----------------------------------
@@ -49,13 +55,13 @@ if (btnSave) {
     SaveButton.addEventListener('click', () => {
         const task = example_task; // Переменная task_example, которую добавить в базу данных
         const theme_id = el('theme-id').value; // ID темы, к которой добавить задачу
-
+        const task_template = formatEqTemplate(example_task);
         fetch('/add_task', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({task, theme_id, template_id}),
+            body: JSON.stringify({task, task_template, latex, theme_id, template_id}),
         })
         .then(response => response.json())
         .then(data => {
@@ -155,7 +161,7 @@ function create_task() {
         }
     }
 
-    // Убираем лишний "+" в начале
+    // Убираем лишний "+" в начале task
     if (task[0] === '+') task = task.slice(1);
     task = task.replace('=+', '=').replace('=-', '=-');
 
@@ -173,7 +179,7 @@ function create_task() {
         }
     }
 
-    // Убираем лишний "+" в начале
+    // Убираем лишний "+" в начале latex
     if (latex[0] === '+') latex = latex.slice(1);
     latex = latex.replace('=+', '=').replace('=-', '=-');
 
@@ -193,9 +199,9 @@ function create_task() {
         }
     }
 
-    document.getElementById("output-latex").innerHTML = latex;
+    
 
-    return task;
+    return [task, latex];
 }
 
 
@@ -232,6 +238,14 @@ function findXLinear(eq, type) {
         b = parseFloat(bb[1]);
         x = (c - a * b) / a;
     }
+
+    // Округление до 3 знаков после запятой
+    if (Number.isFinite(x) && x % 1 !== 0) {
+    if (x.toString().split(".")[1]?.length > 3) {
+        x = parseFloat(x.toFixed(3)); 
+    }
+}
+
     document.getElementById("answer").innerHTML = "Ответ: x = " + x;
 }
 
@@ -242,50 +256,74 @@ function findXLinear(eq, type) {
 // 📐 Решение квадратных уравнений
 
 function findXQuad(eq, type) {
-let a, b, c;
+    let a, b, c;
+    let result;
 
-// Если уравнение полного вида (ax^2 + bx + c = 0)
-if (type == 4) {
-    // Извлекаем коэффициенты a, b и c из уравнения
-    let parts = eq.split("*x");
-    a = parseFloat(parts[0]); 
-    b = parseFloat(parts[2]);
-    c = parseFloat(parts[3].split("=")[0]);
+    // Если уравнение полного вида (ax^2 + bx + c = 0)
+    if (type == 4) {
+        // Извлекаем коэффициенты a, b и c из уравнения
+        let parts = eq.split("*x");
+        a = parseFloat(parts[0]); 
+        b = parseFloat(parts[2]);
+        c = parseFloat(parts[3].split("=")[0]);
+        
+        // Вычисляем дискриминант
+        let discriminant = b * b - 4 * a * c;
+
+        // Находим корни уравнения в зависимости от дискриминанта
+        if (discriminant > 0) {
+            // Два корня
+            let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+
+            // Округление до 3 знаков после запятой
+            if (Number.isFinite(x1) && x1 % 1 !== 0) {
+            if (x1.toString().split(".")[1]?.length > 3) {
+                x1 = parseFloat(x1.toFixed(3)); 
+            }
+            if (Number.isFinite(x2) && x2 % 1 !== 0) {
+            if (x2.toString().split(".")[1]?.length > 3) {
+                x2 = parseFloat(x2.toFixed(3)); 
+                }
+            }
+
+                // Отображение ответа
+            result = "Ответ: x₁ = " + x1 + ", x₂ = " + x2;
+            result += ", D = " + discriminant; 
+        } else if (discriminant === 0) {
+            // Один корень
+            let x = -b / (2 * a);
+            // Округление до 3 знаков после запятой
+            if (Number.isFinite(x) && x % 1 !== 0) {
+            if (x.toString().split(".")[1]?.length > 3) {
+                x = parseFloat(x.toFixed(3)); 
+            }
+            result = "Ответ: x = " + x + ", D = " + discriminant;
+            }
+        } else {
+            // Нет корней
+            result = "Ответ: Нет корней";
+        }
+    }
     
-    // Вычисляем дискриминант
-    let discriminant = b * b - 4 * a * c;
 
-    // Находим корни уравнения в зависимости от дискриминанта
-    if (discriminant > 0) {
-        // Два корня
-        let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-        let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+    // Если уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
+    } else if (type == 5) {
+        // Извлекаем коэффициенты a и b
+        a = parseFloat(eq.split("*x")[0]);
+        b = parseFloat(eq.split("*x*x")[1].split("x=")[0]);
 
-            // Отображение ответа
-        let result = "Ответ: x1 = " + x1.toFixed(2) + ", x2 = " + x2.toFixed(2);
-        result += ", D = " + discriminant; 
-        document.getElementById("answer").innerHTML = result;
-    } else if (discriminant === 0) {
-        // Один корень
-        let x = -b / (2 * a);
-        let result = "Ответ: x = " + x + ", D = " + discriminant;
-        document.getElementById("answer").innerHTML = result;
-
-    } else {
-        // Нет корней
-        document.getElementById("answer").innerHTML = "Ответ: Нет корней";
+        // Для неполного уравнения решаем: x1 = 0, x2 = -b/a
+        let x2 = (b * (-1) / a)
+        if (Number.isFinite(x2) && x % 1 !== 0) {
+            if (x2.toString().split(".")[1]?.length > 3) {
+                x2 = parseFloat(x2.toFixed(3)); 
+            }
+        result = "Ответ: x₁ = 0, x₂ = " + x2;
+        }
     }
 
-// Если уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
-} else if (type == 5) {
-    // Извлекаем коэффициенты a и b
-    a = parseFloat(eq.split("*x")[0]);
-    b = parseFloat(eq.split("*x*x")[1].split("x=")[0]);
-
-    // Для неполного уравнения решаем: x1 = 0, x2 = -b/a
-    let result = "Ответ: x1 = 0, x2 = " + (b * (-1) / a).toFixed(2);
     document.getElementById("answer").innerHTML = result;
-}
 }
 
 
@@ -293,50 +331,100 @@ if (type == 4) {
 
 // 🌊 Решение тригонометрических уравнений
 function findXTrig(eq) {
-    if (template_id == 6) {
-        const parts = eq.split("=");
-        const lhs = parts[0];
-        const rhs = parts[1];
+    const MQ = MathQuill.getInterface(2);
+    const answerDiv = document.getElementById("answer");
+    answerDiv.innerHTML = ""; // Очистка вывода
 
+    const parts = eq.split("=");
+    const lhs = parts[0];
+    const rhs = parts[1];
+
+    if (template_id == 6) {
+        // sin(x)-тип
         const A = parseFloat(lhs.match(/(-?\d+)\*?sin\(x\)/)[1]);
         const B = parseFloat(lhs.match(/([+-]?\d+)(?!\*sin\(x\))/)[1]);
         const C = parseFloat(rhs);
+        const sin_x = (C - B) / A;
 
-        console.log("A:", A);
-        console.log("B:", B);
-        console.log("C:", C);
-
-        sin_x = (C-B)/A;
-        if (sin_x>1 || sin_x<-1) {
-            document.getElementById("answer").innerHTML = "Ответ: нет корней!";
-        } else {
-            document.getElementById("answer").innerHTML = "Ответ: <br> x = arcsin(" +
-            sin_x.toFixed(2) + ") + 2pi*k<br> x = pi - arcsin(" + sin_x.toFixed(2) + ") + 2pi*k <br><br> x = "
-            + Math.asin(sin_x).toFixed(2) + " + 2pi*k<br> x = " + (3.14-Math.asin(sin_x)).toFixed(2) + " + 2pi*k<br>";
+        if (sin_x > 1 || sin_x < -1) {
+            answerDiv.textContent = "Ответ: нет корней!";
+            return;
         }
-    } else if (template_id == 7) {
-        const parts = eq.split("=");
-        const lhs = parts[0];
-        const rhs = parts[1];
 
+        const arcsinVal = Math.asin(sin_x);
+        const x1 = arcsinVal.toFixed(2);
+        const x2 = (Math.PI - arcsinVal).toFixed(2);
+
+        const raw = sin_x;
+        const formattedSin = (raw % 1 !== 0 && raw.toString().split('.')[1]?.length > 2)
+            ? raw.toFixed(2)
+            : raw.toString();
+
+        const expressions = [
+            `Ответ:`,
+            `x = \\arcsin(${formattedSin}) + 2\\pi k`,
+            `x = \\pi - \\arcsin(${formattedSin}) + 2\\pi k`,
+            `x \\approx ${x1} + 2\\pi k`,
+            `x \\approx ${x2} + 2\\pi k`
+        ];
+
+        expressions.forEach(expr => {
+            const span = document.createElement("span");
+            answerDiv.appendChild(span);
+            MQ.StaticMath(span).latex(expr);
+            answerDiv.appendChild(document.createElement("br"));
+        });
+
+    } else if (template_id == 7) {
+        // cos(x)-тип
         const A = parseFloat(lhs.match(/(-?\d+)\*?cos\(x\)/)[1]);
         const B = parseFloat(lhs.match(/([+-]?\d+)(?!\*cos\(x\))/)[1]);
         const C = parseFloat(rhs);
+        const cos_x = (C - B) / A;
 
-        console.log("A:", A);
-        console.log("B:", B);
-        console.log("C:", C);
-
-        cos_x = (C-B)/A;
-        if (cos_x>1 || cos_x<-1) {
-            document.getElementById("answer").innerHTML = "Ответ: нет корней!";
-        } else {
-            document.getElementById("answer").innerHTML = "Ответ: <br> x = pi - arccos(" +
-            cos_x.toFixed(2) + ") + 2pi*k<br> x = -pi+arccos(" + cos_x.toFixed(2) + ") + 2pi*k <br><br> x = "
-            + (3.14-Math.acos(cos_x)).toFixed(2) + " + 2pi*k<br> x = " + (-3.14+Math.acos(cos_x)).toFixed(2) + " + 2pi*k<br>";
+        if (cos_x > 1 || cos_x < -1) {
+            answerDiv.textContent = "Ответ: нет корней!";
+            return;
         }
-    }
 
+        const arccosVal = Math.acos(cos_x);
+        const x1 = (Math.PI - arccosVal).toFixed(2);
+        const x2 = (-Math.PI + arccosVal).toFixed(2);
+
+        const raw = cos_x;
+        const formattedCos = (raw % 1 !== 0 && raw.toString().split('.')[1]?.length > 2)
+            ? raw.toFixed(2)
+            : raw.toString();
+
+        const expressions = [
+            `Ответ:`,
+            `x = \\pi - \\arccos(${formattedCos}) + 2\\pi k`,
+            `x = -\\pi + \\arccos(${formattedCos}) + 2\\pi k`,
+            `x \\approx ${x1} + 2\\pi k`,
+            `x \\approx ${x2} + 2\\pi k`
+        ];
+
+        expressions.forEach(expr => {
+            const span = document.createElement("span");
+            answerDiv.appendChild(span);
+            MQ.StaticMath(span).latex(expr);
+            answerDiv.appendChild(document.createElement("br"));
+        });
+    }
+}
+
+
+
+
+// 🔄 Преобразование уравнения для шаблона
+function formatEqTemplate(equation) {
+    // Заменяем все символы '*' на '·'
+    let formatted = equation.replace(/\*/g, '·');
+    
+    // Заменяем 'x^2' на 'x²'
+    formatted = formatted.replace(/x\^2/g, 'x²');
+    
+    return formatted;
 }
 
 

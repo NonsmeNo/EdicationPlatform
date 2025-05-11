@@ -4,30 +4,21 @@ MathHelper - Графический калькулятор
 {% endblock %}
 
 {% block myhead %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
+
+
 <script type="text/javascript" 
 src="{{ url_for('static', filename='js/calculate/calculate.js') }}"></script>
 <script type="text/javascript" 
 src="{{ url_for('static', filename='js/calculate/dropdownMenu.js') }}"></script>
 <script type="text/javascript" 
 src="{{ url_for('static', filename='js/calculate/hideParamPanel.js') }}"></script>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
-
-
-
-<!-- Подключаем стиль MathQuill -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css"/>
-
-<!-- Подключаем jQuery с Google CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-<!-- Подключаем сам MathQuill -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
-
 <script type="text/javascript" 
 src="{{ url_for('static', filename='js/calculate/keyboard.js') }}"></script>
-
 {% endblock %}
+
+
+
 
 {% block body %}
 <div class="content">

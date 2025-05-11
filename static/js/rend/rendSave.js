@@ -1,32 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 
+// 🔧 ОСНОВНЫЕ ПЕРЕМЕННЫЕ И НАСТРОЙКИ
 const canv = el('canvas');
 const btnShowGraph = el('btnShowGraph');
 const btnShowAnsw = el('btnShowAnsw');
 const answer = el('answer');
 const template_id = el('template-id').value;
-const colors = [
-    '#01AB9F',
-    '#FF7A5A',
-    '#EE82EE',
-    '#9A80F6',
-    '#82AFFB'
-];
+const colors = ['#01AB9F', '#FF7A5A', '#EE82EE', '#9A80F6', '#82AFFB'];
 
 
-// Скрыть canvas изначально
+
+// 👻 НАСТРОЙКА НАЧАЛЬНОГО ОТОБРАЖЕНИЯ ЭЛЕМЕНТОВ
 canv.style.display = 'none';
 answer.style.display = 'none';
 
-const width = 800;
-const height = 800;
-
-
+// 📐 КООРДИНАТНАЯ СИСТЕМА
 x_left = -10;
 x_right = 10;
 y_down = x_left;
 y_up = x_right;
+
+// 🖼️ ПОДГОТОВКА CANVAS
+canv.style.display = 'block';
+canv.width = canv.clientWidth;
+canv.height = canv.clientHeight;
+const width = canv.width;
+const height = canv.height;
+canv.style.display = 'none';
 
 //на старте
 const ctx = canv.getContext('2d');
@@ -34,11 +35,22 @@ drow_start();
 drow_axes();
 
 
+// сам пример
 const example_task = el('task-task').value;
-console.log(example_task);
-document.getElementById("output").innerHTML = example_task;
 
-// Обработчик события для кнопки "Показать ответ"
+// красивый вывод задания
+const task_latex = el('task-latex').value;
+
+const MQ = MathQuill.getInterface(2)
+const outputDiv = document.getElementById("output");
+const mathField = MQ.StaticMath(outputDiv);
+mathField.latex(task_latex);
+
+
+// -----------------------------------
+// СОБЫТИЯЯ
+
+// 🧠 ОТОБРАЖЕНИЕ ОТВЕТА ПРИ НАЖАТИИ КНОПКИ
 btnShowAnsw.addEventListener('click', () => {
     if (answer.style.display == 'none'){
         answer.style.display = 'block';
@@ -59,7 +71,7 @@ btnShowAnsw.addEventListener('click', () => {
 });
 
 
-// Обработчик события для кнопки "Показать график"
+// 📊 ОТОБРАЖЕНИЕ ГРАФИКА ПРИ НАЖАТИИ КНОПКИ
 btnShowGraph.addEventListener('click', () => {
 
     // Показать canvas
@@ -90,7 +102,11 @@ btnShowGraph.addEventListener('click', () => {
 });
 
 
+//  ----------------------------
+// 🧩 ФУНКЦИИ
 
+
+// 🧮 Решение линейных уравнений
 function findXLinear(eq, type) {
 
     let a, b, c, x;
@@ -122,95 +138,184 @@ function findXLinear(eq, type) {
         b = parseFloat(bb[1]);
         x = (c - a * b) / a;
     }
-    document.getElementById("answer").innerHTML = "Ответ: x = " + x;
-}
-function findXQuad(eq, type) {
-let a,b,c;
-    if (type == 4) {
-        // Извлекаем коэффициенты a, b и c
-        let parts = eq.split("*x");
-        a = parseFloat(parts[0]);
-        b = parseFloat(parts[2]);
-        c = parseFloat(parts[3].split("=")[0]);
-        console.log(a);
-        console.log(b);
-        console.log(c);
 
-        // Вычисляем дискриминант
-        let discriminant = b*b - 4*a*c;
-        console.log(discriminant);
-        // Находим корни уравнения
-        if (discriminant > 0) {
-        let x1 = (-b + Math.sqrt(discriminant)) / (2*a);
-        let x2 = (-b - Math.sqrt(discriminant)) / (2*a);
-        document.getElementById("answer").innerHTML = "Ответ: x1 = " + x1.toFixed(2) + ", x2 = " + x2.toFixed(2) + ", D = " + discriminant;
-        } else if (discriminant === 0) {
-        let x = -b / (2*a);
-        document.getElementById("answer").innerHTML = "Ответ: x = " + x + ", D = " + discriminant;
-        } else {
-        document.getElementById("answer").innerHTML = "Ответ: Нет корней";
-        }
-
-    } else if (type == 5) {
-            // Извлекаем коэффициенты a, b и c
-        a = parseFloat(eq.split("*x")[0]);
-        b = parseFloat(eq.split("*x*x")[1].split("x=")[0])
-        console.log(a);
-        console.log(b);
-        document.getElementById("answer").innerHTML = "Ответ: x1 = 0, x2 = " + (b*(-1)/a).toFixed(2);
+    // Округление до 3 знаков после запятой
+    if (Number.isFinite(x) && x % 1 !== 0) {
+    if (x.toString().split(".")[1]?.length > 3) {
+        x = parseFloat(x.toFixed(3)); 
     }
 }
 
-function findXTrig(eq) {
-    if (template_id == 6) {
-        const parts = eq.split("=");
-        const lhs = parts[0];
-        const rhs = parts[1];
+    document.getElementById("answer").innerHTML = "Ответ: x = " + x;
+}
 
+
+
+
+
+// 📐 Решение квадратных уравнений
+
+function findXQuad(eq, type) {
+    let a, b, c;
+    let result;
+
+    // Если уравнение полного вида (ax^2 + bx + c = 0)
+    if (type == 4) {
+        // Извлекаем коэффициенты a, b и c из уравнения
+        let parts = eq.split("*x");
+        a = parseFloat(parts[0]); 
+        b = parseFloat(parts[2]);
+        c = parseFloat(parts[3].split("=")[0]);
+        
+        // Вычисляем дискриминант
+        let discriminant = b * b - 4 * a * c;
+
+        // Находим корни уравнения в зависимости от дискриминанта
+        if (discriminant > 0) {
+            // Два корня
+            let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+
+            // Округление до 3 знаков после запятой
+            if (Number.isFinite(x1) && x1 % 1 !== 0) {
+            if (x1.toString().split(".")[1]?.length > 3) {
+                x1 = parseFloat(x1.toFixed(3)); 
+            }
+            if (Number.isFinite(x2) && x2 % 1 !== 0) {
+            if (x2.toString().split(".")[1]?.length > 3) {
+                x2 = parseFloat(x2.toFixed(3)); 
+                }
+            }
+
+                // Отображение ответа
+            result = "Ответ: x₁ = " + x1 + ", x₂ = " + x2;
+            result += ", D = " + discriminant; 
+        } else if (discriminant === 0) {
+            // Один корень
+            let x = -b / (2 * a);
+            // Округление до 3 знаков после запятой
+            if (Number.isFinite(x) && x % 1 !== 0) {
+            if (x.toString().split(".")[1]?.length > 3) {
+                x = parseFloat(x.toFixed(3)); 
+            }
+            result = "Ответ: x = " + x + ", D = " + discriminant;
+            }
+        } else {
+            // Нет корней
+            result = "Ответ: Нет корней";
+        }
+    }
+    
+
+    // Если уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
+    } else if (type == 5) {
+        // Извлекаем коэффициенты a и b
+        a = parseFloat(eq.split("*x")[0]);
+        b = parseFloat(eq.split("*x*x")[1].split("x=")[0]);
+
+        // Для неполного уравнения решаем: x1 = 0, x2 = -b/a
+        let x2 = (b * (-1) / a)
+        if (Number.isFinite(x2) && x % 1 !== 0) {
+            if (x2.toString().split(".")[1]?.length > 3) {
+                x2 = parseFloat(x2.toFixed(3)); 
+            }
+        result = "Ответ: x₁ = 0, x₂ = " + x2;
+        }
+    }
+
+    document.getElementById("answer").innerHTML = result;
+}
+
+
+
+
+// 🌊 Решение тригонометрических уравнений
+function findXTrig(eq) {
+    const MQ = MathQuill.getInterface(2);
+    const answerDiv = document.getElementById("answer");
+    answerDiv.innerHTML = ""; // Очистка вывода
+
+    const parts = eq.split("=");
+    const lhs = parts[0];
+    const rhs = parts[1];
+
+    if (template_id == 6) {
+        // sin(x)-тип
         const A = parseFloat(lhs.match(/(-?\d+)\*?sin\(x\)/)[1]);
         const B = parseFloat(lhs.match(/([+-]?\d+)(?!\*sin\(x\))/)[1]);
         const C = parseFloat(rhs);
+        const sin_x = (C - B) / A;
 
-        console.log("A:", A);
-        console.log("B:", B);
-        console.log("C:", C);
-
-        sin_x = (C-B)/A;
-        if (sin_x>1 || sin_x<-1) {
-            document.getElementById("answer").innerHTML = "Ответ: нет корней!";
-        } else {
-            document.getElementById("answer").innerHTML = "Ответ: <br> x = arcsin(" +
-            sin_x.toFixed(2) + ") + 2pi*k<br> x = pi - arcsin(" + sin_x.toFixed(2) + ") + 2pi*k <br><br> x = "
-            + Math.asin(sin_x).toFixed(2) + " + 2pi*k<br> x = " + (3.14-Math.asin(sin_x)).toFixed(2) + " + 2pi*k<br>";
+        if (sin_x > 1 || sin_x < -1) {
+            answerDiv.textContent = "Ответ: нет корней!";
+            return;
         }
-    } else if (template_id == 7) {
-        const parts = eq.split("=");
-        const lhs = parts[0];
-        const rhs = parts[1];
 
+        const arcsinVal = Math.asin(sin_x);
+        const x1 = arcsinVal.toFixed(2);
+        const x2 = (Math.PI - arcsinVal).toFixed(2);
+
+        const raw = sin_x;
+        const formattedSin = (raw % 1 !== 0 && raw.toString().split('.')[1]?.length > 2)
+            ? raw.toFixed(2)
+            : raw.toString();
+
+        const expressions = [
+            `Ответ:`,
+            `x = \\arcsin(${formattedSin}) + 2\\pi k`,
+            `x = \\pi - \\arcsin(${formattedSin}) + 2\\pi k`,
+            `x \\approx ${x1} + 2\\pi k`,
+            `x \\approx ${x2} + 2\\pi k`
+        ];
+
+        expressions.forEach(expr => {
+            const span = document.createElement("span");
+            answerDiv.appendChild(span);
+            MQ.StaticMath(span).latex(expr);
+            answerDiv.appendChild(document.createElement("br"));
+        });
+
+    } else if (template_id == 7) {
+        // cos(x)-тип
         const A = parseFloat(lhs.match(/(-?\d+)\*?cos\(x\)/)[1]);
         const B = parseFloat(lhs.match(/([+-]?\d+)(?!\*cos\(x\))/)[1]);
         const C = parseFloat(rhs);
+        const cos_x = (C - B) / A;
 
-        console.log("A:", A);
-        console.log("B:", B);
-        console.log("C:", C);
-
-        cos_x = (C-B)/A;
-        if (cos_x>1 || cos_x<-1) {
-            document.getElementById("answer").innerHTML = "Ответ: нет корней!";
-        } else {
-            document.getElementById("answer").innerHTML = "Ответ: <br> x = pi - arccos(" +
-            cos_x.toFixed(2) + ") + 2pi*k<br> x = -pi+arccos(" + cos_x.toFixed(2) + ") + 2pi*k <br><br> x = "
-            + (3.14-Math.acos(cos_x)).toFixed(2) + " + 2pi*k<br> x = " + (-3.14+Math.acos(cos_x)).toFixed(2) + " + 2pi*k<br>";
+        if (cos_x > 1 || cos_x < -1) {
+            answerDiv.textContent = "Ответ: нет корней!";
+            return;
         }
+
+        const arccosVal = Math.acos(cos_x);
+        const x1 = (Math.PI - arccosVal).toFixed(2);
+        const x2 = (-Math.PI + arccosVal).toFixed(2);
+
+        const raw = cos_x;
+        const formattedCos = (raw % 1 !== 0 && raw.toString().split('.')[1]?.length > 2)
+            ? raw.toFixed(2)
+            : raw.toString();
+
+        const expressions = [
+            `Ответ:`,
+            `x = \\pi - \\arccos(${formattedCos}) + 2\\pi k`,
+            `x = -\\pi + \\arccos(${formattedCos}) + 2\\pi k`,
+            `x \\approx ${x1} + 2\\pi k`,
+            `x \\approx ${x2} + 2\\pi k`
+        ];
+
+        expressions.forEach(expr => {
+            const span = document.createElement("span");
+            answerDiv.appendChild(span);
+            MQ.StaticMath(span).latex(expr);
+            answerDiv.appendChild(document.createElement("br"));
+        });
     }
-
-
-
 }
 
 
+
+// 🔄 Преобразование уравнения для графика
 function convertEquation(eq) {
     // Изменяем "=" на "-" или "=-" "+"
     eq =eq.replace('=', '-').replace('--', '+');
@@ -222,15 +327,8 @@ function convertEquation(eq) {
 
 
 
+// 📈 Построение графика функции
 
-
-
-
-
-
-
-
-//отображение графикоовввв
 function el(id){
     return document.getElementById( id );
 }
@@ -278,6 +376,8 @@ function draw_graph(str, color) {
     }
 }
 
+
+// ➕ Рисование координатных осей
 function drow_axes(){
     //рисуем ось Х
     y0_canv = y2canv(0)
@@ -298,27 +398,26 @@ function drow_axes(){
     ctx.stroke();
 }
 
+// 🔁 Преобразование координат
 function x2canv(x) {
     return (x-x_left)*width/(x_right - x_left);
 }
-
 function y2canv(y) {
     return height - (y-y_down)*height/(y_up - y_down);
 }
-
 
 function canv2x(x_canv) {
     x = Number(x_left) + x_canv*(x_right - x_left)/width;
     return x.toString().substr(0,5);
 }
-
 function canv2y(y_canv) {
     y = Number(y_down) + (Number(height) - y_canv)*(y_up - y_down)/height;
     return y.toString().substr(0,5);
 }
 
 
-//базовые объекты canvas при загрузке страницы
+
+// 🧭 Подписи координат при наведении курсора
 function drow_start() {
     ctx.font = "16px Arial";
 
