@@ -433,7 +433,7 @@ function draw_graph(str, color) {
 
 	ctx.beginPath(); //первоначальные параметры
 	ctx.moveTo(x_canv, y_canv);
-	ctx.lineWidth = 4;
+	ctx.lineWidth = 2;
 	ctx.strokeStyle = color;
 	f = 1;
 

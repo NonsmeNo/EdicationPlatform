@@ -9,7 +9,8 @@ const answer = el('answer');
 const template_id = el('template-id').value;
 const colors = ['#01AB9F', '#FF7A5A', '#EE82EE', '#9A80F6', '#82AFFB'];
 
-
+let randomNumber = Math.floor(Math.random() * 5);
+select_color = colors[randomNumber];
 
 // 👻 НАСТРОЙКА НАЧАЛЬНОГО ОТОБРАЖЕНИЯ ЭЛЕМЕНТОВ
 canv.style.display = 'none';
@@ -78,20 +79,11 @@ btnShowGraph.addEventListener('click', () => {
     if (canv.style.display == 'none'){
         canv.style.display = 'block';
         btnShowGraph.textContent = 'Скрыть график';
-        let str_graph = "";
-        if (template_id == 1 || template_id == 2 || template_id == 3) {
-            str_graph = convertEquation(example_task);
-        } else if (template_id == 4 || template_id == 5) {
-            str_graph = example_task.replace('^2', '*x');
-            str_graph = str_graph.replace('=0', '');
-        } else if (template_id == 6 || template_id == 7) {
-            str_graph = convertEquation(example_task);
-            console.log(str_graph);
-        }
+        
+        let str_graph = getGraphEquation();
 
         drow_axes();
-        let randomNumber = Math.floor(Math.random() * 5);
-        draw_graph(str_graph, colors[randomNumber]);
+        draw_graph(str_graph, select_color);
 
     }
     else {
@@ -101,6 +93,49 @@ btnShowGraph.addEventListener('click', () => {
 
 });
 
+// 🔍 МАСШТАБИРОВАНИЕ ГРАФИКА
+canv.addEventListener("wheel", (ev) => {
+    ev.preventDefault(); // отключаем прокрутку страницы
+
+    // Приближение
+    if (ev.deltaY < 0 && x_right > 1) {
+        x_left += 1;
+        x_right -= 1;
+        ctx.clearRect(0, 0, canv.width, canv.height);
+        drow_axes(); // рисуем оси
+
+        let str_graph = getGraphEquation();
+        
+        draw_graph(str_graph, select_color); // перерисовываем нужный график
+    }
+
+    // Отдаление
+    if (ev.deltaY > 0) {
+        x_left -= 1;
+        x_right += 1;
+        ctx.clearRect(0, 0, canv.width, canv.height);
+        drow_axes(); // рисуем оси
+
+        let str_graph = getGraphEquation();
+
+        draw_graph(str_graph, select_color); // перерисовываем нужный график
+    }
+});
+
+function getGraphEquation() {
+    let str_graph = "";
+
+    if (template_id == 1 || template_id == 2 || template_id == 3) {
+        str_graph = convertEquation(example_task);
+    } else if (template_id == 4 || template_id == 5) {
+        str_graph = example_task.replace('^2', '*x');
+        str_graph = str_graph.replace('=0', '');
+    } else if (template_id == 6 || template_id == 7) {
+        str_graph = convertEquation(example_task);
+    }
+
+    return str_graph;
+}
 
 //  ----------------------------
 // 🧩 ФУНКЦИИ
@@ -166,65 +201,59 @@ function findXQuad(eq, type) {
         a = parseFloat(parts[0]); 
         b = parseFloat(parts[2]);
         c = parseFloat(parts[3].split("=")[0]);
-        
+
+
         // Вычисляем дискриминант
         let discriminant = b * b - 4 * a * c;
 
-        // Находим корни уравнения в зависимости от дискриминанта
         if (discriminant > 0) {
             // Два корня
             let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
             let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
 
             // Округление до 3 знаков после запятой
-            if (Number.isFinite(x1) && x1 % 1 !== 0) {
-            if (x1.toString().split(".")[1]?.length > 3) {
+            if (Number.isFinite(x1) && x1 % 1 !== 0 && x1.toString().split(".")[1]?.length > 3) {
                 x1 = parseFloat(x1.toFixed(3)); 
             }
-            if (Number.isFinite(x2) && x2 % 1 !== 0) {
-            if (x2.toString().split(".")[1]?.length > 3) {
+            if (Number.isFinite(x2) && x2 % 1 !== 0 && x2.toString().split(".")[1]?.length > 3) {
                 x2 = parseFloat(x2.toFixed(3)); 
-                }
             }
 
-                // Отображение ответа
-            result = "Ответ: x₁ = " + x1 + ", x₂ = " + x2;
-            result += ", D = " + discriminant; 
+            result = "Ответ: x₁ = " + x1 + ", x₂ = " + x2 + ", D = " + discriminant;
+
         } else if (discriminant === 0) {
             // Один корень
             let x = -b / (2 * a);
-            // Округление до 3 знаков после запятой
-            if (Number.isFinite(x) && x % 1 !== 0) {
-            if (x.toString().split(".")[1]?.length > 3) {
+
+            if (Number.isFinite(x) && x % 1 !== 0 && x.toString().split(".")[1]?.length > 3) {
                 x = parseFloat(x.toFixed(3)); 
             }
+
             result = "Ответ: x = " + x + ", D = " + discriminant;
-            }
+
         } else {
             // Нет корней
             result = "Ответ: Нет корней";
         }
-    }
-    
 
-    // Если уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
     } else if (type == 5) {
-        // Извлекаем коэффициенты a и b
+        // Уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
         a = parseFloat(eq.split("*x")[0]);
         b = parseFloat(eq.split("*x*x")[1].split("x=")[0]);
 
-        // Для неполного уравнения решаем: x1 = 0, x2 = -b/a
-        let x2 = (b * (-1) / a)
-        if (Number.isFinite(x2) && x % 1 !== 0) {
-            if (x2.toString().split(".")[1]?.length > 3) {
-                x2 = parseFloat(x2.toFixed(3)); 
-            }
-        result = "Ответ: x₁ = 0, x₂ = " + x2;
+        let x2 = -b / a;
+
+        if (Number.isFinite(x2) && x2 % 1 !== 0 && x2.toString().split(".")[1]?.length > 3) {
+            x2 = parseFloat(x2.toFixed(3)); 
         }
+
+        result = "Ответ: x₁ = 0, x₂ = " + x2;
     }
 
     document.getElementById("answer").innerHTML = result;
 }
+
+
 
 
 
@@ -334,46 +363,47 @@ function el(id){
 }
 
 
+
 function draw_graph(str, color) {
 
-    y_down = x_left;
-    y_up = x_right;
-    step = 0.01;
+	y_down = x_left;
+	y_up = x_right;
+	step = 0.01;
 
-    x = x_left; //устанавливаем перо на начальную точку
-    y = eval(str);
-    x_canv = x2canv(x);
-    y_canv = y2canv(y);
+	x = x_left; //устанавливаем перо на начальную точку
+	y = eval(str);
+	x_canv = x2canv(x);
+	y_canv = y2canv(y);
 
-    ctx.beginPath(); //первоначальные параметры
-    ctx.moveTo(x_canv, y_canv);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = color;
-    f = 1;
+	ctx.beginPath(); //первоначальные параметры
+	ctx.moveTo(x_canv, y_canv);
+	ctx.lineWidth = 2;
+	ctx.strokeStyle = color;
+	f = 1;
 
-    for(i = 0; i < x_right * 2; i += 0.01){ //рендеринг графика
-        x = Number(x) + step;
-        y = eval(str);
-        if (y <= y_up * 2 && y >= y_down * 2) {
-            x_canv = x2canv(x);
-            y_canv = y2canv(y);
-            if (f == 0) {
-                ctx.beginPath();
-                ctx.moveTo(x_canv, y_canv);
-                f = 1;
-            }
-            ctx.lineTo(x_canv, y_canv);
-        }
-        else {
-            if (f==1) {
-                ctx.stroke();
-                f = 0;
-            }
-        }
-    }
-    if (f==1) {
-        ctx.stroke();
-    }
+	for(i = 0; i < x_right * 2; i += 0.01){ //рендеринг графика
+		x = Number(x) + step;
+		y = eval(str);
+		if (y <= y_up * 2 && y >= y_down * 2) {
+			x_canv = x2canv(x);
+			y_canv = y2canv(y);
+			if (f == 0) {
+				ctx.beginPath();
+				ctx.moveTo(x_canv, y_canv);
+				f = 1;
+			}
+			ctx.lineTo(x_canv, y_canv);
+		}
+		else {
+			if (f==1) {
+				ctx.stroke();
+				f = 0;
+			}
+		}
+	}
+	if (f==1) {
+		ctx.stroke();
+	}
 }
 
 
