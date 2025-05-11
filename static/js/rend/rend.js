@@ -42,7 +42,7 @@ document.getElementById("output").innerHTML = example_task;
 
 // -----------------------------------
 // СОБЫТИЯЯ
-// 💾 СОХРАНЕНИЕ ЗАДАНИЯ НА СЕРВЕР
+// 💾 СОХРАНЕНИЕ ЗАДАНИЯ 
 
 const SaveButton = el('btnSave');
 if (btnSave) {
@@ -127,47 +127,77 @@ btnShowGraph.addEventListener('click', () => {
 //  ----------------------------
 // 🧩 ФУНКЦИИ
 
-// 🎲 Случайное задание
-
+// 🎲 сгенерировать случайное задание
 function create_task() {
+    const task_template = template_value.value;
+    const latex_template = template_latex.value;
 
-    let task = template_value.value;
+    let values = [];
+    let signs = []; 
 
-    for (let i = 0; i < task.length; i++) {
-        if (task[i] === '@') {
-            let randomNumber = Math.floor(Math.random() * 9) + 1; // генерируем случайное число от 1 до 9
-            task = task.substring(0, i) + randomNumber + task.substring(i + 1); // преобразуем число в строку и добавляем к новой строке
-        }
-        if (task[i] === '$') {
-            let randomSign = Math.random() < 0.5 ? '+' : '-'; // // Генерируем случайный знак + или -
-            task = task.substring(0, i) + randomSign + task.substring(i + 1); //  добавляем к новой строке
-        }
-
-    }
-    // Убираем первый знак +, если он есть в начале строки
-    if (task[0] === '+') {
-        task = task.substring(1);
+    // Считаем, сколько нужно чисел и знаков
+    for (let ch of task_template) {
+        if (ch === '@') values.push(Math.floor(Math.random() * 9) + 1);
+        if (ch === '$') signs.push(Math.random() < 0.5 ? '+' : '-');
     }
 
+    // Заменяем в шаблоне задачи
+    let task = '';
+    let valueIndex = 0;
+    let signIndex = 0;
+    for (let ch of task_template) {
+        if (ch === '@') {
+            task += values[valueIndex++];
+        } else if (ch === '$') {
+            task += signs[signIndex++];
+        } else {
+            task += ch;
+        }
+    }
+
+    // Убираем лишний "+" в начале
+    if (task[0] === '+') task = task.slice(1);
     task = task.replace('=+', '=').replace('=-', '=-');
 
-    //проверка на корни
-    if (template_id == 4) {
-
-            task_check = task.replace('^2', '*x');
-            let a, b, c;
-            let parts = task_check.split("*x");
-            a = parseFloat(parts[0]);
-            b = parseFloat(parts[2]);
-            c = parseFloat(parts[3].split("=")[0]);
-            let discriminant = b*b - 4*a*c;
-            if (discriminant < 0) {
-                return create_task();
-            }
+    // Заменяем в шаблоне LaTeX
+    let latex = '';
+    valueIndex = 0;
+    signIndex = 0;
+    for (let i = 0; i < latex_template.length; i++) {
+        if (latex_template[i] === '@') {
+            latex += values[valueIndex++];
+        } else if (latex_template[i] === '$') {
+            latex += signs[signIndex++];
+        } else {
+            latex += latex_template[i];
         }
+    }
+
+    // Убираем лишний "+" в начале
+    if (latex[0] === '+') latex = latex.slice(1);
+    latex = latex.replace('=+', '=').replace('=-', '=-');
+
+    // Проверка дискриминанта, если квадратное уравнение (template_id = 4)
+    if (template_id === 4) {
+        const task_check = task.replace('^2', '*x');
+        try {
+            const parts = task_check.split("*x");
+            const a = parseFloat(parts[0]);
+            const b = parseFloat(parts[2]);
+            const c = parseFloat(parts[3].split("=")[0]);
+            const discriminant = b * b - 4 * a * c;
+            if (discriminant < 0) return create_task(); // нет корней — регенерация
+        } catch (err) {
+            console.error("Ошибка при разборе квадратного уравнения:", err);
+            return create_task();
+        }
+    }
+
+    document.getElementById("output-latex").innerHTML = latex;
 
     return task;
 }
+
 
 
 // 🧮 Решение линейных уравнений
