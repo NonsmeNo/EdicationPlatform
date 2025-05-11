@@ -273,5 +273,7 @@ with app.app_context():
     pass
     
 
+
 if __name__ == "__main__":  # для того чтобы проект запускался как приложение flask
     app.run(debug=True)  # debug чтобы выводились на страничке все ошибки
+

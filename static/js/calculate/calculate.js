@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		ctx.beginPath();
 		ctx.moveTo(0, y0_canv);
 		ctx.lineTo(width, y0_canv);
-		ctx.lineWidth = 1;
+		ctx.lineWidth = 0.5;
 		ctx.strokeStyle = 'black';
 		ctx.stroke();
 
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		ctx.beginPath();
 		ctx.moveTo( x0_canv, 0);
 		ctx.lineTo( x0_canv, height);
-		ctx.lineWidth = 1;
+		ctx.lineWidth = 0.5;
 		ctx.strokeStyle = 'black';
 		ctx.stroke();
 	}

@@ -7,8 +7,8 @@
     background-image: linear-gradient(var(--blue), var(--light-pink));
 	box-sizing: border-box;
 	width: 100%;
-	height: calc(100vh - 81px);
-    padding: 0 50px;
+	min-height: calc(100vh - 81px);
+    padding: 0;
 }
 
 /* =========================
@@ -88,6 +88,7 @@
 .content .gener_param_block .title{
     background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
     background-color: #2980b9;
+
     color: #fff;
     text-align:center;
     padding: 20px 0;
@@ -177,61 +178,144 @@
 ========================= */
 
 
-/*Отображение задачи*/
 .content .rend_block{
+    padding-top: 40px;
+
     display: flex;
-    margin-top: 40px;
     flex-direction: row;
     justify-content: center;
+    height: calc(100vh - 90px);
 }
 
-.content .rend {
-    width: 450px;
+
+
+/*условия задачм*/
+.content .rend_block .rend {
+    width: 30%;
     display: flex;
     flex-direction: column;
-    font-size: 22px;
-    margin-right: 40px;
-    border-radius: 20px;
+    font-size: 20px;
 }
 .content .rend h3{
     color: #3498db;
+    font-size: 20px;
 }
 
 .content .rend .task-block {
     background: #fff;
     padding: 20px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    font-weight: 700;
+    color: #666666;
 }
 
 .content .rend .title{
     background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
+    background-color: #2980b9;
     color: #fff;
     text-align:center;
-    padding: 20px 0 5px 0;
     font-size: 20px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+     z-index: 1;
+     padding-top: 20px;
 }
 
-.content .rend button {
+
+.content .rend .answer-btns {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    gap: 15px;
+}
+
+.content .rend .answer button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: #89abff;
     color: #fff;
-    width: 70%;
     text-decoration: none;
     border-radius: 5px;
-    margin: 15px 100px 15px 0px;
     border: white;
     font-size: 18px;
+    width: 50%;
+    transition: background-color 0.4s ease;
+    
 }
 
+.content .rend .answer button:hover {
+    background-color: #FF5959;
+    
+}
+
+
+/* холст */
+.content .rend_block .canvas {
+	width: 50%;
+	margin: 0;
+	padding: 0 20px 20px 20px;
+	
+    display: flex;
+	justify-content: center;
+}
 
 .content .canvas canvas {
-	border: 3px solid antiquewhite;
-	background-color: antiquewhite;
-	border-radius: 5px;
+	aspect-ratio: 1 / 1;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Если контейнер выше, чем широк */
+@media (max-aspect-ratio: 1/1) {
+	.content .canvas canvas {
+		width: 92%;
+		height: auto;
+	}
+}
+
+/* Если контейнер шире, чем высокий */
+@media (min-aspect-ratio: 1/1) {
+	.content .canvas canvas {
+		height: 92%;
+		width: auto;
+	}
 }
 
 
-.content .canvas {
-    width: 800px;
-    height:800px;
+
+@media screen and (max-width: 1050px) {
+    .content {
+        overflow-y: auto; 
+    }
+	.content .rend_block{
+		flex-direction: column;
+		justify-content: start;
+		height: auto;
+	}
+
+    .content .rend_block .rend{
+		width: 100%;
+	}
+    .content .rend_block .title{
+		width: 100%;
+        font-size: 18px;
+        border-radius: 10px;
+	}
+
+	.content .rend_block  .canvas {
+		width: 100%;
+		align-items: flex-start;
+		padding: 30px 0 0 0;
+		height: auto;
+	}
+}
+
+@media screen and (orientation: landscape) and (max-width: 1050px) {
+	.content .rend_block {
+		flex-direction: row;
+	}
+    .content .rend_block .canvas{
+		padding: 0;
+	}
 }

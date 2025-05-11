@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     canv.style.display = 'none';
     answer.style.display = 'none';
 
-    const width = 800;
-	const height = 800;
-
 
 	x_left = -10;
 	x_right = 10;
@@ -30,6 +27,23 @@ document.addEventListener('DOMContentLoaded', function() {
 	y_up = x_right;
 
     //на старте
+
+
+    // Скрыть изначально ответ
+    answer.style.display = 'none';
+
+    // Временно показать
+    canv.style.display = 'block';
+
+    canv.width = canv.clientWidth;
+    canv.height = canv.clientHeight;
+    const width = canv.width;
+    const height = canv.height;
+
+
+    // Снова скрыть
+    canv.style.display = 'none';
+
 	const ctx = canv.getContext('2d');
 	drow_start();
 	drow_axes();
@@ -97,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Показать canvas
         if (canv.style.display == 'none'){
             canv.style.display = 'block';
+
             btnShowGraph.textContent = 'Скрыть график';
             let str_graph = "";
             if (template_id == 1 || template_id == 2 || template_id == 3) {
@@ -195,42 +210,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         document.getElementById("answer").innerHTML = "Ответ: x = " + x;
     }
-    function findXQuad(eq, type) {
-    let a,b,c;
-        if (type == 4) {
-            // Извлекаем коэффициенты a, b и c
-          let parts = eq.split("*x");
-          a = parseFloat(parts[0]);
-          b = parseFloat(parts[2]);
-          c = parseFloat(parts[3].split("=")[0]);
-          console.log(a);
-          console.log(b);
-          console.log(c);
 
-          // Вычисляем дискриминант
-          let discriminant = b*b - 4*a*c;
-            console.log(discriminant);
-          // Находим корни уравнения
-          if (discriminant > 0) {
-            let x1 = (-b + Math.sqrt(discriminant)) / (2*a);
-            let x2 = (-b - Math.sqrt(discriminant)) / (2*a);
-            document.getElementById("answer").innerHTML = "Ответ: x1 = " + x1.toFixed(2) + ", x2 = " + x2.toFixed(2) + ", D = " + discriminant;
-          } else if (discriminant === 0) {
-            let x = -b / (2*a);
-            document.getElementById("answer").innerHTML = "Ответ: x = " + x + ", D = " + discriminant;
-          } else {
+
+function findXQuad(eq, type) {
+    let a, b, c;
+
+    // Если уравнение полного вида (ax^2 + bx + c = 0)
+    if (type == 4) {
+        // Извлекаем коэффициенты a, b и c из уравнения
+        let parts = eq.split("*x");
+        a = parseFloat(parts[0]); 
+        b = parseFloat(parts[2]);
+        c = parseFloat(parts[3].split("=")[0]);
+        
+        // Вычисляем дискриминант
+        let discriminant = b * b - 4 * a * c;
+
+        // Находим корни уравнения в зависимости от дискриминанта
+        if (discriminant > 0) {
+            // Два корня
+            let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+
+             // Отображение ответа
+            let result = "Ответ: x1 = " + x1.toFixed(2) + ", x2 = " + x2.toFixed(2);
+            result += ", D = " + discriminant; 
+        } else if (discriminant === 0) {
+            // Один корень
+            let x = -b / (2 * a);
+            let result = "Ответ: x = " + x + ", D = " + discriminant;
+            document.getElementById("answer").innerHTML = result;
+
+        } else {
+            // Нет корней
             document.getElementById("answer").innerHTML = "Ответ: Нет корней";
-          }
-
-        } else if (type == 5) {
-             // Извлекаем коэффициенты a, b и c
-          a = parseFloat(eq.split("*x")[0]);
-          b = parseFloat(eq.split("*x*x")[1].split("x=")[0])
-          console.log(a);
-          console.log(b);
-          document.getElementById("answer").innerHTML = "Ответ: x1 = 0, x2 = " + (b*(-1)/a).toFixed(2);
         }
+
+    // Если уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
+    } else if (type == 5) {
+        // Извлекаем коэффициенты a и b
+        a = parseFloat(eq.split("*x")[0]);
+        b = parseFloat(eq.split("*x*x")[1].split("x=")[0]);
+
+        // Для неполного уравнения решаем: x1 = 0, x2 = -b/a
+        let result = "Ответ: x1 = 0, x2 = " + (b * (-1) / a).toFixed(2);
+        document.getElementById("answer").innerHTML = result;
     }
+}
+
+
+
 
     function findXTrig(eq) {
         if (template_id == 6) {
@@ -289,67 +318,58 @@ document.addEventListener('DOMContentLoaded', function() {
         return eq;
     }
 
+// Функция для получения элемента по ID
+function el(id) {
+    return document.getElementById(id);
+}
 
+// Функция для отрисовки графика
+function draw_graph(str, color) {
+    let y_down = x_left;  // Нижний предел по оси Y
+    let y_up = x_right;   // Верхний предел по оси Y
+    let step = 0.01;      // Шаг по оси X
 
+    let x = x_left;       // Начальное значение X
+    let y = eval(str);    // Вычисляем значение Y для функции
+    let x_canv = x2canv(x);  // Преобразуем X в координаты канваса
+    let y_canv = y2canv(y);  // Преобразуем Y в координаты канваса
 
+    ctx.beginPath();      // Начинаем рисование
+    ctx.moveTo(x_canv, y_canv); 
+    ctx.lineWidth = 2;  
+    ctx.strokeStyle = color;
+    let f = 1;          
 
+    // Рендеринг графика
+    for (let i = 0; i < x_right * 2; i += 0.01) {
+        x = Number(x) + step;     // Увеличиваем X на шаг
+        y = eval(str);             // Пересчитываем Y
 
+        // Проверяем, в пределах ли Y
+        if (y <= y_up * 2 && y >= y_down * 2) {
+            x_canv = x2canv(x);    
+            y_canv = y2canv(y);   
 
-
-
-
-
-
-
-    //отображение графикоовввв
-    function el(id){
-		return document.getElementById( id );
-	}
-
-
-	function draw_graph(str, color) {
-
-		y_down = x_left;
-		y_up = x_right;
-		step = 0.01;
-
-		x = x_left; //устанавливаем перо на начальную точку
-		y = eval(str);
-		x_canv = x2canv(x);
-		y_canv = y2canv(y);
-
-		ctx.beginPath(); //первоначальные параметры
-		ctx.moveTo(x_canv, y_canv);
-		ctx.lineWidth = 2;
-		ctx.strokeStyle = color;
-		f = 1;
-
-		for(i = 0; i < x_right * 2; i += 0.01){ //рендеринг графика
-			x = Number(x) + step;
-			y = eval(str);
-			if (y <= y_up * 2 && y >= y_down * 2) {
-				x_canv = x2canv(x);
-				y_canv = y2canv(y);
-				if (f == 0) {
-					ctx.beginPath();
-					ctx.moveTo(x_canv, y_canv);
-					f = 1;
-				}
-				ctx.lineTo(x_canv, y_canv);
-			}
-			else {
-				if (f==1) {
-					ctx.stroke();
-					f = 0;
-				}
-			}
-		}
-		if (f==1) {
-			ctx.stroke();
-		}
-	}
+            if (f == 0) {
+                ctx.beginPath();
+                ctx.moveTo(x_canv, y_canv); // Начинаем новый отрезок 
+                f = 1;
+            }
+            ctx.lineTo(x_canv, y_canv);
+        } else {
+            if (f == 1) {
+                ctx.stroke();  // Завершаем отрезок
+                f = 0;
+            }
+        }
+    }
+    if (f == 1) {
+        ctx.stroke();
+    }
+}
 
 	function drow_axes(){
+		ctx.globalAlpha = 1.0;
 		//рисуем ось Х
 		y0_canv = y2canv(0)
 		ctx.beginPath();
@@ -368,6 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		ctx.strokeStyle = 'black';
 		ctx.stroke();
 	}
+	
 
 	function x2canv(x) {
 		return (x-x_left)*width/(x_right - x_left);

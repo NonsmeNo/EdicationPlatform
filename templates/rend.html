@@ -25,10 +25,13 @@ MathHelper - {{ current_theme.name }}
                     <div id="output"></div>
                 </div>
                 <div class="answer">
-                    <button id="btnShowGraph">Показать график</button>
-                    <button id="btnShowAnsw">Показать ответ</button>
+                    <div class="answer-btns">
+                        <button id="btnShowGraph">Показать график</button>
+                        <button id="btnShowAnsw">Показать ответ</button>
+                    </div>
                     <div id="answer"></div>
                     {% if current_user.get_id() %}
+                        <br>
                         <button id="btnSave">Сохранить задачу</button>
                     {% else %}
                         <input type="hidden" id="btnSave" value="">
@@ -38,7 +41,7 @@ MathHelper - {{ current_theme.name }}
         </div>
 
         <div class="canvas">
-            <canvas id="canvas" width = 800px height = 800px >
+            <canvas id="canvas">
                 Ваш браузер не поддерживает Canvas
             </canvas>
         </div>
