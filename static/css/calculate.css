@@ -10,7 +10,6 @@
 	box-sizing: border-box;
 	width: 100%;
 	height: calc(100vh - 81px);
-	order: 2;
 
 	display: flex;
 	flex-direction: row;
@@ -353,7 +352,7 @@
 }
 
 #latex, #func1-latex, #func2-latex{
-	display: block;
+	display: none;
 }
 
 #func, #func1, #func2{

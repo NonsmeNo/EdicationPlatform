@@ -12,7 +12,6 @@ const ctx = canv.getContext('2d');
 // Максимальное количество функций
 const max_funcs = 5;
 const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
-//const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
 
 let func_cnt = 0; // Текущее количество функций
 let adds_func = []; // Сохраненные функции для перерисовки
@@ -42,14 +41,15 @@ drow_axes();
 // Построение графика y = f(x)
 document.getElementById('btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
-		creat_block_func(1);
 		const str_func = el('func').textContent;
-		draw_graph(str_func, colors[func_cnt]);
-		if (func_cnt === 0) {
-			drow_axes();
-			funk_block_class.style.display = 'block';
-		}
-		func_cnt++;
+			if (draw_graph_check(str_func, colors[func_cnt]))
+			{
+				if (func_cnt === 0) {
+					funk_block_class.style.display = 'block';
+				}
+				creat_block_func(1)
+				func_cnt++;
+			}
 	} else {
 		message_max();
 	}
@@ -58,17 +58,17 @@ document.getElementById('btn').addEventListener('click', () => {
 // Построение параметрического графика
 document.getElementById('param_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
-		creat_block_func(2);
 		const str_func1 = el('func1').textContent;
 		const str_func2 = el('func2').textContent;
 		const min_t = el('min_t').value;
 		const max_t = el('max_t').value;
-		draw_parametric(str_func1, str_func2, min_t, max_t, colors[func_cnt]);
-		if (func_cnt === 0) {
-			drow_axes();
-			funk_block_class.style.display = 'block';
+		if (draw_parametric_check(str_func1, str_func2, min_t, max_t, colors[func_cnt])) {
+			if (func_cnt === 0) {
+				funk_block_class.style.display = 'block';
+			}
+			creat_block_func(2);
+			func_cnt++;
 		}
-		func_cnt++;
 	} else {
 		message_max();
 	}
@@ -77,15 +77,14 @@ document.getElementById('param_btn').addEventListener('click', () => {
 // Построение окружности по центру и радиусу
 document.getElementById('circle_centre_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
-		creat_block_func(3);
 		const str_func1 = `${el('x_centre').value}+${el('radius').value}*sin(t)`;
 		const str_func2 = `${el('y_centre').value}+${el('radius').value}*cos(t)`;
-		draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
-		if (func_cnt === 0) {
-			drow_axes();
-			funk_block_class.style.display = 'block';
+		if (draw_parametric_check(str_func1, str_func2, 0, 10, colors[func_cnt])){
+			if (func_cnt === 0)
+				funk_block_class.style.display = 'block';	
+			creat_block_func(3);
+			func_cnt++;
 		}
-		func_cnt++;
 	} else {
 		message_max();
 	}
@@ -94,15 +93,16 @@ document.getElementById('circle_centre_btn').addEventListener('click', () => {
 // Построение эллипса по центру и осям
 document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
-		creat_block_func(4);
+		
 		const str_func1 = `${el('x_centre_ellips').value}+${el('ellips_a').value}*sin(t)`;
 		const str_func2 = `${el('y_centre_ellips').value}+${el('ellips_b').value}*cos(t)`;
-		draw_parametric(str_func1, str_func2, 0, 10, colors[func_cnt]);
-		if (func_cnt === 0) {
-			drow_axes();
-			funk_block_class.style.display = 'block';
+		if (draw_parametric_check(str_func1, str_func2, 0, 10, colors[func_cnt])) {
+			if (func_cnt === 0)
+				funk_block_class.style.display = 'block';
+
+			creat_block_func(4);
+			func_cnt++;
 		}
-		func_cnt++;
 	} else {
 		message_max();
 	}
@@ -235,6 +235,8 @@ canv.addEventListener("touchend", (ev) => {
 
 //ФУНКЦИИ
 function creat_block_func(type) {
+
+
 	let func_block = document.createElement('div');
 	let block_color = document.createElement('div');
 	let input_func = document.createElement('div');
@@ -323,6 +325,8 @@ function creat_block_func(type) {
 	func_block.append(input_func);
 }
 
+return 0;
+
 }
 
 function redrawing() {
@@ -356,6 +360,7 @@ function redrawing() {
 				draw_parametric(str_func1, str_func2, 0, 10, colors[index]);
 			}
 		});
+		drow_start();
 }
 
 function el(id){
@@ -461,6 +466,54 @@ function draw_graph(str, color) {
 		ctx.stroke();
 	}
 }
+function draw_graph_check(str, color) {
+    try {
+        y_down = x_left;
+        y_up = x_right;
+        step = 0.01;
+
+        x = x_left; // устанавливаем перо на начальную точку
+        y = eval(str);
+        x_canv = x2canv(x);
+        y_canv = y2canv(y);
+
+        ctx.beginPath(); // первоначальные параметры
+        ctx.moveTo(x_canv, y_canv);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = color;
+        f = 1;
+
+        for (i = 0; i < x_right * 2; i += 0.01) { // рендеринг графика
+            x = Number(x) + step;
+            y = eval(str);
+            if (y <= y_up * 2 && y >= y_down * 2) {
+                x_canv = x2canv(x);
+                y_canv = y2canv(y);
+                if (f == 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(x_canv, y_canv);
+                    f = 1;
+                }
+                ctx.lineTo(x_canv, y_canv);
+            } else {
+                if (f == 1) {
+                    ctx.stroke();
+                    f = 0;
+                }
+            }
+        }
+        if (f == 1) {
+            ctx.stroke();
+        }
+        return true; // График отрисован успешно
+    } catch (error) {
+        console.error("Ошибка отрисовки графика: ", error);
+        alert("Ошибка отрисовки графика, возможно, выражение введено некорректно.");
+        return false; // Возвращаем false в случае ошибки
+    }
+}
+
+
 
 function draw_parametric(str1, str2, min_t, max_t, color) {
 	y_down = x_left;
@@ -489,6 +542,42 @@ function draw_parametric(str1, str2, min_t, max_t, color) {
 	}
 	ctx.stroke();
 }
+
+function draw_parametric_check(str1, str2, min_t, max_t, color) {
+    try {
+        y_down = x_left;
+        y_up = x_right;
+        min_t = Number(min_t);
+        max_t = Number(max_t);
+        let step = 0.01;
+
+        let t = min_t;
+        let x = eval(str1); // устанавливаем перо на начальную точку
+        let y = eval(str2);
+        var x_canv = x2canv(x);
+        var y_canv = y2canv(y);
+
+        ctx.beginPath(); // первоначальные параметры
+        ctx.moveTo(x_canv, y_canv);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = color;
+
+        for(t = min_t; t <= max_t; t += step) { // рендеринг графика
+            x = eval(str1);
+            y = eval(str2);
+            x_canv = x2canv(x);
+            y_canv = y2canv(y);
+            ctx.lineTo(x_canv, y_canv);
+        }
+        ctx.stroke();
+        return true; // График отрисован успешно
+    } catch (error) {
+        console.error("Ошибка отрисовки графика: ", error);
+        alert("Ошибка отрисовки графика, возможно, выражения введены некорректно.");
+        return false; // Возвращаем false в случае ошибки
+    }
+}
+
 
 
 function x2canv(x) {

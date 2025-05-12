@@ -16,15 +16,21 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   function convertLaTeXToJS(latex) {
-        latex = latex.replace(/\\exp/g, 'Math.exp');
         latex = latex.replace(/\\left\(/g, '(').replace(/\\right\)/g, ')'); //замена скобок latex на обычные
-
+        latex = latex.replace(/\\left\|([^|]*)\\right\|/g, 'Math.abs($1)');
         // умножения
         latex = latex.replace(/(x|t)\(/g, '$1*('); // добавление между (x или t) и скобкой знака умножения
-        latex = latex.replace(/(\d+|pi|e)\s*(?=x|t)/g, '$1*'); // между константой и переменной
+        latex = latex.replace(/(\d+|pi|e)\s*(?=[a-zA-Z])(?!xp)/g, '$1*'); // между константой и переменной
         latex = latex.replace(/(\d+)\s*(\\pi|\be\b|\\?(sin|cos|tan|sqrt|log|exp|abs|acos|asin|atan|sign))/g, '$1*$2'); // между числом и константой
         latex = latex.replace(/(\\(?:sin|cos|tan|sqrt|log|exp|abs|acos|asin|atan|sign|pi)|\be\b|pi|e)\s*(\d+)/g, '$1*$2');// между константой и числом
         latex = latex.replace(/(\d+|\\pi|\bpi\b|\be\b|e)\s*(?=\()/g, '$1*'); 
+
+        latex = latex.replace(/\\exp/g, 'Math.exp');
+        latex = latex.replace(/\\arccos/g, 'Math.acos');
+        latex = latex.replace(/\\arcsin/g, 'Math.asin');
+        latex = latex.replace(/\\arctan/g, 'Math.atan');
+        latex = latex.replace(/sign/g, 'Math.sign');
+
 
         latex = latex.replace(/\\sin/g, 'Math.sin');
         latex = latex.replace(/\\cos/g, 'Math.cos');
@@ -32,14 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
         latex = latex.replace(/\\sqrt/g, 'Math.sqrt');
         latex = latex.replace(/\\log/g, 'Math.log');
         latex = latex.replace(/\^/g, '**');
-        latex = latex.replace(/abs/g, 'Math.abs');
-        latex = latex.replace(/acos/g, 'Math.acos');
-        latex = latex.replace(/asin/g, 'Math.asin');
-        latex = latex.replace(/atan/g, 'Math.atan');
-        latex = latex.replace(/sign/g, 'Math.sign');
+
         latex = latex.replace(/\\pi/g, 'Math.PI');
-        latex = latex.replace(/\be\b/g, 'Math.E');
-        latex = latex.replace(/\\e\b/g, 'Math.E');
+        latex = latex.replace(/e(?!xp)/g, 'Math.E');
       latex = latex.replace(/\\cdot/g, '*');
       latex = latex.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1/($2))');
       latex = latex.replace(/{/g, '(').replace(/}/g, ')');
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } else if (latex) {
                 const functionsWithBrackets = ['\\sin', '\\cos', '\\tan', '\\log', '\\exp', 
-                    'abs', 'acos', 'asin', 'atan'];
+                    'abs', 'arccos', 'arcsin', 'arctan'];
 
                 if (functionsWithBrackets.includes(latex)) {
                     activeMathField.write(`${latex}\\left(\\right)`);

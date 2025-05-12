@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const screenWidth = window.innerWidth;
 
-        if (screenWidth < 1050) {
+        if (screenWidth > 1050) {
             canvas_block.style.width = '100%';
         }
     });
