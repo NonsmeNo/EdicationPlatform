@@ -32,7 +32,7 @@ const width = canv.width;
 const height = canv.height;
 
 drow_start();
-drow_axes();
+draw_axes();
 
 
 
@@ -113,7 +113,7 @@ document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
 		creat_block_func(5);
 		if (func_cnt === 0) {
-			drow_axes();
+			draw_axes();
 			funk_block_class.style.display = 'block';
 		}
 		func_cnt++;
@@ -150,7 +150,7 @@ document.getElementById('clearbtn').addEventListener('click', () => {
 
 	funk_block_class.style.display = 'none';
 	drow_start();
-	drow_axes();
+	draw_axes();
 });
 
 
@@ -331,7 +331,7 @@ return 0;
 
 function redrawing() {
 	ctx.clearRect(0, 0, canv.width, canv.height);
-		drow_axes();
+		draw_axes();
 		adds_func.forEach((str, index) => {
 			if (str[0] == '1') {
 				draw_graph(str.slice(1), colors[index]);
@@ -369,14 +369,14 @@ function el(id){
 
 
 
-function drow_axes(){
-	ctx.globalAlpha = 1.0;
+function draw_axes(){
+	
 	//рисуем ось Х
-	y0_canv = y2canv(0)
+	y0_canv = y2canv(0) // преобразование координаты в формат канваса
 	ctx.beginPath();
 	ctx.moveTo(0, y0_canv);
 	ctx.lineTo(width, y0_canv);
-	ctx.lineWidth = 0.5;
+	ctx.lineWidth = 1;
 	ctx.strokeStyle = 'black';
 	ctx.stroke();
 
@@ -385,9 +385,10 @@ function drow_axes(){
 	ctx.beginPath();
 	ctx.moveTo( x0_canv, 0);
 	ctx.lineTo( x0_canv, height);
-	ctx.lineWidth = 0.5;
+	ctx.lineWidth = 1;
 	ctx.strokeStyle = 'black';
 	ctx.stroke();
+
 }
 
 
@@ -466,15 +467,17 @@ function draw_graph(str, color) {
 		ctx.stroke();
 	}
 }
-function draw_graph_check(str, color) {
+
+
+function draw_graph_check(function_str, color) {
     try {
-        y_down = x_left;
+        y_down = x_left; // нижняя и верхняя границы y
         y_up = x_right;
-        step = 0.01;
+        step = 0.01; // шаг по x при отрисовке графика 
 
         x = x_left; // устанавливаем перо на начальную точку
-        y = eval(str);
-        x_canv = x2canv(x);
+        y = eval(function_str); // вычисление значение функции из строки
+        x_canv = x2canv(x); // преобразование координат в формат канваса
         y_canv = y2canv(y);
 
         ctx.beginPath(); // первоначальные параметры
@@ -483,33 +486,38 @@ function draw_graph_check(str, color) {
         ctx.strokeStyle = color;
         f = 1;
 
-        for (i = 0; i < x_right * 2; i += 0.01) { // рендеринг графика
-            x = Number(x) + step;
-            y = eval(str);
+        for (i = 0; i < x_right * 2; i += 0.01) { // отрисовка графика
+            x += step;
+            y = eval(function_str);
+			// если точка находится в пределах допустимого диапазона по y
             if (y <= y_up * 2 && y >= y_down * 2) {
-                x_canv = x2canv(x);
+                x_canv = x2canv(x); // то продолжаем отрисовку
                 y_canv = y2canv(y);
+				// если до этого рисование было прервано,
+				// то начинаем новую линию
                 if (f == 0) {
-                    ctx.beginPath();
+                    ctx.beginPath(); 
                     ctx.moveTo(x_canv, y_canv);
                     f = 1;
                 }
                 ctx.lineTo(x_canv, y_canv);
-            } else {
+            } else { // иначе завершаем текущую линию
                 if (f == 1) {
                     ctx.stroke();
                     f = 0;
                 }
             }
         }
+		// завершение рисования, 
+		// если оно всё ещё активно после завершения цикла
         if (f == 1) {
             ctx.stroke();
         }
-        return true; // График отрисован успешно
+        return true; // график отрисован успешно
     } catch (error) {
         console.error("Ошибка отрисовки графика: ", error);
         alert("Ошибка отрисовки графика, возможно, выражение введено некорректно.");
-        return false; // Возвращаем false в случае ошибки
+        return false; // false в случае ошибки
     }
 }
 

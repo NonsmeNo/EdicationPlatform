@@ -320,71 +320,62 @@ function findXLinear(eq, type) {
 }
 
 
-
-
-
 // 📐 Решение квадратных уравнений
+// функция округления до 3 знаков после запятой
+function round3(num) {
+    if (Number.isFinite(num) && num % 1 !== 0 && num.toString().split(".")[1]?.length > 3) {
+        return parseFloat(num.toFixed(3));
+    }
+    return num;
+}
 
 function findXQuad(eq, type) {
     let a, b, c;
     let result;
 
-    // Если уравнение полного вида (ax^2 + bx + c = 0)
+    // eсли уравнение полного вида (ax^2 + bx + c = 0)
     if (type == 4) {
-        // Извлекаем коэффициенты a, b и c из уравнения
+        // извлекаем коэффициенты a, b и c из уравнения
         let parts = eq.split("*x");
         a = parseFloat(parts[0]); 
         b = parseFloat(parts[2]);
         c = parseFloat(parts[3].split("=")[0]);
 
-
-        // Вычисляем дискриминант
+        // вычисляем дискриминант
         let discriminant = b * b - 4 * a * c;
 
+        // если 2 корня
         if (discriminant > 0) {
-            // Два корня
+            // находим x1 и x2
             let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
             let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
 
-            // Округление до 3 знаков после запятой
-            if (Number.isFinite(x1) && x1 % 1 !== 0 && x1.toString().split(".")[1]?.length > 3) {
-                x1 = parseFloat(x1.toFixed(3)); 
-            }
-            if (Number.isFinite(x2) && x2 % 1 !== 0 && x2.toString().split(".")[1]?.length > 3) {
-                x2 = parseFloat(x2.toFixed(3)); 
-            }
-
+            // округление до 3 знаков после запятой
+            x1 = round3(x1);
+            x2 = round3(x2);
             result = "Ответ: x₁ = " + x1 + ", x₂ = " + x2 + ", D = " + discriminant;
 
+        // если один корень
         } else if (discriminant === 0) {
-            // Один корень
-            let x = -b / (2 * a);
-
-            if (Number.isFinite(x) && x % 1 !== 0 && x.toString().split(".")[1]?.length > 3) {
-                x = parseFloat(x.toFixed(3)); 
-            }
-
+            let x = -b / (2 * a); // находим x
+            x = round3(x);
             result = "Ответ: x = " + x + ", D = " + discriminant;
 
+        // если нет корней
         } else {
-            // Нет корней
             result = "Ответ: Нет корней";
         }
 
+    // уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
     } else if (type == 5) {
-        // Уравнение неполного вида (ax^2 + b = 0 или ax^2 = 0)
+        // извлекаем коэффициенты a, b из уравнения
         a = parseFloat(eq.split("*x")[0]);
         b = parseFloat(eq.split("*x*x")[1].split("x=")[0]);
-
+        // находим x
         let x2 = -b / a;
-
-        if (Number.isFinite(x2) && x2 % 1 !== 0 && x2.toString().split(".")[1]?.length > 3) {
-            x2 = parseFloat(x2.toFixed(3)); 
-        }
-
+         x2 = round3(x2);
         result = "Ответ: x₁ = 0, x₂ = " + x2;
     }
-
     document.getElementById("answer").innerHTML = result;
 }
 
