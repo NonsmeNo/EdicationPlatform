@@ -440,8 +440,7 @@ function findXTrig(eq) {
         }
 
         const arccosVal = Math.acos(cos_x);
-        const x1 = (Math.PI - arccosVal).toFixed(2);
-        const x2 = (-Math.PI + arccosVal).toFixed(2);
+        const x = (arccosVal).toFixed(2);
 
         const raw = cos_x;
         const formattedCos = (raw % 1 !== 0 && raw.toString().split('.')[1]?.length > 2)
@@ -450,10 +449,8 @@ function findXTrig(eq) {
 
         const expressions = [
             `Ответ:`,
-            `x = \\pi - \\arccos(${formattedCos}) + 2\\pi k`,
-            `x = -\\pi + \\arccos(${formattedCos}) + 2\\pi k`,
-            `x \\approx ${x1} + 2\\pi k`,
-            `x \\approx ${x2} + 2\\pi k`
+            `x = \\pm\\ \\arccos(${formattedCos}) + 2\\pi k`,
+            `x \\approx \\pm\\ ${x} + 2\\pi k`
         ];
 
         expressions.forEach(expr => {
