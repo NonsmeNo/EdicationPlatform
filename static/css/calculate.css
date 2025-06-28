@@ -1,5 +1,4 @@
 
-/*графический калькулятор*/
 :root {
     --blue: #2E9AFF;
     --light-pink: #f3ccd5;
@@ -7,605 +6,547 @@
 
 .content {
     background-image: linear-gradient(var(--blue), var(--light-pink));
-	box-sizing: border-box;
-	width: 100%;
-	height: calc(100vh - 81px);
-
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(100vh - 81px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-
-/* =========================
-   БЛОК CANVAS
-========================= */
-
+/* БЛОК CANVAS */
 .content .canvas {
-	width: 75%;
-	margin: 0;
-	padding: 0;
-	background-color: rgba(0, 0, 0, 0.1);
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	position: relative;
+    width: 75%;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .content .canvas canvas {
-	aspect-ratio: 1 / 1;
-	background-color: rgb(255, 255, 255);
-	border-radius: 10px;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    aspect-ratio: 1 / 1;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Если контейнер выше, чем широк */
+/* Если контейнер более высокий, чем широкий */
 @media (max-aspect-ratio: 1/1) {
-	.content .canvas canvas {
-		width: 92%;
-		height: auto;
-	}
+    .content .canvas canvas {
+        width: 92%;
+        height: auto;
+    }
 }
 
-/* Если контейнер шире, чем высокий */
+/* Если контейнер более широкий, чем высокий */
 @media (min-aspect-ratio: 1/1) {
-	.content .canvas canvas {
-		height: 92%;
-		width: auto;
-	}
-}
-
-/* =========================
-   КНОПКА СКРЫТЬ ПАРАМЕТРЫ
-========================= */
-.content .canvas .hide-param-btn{
-	width: 50px;
-	height: 50px;
-
-	position: absolute;
-	right: -25px;
-	top: 10px;
-	opacity: 0.7;
-	background: none;
-	border: 0;
-}
-
-.content .canvas .hide-param-btn:hover{
-	opacity: 1;
-	right: -10px;
-}
-
-.content .canvas .hide-param-btn img{
-	width: 100%;
+    .content .canvas canvas {
+        height: 92%;
+        width: auto;
+    }
 }
 
 
-/* ================================================== */
 
-/* =========================
-   БЛОК ПАРАМЕТРЫ
-========================= */
 
+
+/* Кнопка скрыть блок параметров */
+.content .canvas .hide-param-btn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: -25px;
+    top: 10px;
+    opacity: 0.7;
+    background: none;
+    border: 0;
+}
+
+.content .canvas .hide-param-btn:hover {
+    opacity: 1;
+    right: -10px;
+}
+
+.content .canvas .hide-param-btn img {
+    width: 100%;
+}
+
+
+
+
+
+/* БЛОК ПАРАМЕТРЫ */
 .content .parameters {
-	width: 25%;
-	background-color: rgb(255, 255, 255);
-	box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
-
-	display: flex;
-	flex-direction: column;
-	padding: 10px 20px;
-
-	position: relative;
-
+    width: 25%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    position: relative;
 }
 
-/* =========================
-   HEADER ПАРАМЕТРЫ
-========================= */
 
-.content .parameters .header-param{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding-bottom: 20px;
+
+.content .parameters .header-param {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
 }
 
-.content .parameters .header-param .select-title{
-	width: 90%;
-	font-size: 18px;
-	font-weight: 700;
-	color: #696969;
-	padding-right: 15px;
-	transition: color 0.4s ease;
+.content .parameters .header-param .select-title {
+    width: 90%;
+    font-size: 18px;
+    font-weight: 700;
+    color: #696969;
+    padding-right: 15px;
+    transition: color 0.4s ease;
 }
+
 .content .parameters .header-param .select-title:hover {
     color: #2E9AFF;
 }
 
-.content .parameters .header-param .select-btn{
-	width: 10%;
-	cursor: pointer;
-}
-.content .parameters .header-param button{
-	background-color: white;
-	border: 0;
-	opacity: 0.8;
+.content .parameters .header-param .select-btn {
+    width: 10%;
+    cursor: pointer;
 }
 
-.content .parameters .header-param button:hover{
-	opacity: 1;
+.content .parameters .header-param button {
+    background-color: white;
+    border: 0;
+    opacity: 0.8;
 }
 
-.content .parameters .header-param .select-btn img{
-	width: 100%;
+.content .parameters .header-param button:hover {
+    opacity: 1;
 }
 
-/* =========================
-   МЕНЮШКА
-========================= */
+.content .parameters .header-param .select-btn img {
+    width: 100%;
+}
 
+/* Выпадающее меню в блоке параметров */
 .content .parameters .dropdown-options {
-	position: absolute;
-	top: 80px;
-	left: 20px;
-	right: 20px;
-  
-	background-color: rgb(93, 92, 92);
-	color: #fff;
-	border: 1px solid rgb(93, 92, 92);
-	box-shadow: 0 2px 8px rgba(0,0,0,0.9);
-	z-index: 1000;
-  
-	display: none;
-	border-radius: 5px;
-	
-	
-  }
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    right: 20px;
+    background-color: rgb(93, 92, 92);
+    color: #fff;
+    border: 1px solid rgb(93, 92, 92);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    z-index: 1000;
+    display: none;
+    border-radius: 5px;
+}
 
-  .content .parameters .dropdown-options .option {
+.content .parameters .dropdown-options .option {
     padding: 10px;
     cursor: pointer;
 }
 
 .content .parameters .dropdown-options .option:hover {
     background-color: #f0f0f0;
-	color: #333333;
+    color: #333333;
 }
 
-/* =========================
-   INPUT BLOCK
-========================= */
+/* Окно ввода функции */
 .content .parameters .input {
-	color: #444444;
-	font-size: 16px;
-	font-weight: 400;
+    color: #444444;
+    font-size: 16px;
+    font-weight: 400;
 }
 
-
-.content .parameters .input .rend_btn{
-	width: 40%;
-	padding: 5px;
-	margin-top: 20px;
-	background-color: #5C5C5C;
-	border: 1px solid #5C5C5C;
-	border-radius: 5px;
-	color: #fff;
-	font-weight: 400;
-	margin-left: auto; 
-
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+.content .parameters .input .rend_btn {
+    width: 40%;
+    padding: 5px;
+    margin-top: 20px;
+    background-color: #5C5C5C;
+    border: 1px solid #5C5C5C;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 400;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.content .parameters .input .rend_btn:hover{
-	background-color: #333333;
-	
-}
-.content .parameters .input .rend_btn img{
-	margin-left: 10px;
-	width: 20%;
+.content .parameters .input .rend_btn:hover {
+    background-color: #333333;
 }
 
+.content .parameters .input .rend_btn img {
+    margin-left: 10px;
+    width: 20%;
+}
 
-/* ================================================== */
-.content .parameters .settingparam .btns button{
-	display: none;
+.content .parameters .settingparam .btns button {
+    display: none;
 }
 
 .content .parameters .input .func {
-	display: none;
+    display: none;
 }
 
 
 
 
-/* =========================
-   БЛОК ФУНКЦИЙ
-========================= */
+
+/* БЛОК ФУНКЦИЙ */
 
 .content .parameters .btns {
-	display: flex;
-	flex-direction: row;
-	margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
 }
 
 .content .parameters .btns button {
-	width: 40%;
-	padding: 12px;
-	background-color: #89abff;
-	border: 1px solid #89abff;
-	border-radius: 5px;
-	color: #fff;
-	font-weight: 400;
-	margin-right: 10px;
-	transition: background-color 0.4s ease;
+    width: 40%;
+    padding: 12px;
+    background-color: #89abff;
+    border: 1px solid #89abff;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 400;
+    margin-right: 10px;
+    transition: background-color 0.4s ease;
 }
 
 .content .parameters .btns button:hover {
-	background-color: #FF5959;
-	border: 1px solid #FF5959;
+    background-color: #FF5959;
+    border: 1px solid #FF5959;
 }
-
 
 .content .parameters .func-block {
-	background-color: rgb(255, 251, 201);
-	border: 1px solid #ccc;
-	box-shadow: 0 0px 8px rgba(0,0,0,0.3);
-	padding: 20px;
-	
-	border-radius: 10px;
-	margin-top: 40px;
-	display: none;
-	position: relative;
+    background-color: rgb(255, 251, 201);
+    border: 1px solid #ccc;
+    box-shadow: 0 0px 8px rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+    display: none;
+    position: relative;
 }
 
 
 
-/* =========================
-   ВИЗУАЛИЗИРОВАННЫЕ ФУНКЦИИ
-========================= */
 
-.content .parameters .func-block .clip{
-	position: absolute;
-	width: 10%;
-	top: -20px;
-	right: 10px;   
-}
-.content .parameters .func-block .clip img{
-	width: 100%;
+/* ВИЗУАЛИЗИРОВАННЫЕ ФУНКЦИИ */
+
+.content .parameters .func-block .clip {
+    position: absolute;
+    width: 10%;
+    top: -20px;
+    right: 10px;
 }
 
+.content .parameters .func-block .clip img {
+    width: 100%;
+}
 
 .content .parameters .functions {
-	display: flex;
-	flex-direction: column;
-	margin-top: 10px;
-}
-.content .parameters .functions .func_block{
-	margin-bottom: 10px;
-	color: #333333;
-	background-color: rgba(0, 0, 0, 0.05);
-	border-radius: 5px;
-	padding: 10px 5px;
-
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
 }
 
-.content .parameters .functions .func_block .color_func{
-	width: 20px;
-	height: 20px;
-	border-radius: 20px;
-	margin-right: 20px;
+.content .parameters .functions .func_block {
+    margin-bottom: 10px;
+    color: #333333;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: row;
 }
+
+.content .parameters .functions .func_block .color_func {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+
 .content .parameters .functions .func_block button {
-	background-color: rgb(184, 223, 194);
-	border-width: 0;
-}
-.content .parameters .functions .func_block button img{
-	width: 20px;
-	height: 20px;
+    background-color: rgb(184, 223, 194);
+    border-width: 0;
 }
 
+.content .parameters .functions .func_block button img {
+    width: 20px;
+    height: 20px;
+}
 
-
-/* =========================
-   MathQuill
-========================= */
-.content .parameters #math-field{
-	display: block;
-	padding: 10px 5px;
-	background-color: #fffefe;
-	margin-top: 5px;
-	border: 1px solid rgba(0, 0, 0, 0.5);
+/* MathQuill */
+.content .parameters #math-field {
+    display: block;
+    padding: 10px 5px;
+    background-color: #fffefe;
+    margin-top: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     font-size: 20px;
 }
 
 .content .parameters .func-param-field {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
+
 .content .parameters #func1-field,
-.content .parameters #func2-field{
-	display: block;
-	padding: 8px 5px;
-	background-color: #fffefe;
-	border: 1px solid rgba(0, 0, 0, 0.5);
+.content .parameters #func2-field {
+    display: block;
+    padding: 8px 5px;
+    background-color: #fffefe;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     font-size: 20px;
-	width: 100%;
-	margin: 5px;
+    width: 100%;
+    margin: 5px;
 }
 
 .content .parameters #math-field:focus {
     outline: none;
     border-color: #2E9AFF;
-    box-shadow: 0 0 15px rgba(123, 191, 255); 
+    box-shadow: 0 0 15px rgba(123, 191, 255);
 }
 
-#latex, #func1-latex, #func2-latex{
-	display: none;
+#latex, #func1-latex, #func2-latex {
+    display: none;
 }
 
-#func, #func1, #func2{
-	display: none;
+#func, #func1, #func2 {
+    display: none;
 }
 
-/* =========================
-   ввод чисел
-========================= */
-/* для параметрической */
-.input .input-param-field{
-	display: flex;
-	flex-direction: row;
-	margin-top: 10px;
 
-	padding: 8px 5px;
-	background-color: #fffefe;
+/* ввод чисел для параметрической */
+.input .input-param-field {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    padding: 8px 5px;
+    background-color: #fffefe;
 }
 
 .input .input-param-field input {
-	width: 100px;
-	text-align: center;
-	margin: 0 5px;
-	border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 100px;
+    text-align: center;
+    margin: 0 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     font-size: 16px;
-	padding: 8px 5px;
+    padding: 8px 5px;
 }
 
-.input .input-param-field input:focus, 
+.input .input-param-field input:focus,
 .input .input-circle-ellips-field input:focus {
     outline: none;
     border-color: #2E9AFF;
-    box-shadow: 0 0 15px rgba(123, 191, 255); 
+    box-shadow: 0 0 15px rgba(123, 191, 255);
 }
 
-/* для окружности и эллипса */
+/* ввод чисел для окружности и эллипса */
 .input .input-circle-ellips-field {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.input .input-circle-ellips-field .circle-ellips-text{
-	white-space: nowrap;
+.input .input-circle-ellips-field .circle-ellips-text {
+    white-space: nowrap;
 }
 
-.input .input-circle-ellips-field input{
-	width: 100px;
-	text-align: center;
-	margin: 5px 10px 5px 5px;
-	border: 1px solid rgba(0, 0, 0, 0.5);
+.input .input-circle-ellips-field input {
+    width: 100px;
+    text-align: center;
+    margin: 5px 10px 5px 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     font-size: 16px;
-	padding: 8px 5px;
+    padding: 8px 5px;
 }
+
 .input .input_func p {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
-/* =========================
-   КЛАВИАТУРА
-========================= */
 
-/* кнопка клавы */
+
+
+
+
+/* КЛАВИАТУРА */
+
+/* кнопка клавиатуры */
 .parameters #keyboard-icon-btn {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	width: 20%;
-	border: 1px solid #a3a3a3;
-	background-color: #dfdddd;
-	color: #333;
-	border-radius: 8px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: opacity 0.2s, background-color 0.2s;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 20%;
+    border: 1px solid #a3a3a3;
+    background-color: #dfdddd;
+    color: #333;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, background-color 0.2s;
 }
 
 .parameters #keyboard-icon-btn:hover {
-	opacity: 1;
-	background-color: #e0e0e0;
+    opacity: 1;
+    background-color: #e0e0e0;
 }
-.parameters #keyboard-icon-btn:hover img{
-	opacity: 1;
+
+.parameters #keyboard-icon-btn:hover img {
+    opacity: 1;
 }
 
 .parameters #keyboard-icon-btn img {
-	max-height: 60px;
-	width: auto;
-	pointer-events: none;
-	opacity: 0.7;
+    max-height: 60px;
+    width: auto;
+    pointer-events: none;
+    opacity: 0.7;
 }
 
 /* сама клавиатура */
 .keyboard {
-	width: 100%;
-	height: 200px;
-	background-color: #dfdddd;
-	position: absolute;
-	bottom: 0;
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity 0.3s ease;
-	z-index: 9999;
-	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
-	padding: 5px 10px;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	gap: 3%; /* расстояние между блоками */
-	pointer-events: none;
+    width: 100%;
+    height: 200px;
+    background-color: #dfdddd;
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3%;
+    pointer-events: none;
 }
 
 .keyboard.visible {
-	opacity: 1;
-	visibility: visible;
-	pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 /* Первый блок: 2 столбца, 4 строки */
 .keybord-block-1 {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	gap: 6px;
-	width: 120px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 6px;
+    width: 120px;
 }
 
 /* Второй блок: 4x4 */
 .keybord-block-2 {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	gap: 6px;
-	width: 240px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 6px;
+    width: 240px;
 }
 
 /* Третий блок */
 .keybord-block-3 {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: repeat(4, 1fr);
-	gap: 8px;
-	width: 100px;
-
-	position: relative;
-	z-index: 1000;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 8px;
+    width: 100px;
+    position: relative;
+    z-index: 1000;
 }
 
 .key-btn-col1 {
-	background-color: #bbb;
-	color: black;
-	border: none;
-	border-radius: 5px;
-	padding: 8px;
-	font-size: 16px;
-	cursor: pointer;
+    background-color: #bbb;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .key-btn-col2 {
-	background-color: #ffffff;
-	color: black;
-	border: none;
-	border-radius: 5px;
-	padding: 8px;
-	font-size: 16px;
-	cursor: pointer;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .key-enter-btn {
-	background-color: #4da6ff;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 8px;
-	font-size: 16px;
-	cursor: pointer;
-	width: 100%;
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
 }
 
 .keybord-nav-btns {
-	display: flex;
-	justify-content: space-between;
-	gap: 6px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }
+
 .keybord-nav-btns button {
-	flex: 1;
+    width: 48%;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-.key-btn-col1,
-.key-btn-col2,
-.key-enter-btn,
-#keybord-func-btn {
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-	transition: transform 0.05s ease, box-shadow 0.05s ease;
+.keybord-nav-btns .left-btn {
+    background-color: #f2f2f2;
+    color: #333;
 }
 
-.key-btn-col1:active,
-.key-btn-col2:active,
-.key-enter-btn:active,
-#keybord-func-btn:active {
-	transform: translateY(1px);
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+.keybord-nav-btns .right-btn {
+    background-color: #4da6ff;
+    color: white;
 }
 
-.keybord-functions {
-	display: none;
-	grid-template-columns: repeat(2, 1fr); 
-	grid-template-rows: repeat(3, 1fr); 
-	gap: 6px;
-	position: absolute;
-	bottom: 102%;
-	padding: 10px 10px 20px 10px;
-	border-radius: 5px;
-	background-color: #dfdddd;
-	left: 50%;
-	transform: translateX(-50%);
-	box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-@media screen and (max-width: 1050px) {
-	.content {
-		flex-direction: column;
-		justify-content: start;
-		height: auto;
-	}
-	.content .canvas {
-		width: 100%;
-		align-items: flex-start;
-		padding: 30px;
-		height: auto;
-	}
-	.content .canvas canvas {
-		width: 100%;
-		height: auto;
-	}
-
-	.content .parameters {
-		width: 100%;
-		height: 100vh;
-		box-shadow: none;
-		border: none;
-	}
-
-	.content .parameters .dropdown-options {
-		top: -220px;
-	}
-
-	.content .canvas .hide-param-btn{
-		display: none;
-	}
+/* Мобильная клавиатура */
+@media (max-width: 480px) {
+    .content {
+        flex-direction: column;
+        height: auto;
+    }
+    .content .canvas {
+        width: 100%;
+        height: 60vh;
+        margin-bottom: 10px;
+    }
+    .content .parameters {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+    }
 }

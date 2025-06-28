@@ -1,6 +1,4 @@
-/* =========================
-   ПЕРЕМЕННЫЕ CSS
-========================= */
+
 :root {
     --white: #ffffff;
     --blue: #2E9AFF;
@@ -9,17 +7,14 @@
     --hover-color: #FF5959;
     --divider-color: #979797;
 }
-  
-  /* =========================
-     БАЗОВАЯ РАЗМЕТКА (Mobile First)
-  ========================= */
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
-  
+
 .content {
     background-image: linear-gradient(var(--blue), var(--light-pink));
     min-height: calc(100vh - 81px);
@@ -27,234 +22,235 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
-  
+
 .preview-block {
     padding-top: 5%;
     display: flex;
     flex-direction: column;
 }
-  
+
 .preview-block1 {
     width: 100%;
 }
-  
-  .slogan {
+
+.slogan {
     background-color: rgba(0, 0, 0, 0.5);
     font-weight: 300;
     font-size: 25px;
     color: var(--white);
     padding: 20px 10px 20px 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .slogan span {
+}
+
+.slogan span {
     animation: fadeInOut 10s infinite;
-  }
-  
-  .text-block {
+}
+
+.text-block {
     display: flex;
     flex-direction: row;
-  }
-  
-  .space-box {
+}
+
+.space-box {
     width: 15%;
-  }
-  
-  .text-box {
+}
+
+.text-box {
     background-color: var(--white);
     width: 85%;
     padding: 10px 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-  }
-  
-  .img-graph img, .img-time img {
+}
+
+.img-graph img, .img-time img {
     width: 70%;
     opacity: 0.7;
-  }
-  
-  .img-time img {
+}
+
+.img-time img {
     width: 60%;
     opacity: 0.6;
-  }
-  
-  .text1 {
+}
+
+.text1 {
     color: var(--text-color);
     font-size: 16px;
     font-weight: 700;
     padding-bottom: 10px;
-  }
-  
-  .text2 {
+}
+
+.text2 {
     color: var(--text-color);
     font-size: 16px;
     font-weight: 400;
     padding-bottom: 10px;
     display: flex;
     flex-direction: row;
-  }
-  
-  .text2 p {
+}
+
+.text2 p {
     width: 80%;
     margin: 0;
-  }
-  
-  .img-text {
+}
+
+.img-text {
     width: 20%;
-  }
-  
-  .reg-btns {
+}
+
+.reg-btns {
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-  }
-  
-  .reg-btns a {
+}
+
+.reg-btns a {
     color: var(--blue);
     font-size: 14px;
-  }
-  
-  .reg-btns a:hover {
+}
+
+.reg-btns a:hover {
     color: var(--blue);
     text-decoration: underline;
-  }
-  
-  .divider {
+}
+
+.divider {
     width: 1.2px;
     height: 16px;
     background-color: var(--divider-color);
     margin: 3px 10px;
-  }
-  
-  .preview-block2 {
+}
+
+.preview-block2 {
     display: none;
-  }
-  
-  footer {
+}
+
+footer {
     display: flex;
     flex-direction: row;
     justify-content: center;
-  }
-  
-  footer a {
+}
+
+footer a {
     padding: 20px 5px;
     color: rgba(0, 0, 0, 0.5);
     font-size: 12px;
-  }
-  
-  footer a:hover {
+}
+
+footer a:hover {
     text-decoration: underline;
-  }
-  
+}
+
+/* Анимация fadeInOut */
 @keyframes fadeInOut {
     0% { opacity: 0.2; }
     50% { opacity: 1; }
     100% { opacity: 0.2; }
 }
-  
-/* =========================
-    Адаптация десктоп
-========================= */
+
+
+
+
+/* Адаптация десктопная */
 @media (min-width: 1050px) {
-.preview-block {
-    flex-direction: row;
-}
-
-.preview-block1 {
-    width: 60%;
-}
-
-.space-box {
-    width: 30%;
-}
-
-.text-box {
-    width: 70%;
-    padding: 30px 40px;
-}
-
-.text2 p {
-    width: 87%;
-}
-
-.img-text {
-    width: 13%;
-}
-
-.slogan {
-    font-size: 40px;
-}
-
-.preview-block2 {
-    display: flex;
-    width: 40%;
-    flex-direction: column;
-}
-
-.preview-img {
-    width: 42%;
-    display: flex;
-    align-items: flex-end;
-}
-
-.preview-block2 img {
-    width: 100%;
-    height: 100%;
-    animation: fadeInOut 10s infinite;
-}
-
-.preview-block2 a {
-    width: 50%;
-    color: var(--white);
-    font-size: 35px;
-    font-weight: 500;
-    text-align: center;
-}
-
-.calculate-btn {
-    background-color: rgba(46, 154, 255, 0.5);
-    width: 100%;
-    height: 120px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    transition: background-color 0.5s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.calculate-btn:hover {
-    background-color: var(--hover-color);
-}
-
-footer a {
-    padding: 20px;
-    font-size: 13px;
-}
-}
-  
-/* =========================
-    Адаптация горизонтальная для телефона
-========================= */
-@media (max-width: 1050px) and (orientation: landscape) {
     .preview-block {
-      padding-top: 0;
+        flex-direction: row;
+    }
+
+    .preview-block1 {
+        width: 60%;
+    }
+
+    .space-box {
+        width: 30%;
+    }
+
+    .text-box {
+        width: 70%;
+        padding: 30px 40px;
     }
 
     .text2 p {
-      width: 90%;
+        width: 87%;
     }
 
     .img-text {
-      width: 10%;
-    }
-
-    .reg-btns {
-      margin-top: 0;
+        width: 13%;
     }
 
     .slogan {
-      padding: 10px 0 10px 30px;
+        font-size: 40px;
+    }
+
+    .preview-block2 {
+        display: flex;
+        width: 40%;
+        flex-direction: column;
+    }
+
+    .preview-img {
+        width: 42%;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .preview-block2 img {
+        width: 100%;
+        height: 100%;
+        animation: fadeInOut 10s infinite;
+    }
+
+    .preview-block2 a {
+        width: 50%;
+        color: var(--white);
+        font-size: 35px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .calculate-btn {
+        background-color: rgba(46, 154, 255, 0.5);
+        width: 100%;
+        height: 120px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        transition: background-color 0.5s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .calculate-btn:hover {
+        background-color: var(--hover-color);
+    }
+
+    footer a {
+        padding: 20px;
+        font-size: 13px;
+    }
+}
+
+/* Адаптация горизонтальная */
+
+@media (max-width: 1050px) and (orientation: landscape) {
+    .preview-block {
+        padding-top: 0;
+    }
+
+    .text2 p {
+        width: 90%;
+    }
+
+    .img-text {
+        width: 10%;
+    }
+
+    .reg-btns {
+        margin-top: 0;
+    }
+
+    .slogan {
+        padding: 10px 0 10px 30px;
     }
 }

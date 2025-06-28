@@ -1,15 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-
-// 🔧 ОСНОВНЫЕ ПЕРЕМЕННЫЕ И НАСТРОЙКИ
-
-// DOM-элементы и переменные
 const functions_print = document.getElementById('functions');
 const funk_block_class = document.getElementById('func-block');
 const canv = document.getElementById('canvas');
 const ctx = canv.getContext('2d');
 
-// Максимальное количество функций
 const max_funcs = 5;
 const colors = ['#01AB9F', '#FF7A5A', '#FFB85F', '#9A80F6', '#82AFFB'];
 

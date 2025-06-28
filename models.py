@@ -3,6 +3,7 @@ from flask_login import UserMixin
 
 db = SQLAlchemy()
 
+
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -10,9 +11,12 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     img = db.Column(db.String(255), nullable=True)
 
+
+
 class Themes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+
 
 
 class Tasks(db.Model):
@@ -22,6 +26,8 @@ class Tasks(db.Model):
 
     theme = db.relationship('Themes', backref=db.backref('tasks', lazy=True))
 
+
+
 class Templates(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     template = db.Column(db.String(255), nullable=False)
@@ -30,6 +36,7 @@ class Templates(db.Model):
     theme_id = db.Column(db.Integer, db.ForeignKey('themes.id'), nullable=False)
 
     theme = db.relationship('Themes', backref=db.backref('templates', lazy=True))
+
 
 
 class SavedTasks(db.Model):

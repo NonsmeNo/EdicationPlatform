@@ -7,9 +7,11 @@ from email_validator import validate_email, EmailNotValidError
 from config import Config
 from models import db, Users, Themes, Tasks, Templates, SavedTasks
 
-# Создаем приложение
+# Создаем приложения Flask
 app = Flask(__name__)  
 app.config.from_object(Config)  # Загружаем конфигурацию
+
+
 
 # Инициализируем SQLAlchemy и LoginManager
 db.init_app(app)
@@ -23,18 +25,14 @@ def load_user(user_id):
 
 
 
-# ----------------------------
-# 🗺️ Роуты
-# ----------------------------
-
-
+# Роуты
 
 @app.route('/')
 def index():
     return render_template('index.html', current_path=request.path)
 
 
-# --- 🔐 Авторизация / регистрация ---
+# Авторизация / регистрация 
 
 @app.route('/profile')
 def profile():
@@ -140,14 +138,15 @@ def logout():
 
 
 
-# --- 📊 Графический калькулятор ---
+# Графический калькулятор
 
 @app.route('/calculate')
 def calculate():
     return render_template('calculate.html', current_path=request.path)
 
 
-#  --- ⚙️ Генератор задач ---
+
+#  Генератор задач
 
 @app.route('/taskThemes')
 def task_themes():
@@ -189,6 +188,7 @@ def rend():
     themes = Themes.query.all()
     return render_template("rend.html", current_path='/taskThemes', current_theme=current_theme, task=task, current_template=current_template, themes=themes)
 
+
 @app.route('/rendsave')
 def rendsave():
     req = request.args.get('theme_id')
@@ -220,11 +220,11 @@ def add_task():
 
     return jsonify({'message': 'Task added successfully'})
 
-# ----------------------------
-# 🧱 Создаем таблицы в базе данных и заполняем
-# ----------------------------
 
-# Функция заполнения базы
+
+
+# Создание таблиц в базе данных и заполнение темами и шаблонами
+
 def seed_themes():
     if Themes.query.count() == 0:
         themes = [
@@ -275,7 +275,6 @@ with app.app_context():
     seed_tasks()
     pass
     
-
 
 if __name__ == "__main__":  # для того чтобы проект запускался как приложение flask
     app.run(debug=True)  # debug чтобы выводились на страничке все ошибки

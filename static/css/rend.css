@@ -1,3 +1,5 @@
+
+
 :root {
     --blue: #2E9AFF;
     --light-pink: #f3ccd5;
@@ -5,15 +7,13 @@
 
 .content {
     background-image: linear-gradient(var(--blue), var(--light-pink));
-	box-sizing: border-box;
-	width: 100%;
-	min-height: calc(100vh - 81px);
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(100vh - 81px);
     padding: 0;
 }
 
-/* =========================
-   СПИСОК ТЕМ
-========================= */
+/* Список тем */
 .content .themes-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -32,13 +32,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1 / 1; /* Квадратный блок */
+    aspect-ratio: 1 / 1;
     transition: transform 0.2s ease;
 }
 
 .content .themes-list .theme-item:hover {
     transform: translateY(-4px);
-    color:#2E9AFF;
+    color: #2E9AFF;
 }
 
 .content .themes-list .theme-item img {
@@ -52,16 +52,15 @@
     font-weight: bold;
 }
 
+/* Адаптив для списка тем */
 @media (max-width: 1050px) {
     .content {
         padding: 0 20px;
     }
-
     .content .themes-list {
         grid-template-columns: 1fr;
         padding: 20px 50px;
     }
-
     .content .themes-list .theme-item {
         width: 100%;
         max-width: 400px;
@@ -69,60 +68,55 @@
     }
 }
 
-
-/* =========================
-   БЛОК ПАРАМЕТРОВ
-========================= */
-
+/* БЛОК ПАРАМЕТРОВ */
 .content .gener_param_block {
     margin: 0 auto;
     padding: 100px 0;
     width: 45%;
     display: flex;
     flex-direction: column;
-
     font-size: 18px;
-	font-weight: 700;
-    
+    font-weight: 700;
 }
-.content .gener_param_block .title{
+
+.content .gener_param_block .title {
     background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
     background-color: #2980b9;
-
     color: #fff;
-    text-align:center;
+    text-align: center;
     padding: 20px 0;
     font-size: 20px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     z-index: 1;
 }
 
-.content .gener_param_block form{
+.content .gener_param_block form {
     background-color: #fff;
     display: flex;
     flex-direction: row;
     padding: 20px;
-    text-align:center;
+    text-align: center;
     color: #666666;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
-.content .gener_param_block .auth-href a{
+
+.content .gener_param_block .auth-href a {
     color: #FF5959;
 }
 
-.content .gener_param_block .auth-href a:hover{
+.content .gener_param_block .auth-href a:hover {
     color: #ca1818;
 }
 
-
-.content .gener_param_block form h3{
+.content .gener_param_block form h3 {
     padding-bottom: 15px;
     color: #3498db;
 }
 
-.content .gener_param_block form .gener, .save{
+.content .gener_param_block form .gener, .save {
     width: 50%;
 }
+
 .content .gener_param_block .custom-select {
     display: inline-block;
     padding: 8px 12px;
@@ -134,8 +128,7 @@
     width: 70%;
 }
 
-
-.content .gener_param_block .button{
+.content .gener_param_block .button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #3498db;
@@ -145,58 +138,56 @@
     margin: 15px 0 30px 0;
     width: 70%;
 }
-.content .gener_param_block .button input{
-    border: none;
 
+.content .gener_param_block .button input {
+    border: none;
 }
 
 .content .gener_param_block .button:hover {
     background-color: #2980b9;
 }
 
+
+
+/* Адаптив для блока параметров */
 @media (max-width: 1050px) {
-    .content .gener_param_block form{
-    flex-direction: column;
+    .content .gener_param_block form {
+        flex-direction: column;
     }
-
     .content .gener_param_block {
-    width: 90%;
-    padding-top: 20px;
+        width: 90%;
+        padding-top: 20px;
     }
-
-    .content .gener_param_block form .gener, .save{
-    width: 100%;
+    .content .gener_param_block form .gener, .save {
+        width: 100%;
     }
-
-    .content .gener_param_block form  .save{
+    .content .gener_param_block form .save {
         margin-top: 20px;
     }
 }
 
-/* =========================
-   ГЕНЕРАЦИЯ
-========================= */
 
 
-.content .rend_block{
+
+
+/* ГЕНЕРАЦИЯ */
+.content .rend_block {
     padding-top: 40px;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
     height: calc(100vh - 90px);
 }
 
-
-
-/*условия задачм*/
+/* условия задач */
 .content .rend_block .rend {
     width: 30%;
     display: flex;
     flex-direction: column;
     font-size: 20px;
 }
-.content .rend h3{
+
+.content .rend h3 {
     color: #3498db;
     font-size: 20px;
 }
@@ -210,15 +201,15 @@
     color: #666666;
 }
 
-.content .rend .title{
+.content .rend .title {
     background: repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px);
     background-color: #2980b9;
     color: #fff;
-    text-align:center;
+    text-align: center;
     font-size: 20px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-     z-index: 1;
-     padding-top: 20px;
+    z-index: 1;
+    padding-top: 20px;
 }
 
 .content .rend .mathquill-editable .mq-root-block {
@@ -232,9 +223,11 @@
     transform: scale(1);
     transform-origin: left center;
 }
+
 .content .rend .answer {
     margin-top: 10px;
 }
+
 .content .rend .answer-btns {
     display: flex;
     flex-direction: row;
@@ -253,12 +246,10 @@
     font-size: 18px;
     width: 50%;
     transition: background-color 0.4s ease;
-    
 }
 
 .content .rend .answer-btns button:hover {
     background-color: #FF5959;
-    
 }
 
 .content .rend .btn-save button {
@@ -272,12 +263,10 @@
     font-size: 18px;
     width: 48%;
     transition: background-color 0.4s ease;
-    
 }
 
 .content .rend .btn-save button:hover {
     background-color: #FF5959;
-    
 }
 
 .content .rend #answer {
@@ -286,71 +275,68 @@
 
 /* холст */
 .content .rend_block .canvas {
-	width: 50%;
-	margin: 0;
-	padding: 0 20px 20px 20px;
-	
+    width: 50%;
+    margin: 0;
+    padding: 0 20px 20px 20px;
     display: flex;
-	justify-content: center;
+    justify-content: center;
 }
 
 .content .canvas canvas {
-	aspect-ratio: 1 / 1;
-	background-color: rgb(255, 255, 255);
-	border-radius: 10px;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    aspect-ratio: 1 / 1;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Если контейнер выше, чем широк */
+/* Если контейнер более высокий, чем широкий */
 @media (max-aspect-ratio: 1/1) {
-	.content .canvas canvas {
-		width: 92%;
-		height: auto;
-	}
+    .content .canvas canvas {
+        width: 92%;
+        height: auto;
+    }
 }
 
-/* Если контейнер шире, чем высокий */
+/* Если контейнер более широкий, чем высокий */
 @media (min-aspect-ratio: 1/1) {
-	.content .canvas canvas {
-		height: 92%;
-		width: auto;
-	}
+    .content .canvas canvas {
+        height: 92%;
+        width: auto;
+    }
 }
 
-
-
+/* Адаптив под ширину экрана */
 @media screen and (max-width: 1050px) {
     .content {
-        overflow-y: auto; 
+        overflow-y: auto;
     }
-	.content .rend_block{
-		flex-direction: column;
-		justify-content: start;
-		height: auto;
-	}
-
-    .content .rend_block .rend{
-		width: 100%;
-	}
-    .content .rend_block .title{
-		width: 100%;
+    .content .rend_block {
+        flex-direction: column;
+        justify-content: start;
+        height: auto;
+    }
+    .content .rend_block .rend {
+        width: 100%;
+    }
+    .content .rend_block .title {
+        width: 100%;
         font-size: 18px;
         border-radius: 10px;
-	}
-
-	.content .rend_block  .canvas {
-		width: 100%;
-		align-items: flex-start;
-		padding: 30px 0 0 0;
-		height: auto;
-	}
+    }
+    .content .rend_block .canvas {
+        width: 100%;
+        align-items: flex-start;
+        padding: 30px 0 0 0;
+        height: auto;
+    }
 }
 
+/* Адаптив горизонтально */
 @media screen and (orientation: landscape) and (max-width: 1050px) {
-	.content .rend_block {
-		flex-direction: row;
-	}
-    .content .rend_block .canvas{
-		padding: 0;
-	}
+    .content .rend_block {
+        flex-direction: row;
+    }
+    .content .rend_block .canvas {
+        padding: 0;
+    }
 }

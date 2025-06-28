@@ -1,18 +1,16 @@
-/* =========================
-   ПЕРЕМЕННЫЕ CSS
-========================= */
+
+
 :root {
+    --header-color: #ffffff;
     --header-logo-color: #696969;
     --header-text-color: #838181;
     --header-text-hover-color: #202020;
-    --header-color: #ffffff;
     --header-hover-color: #2E9AFF;
     --header-active-color: #FF5959;
+    --line-color: #dad8d8;
+    --menu-shadow: rgba(0, 0, 0, 0.2);
 }
 
-/* =========================
-   БАЗОВЫЕ НАСТРОЙКИ
-========================= */
 * {
     margin: 0;
     padding: 0;
@@ -21,18 +19,18 @@
     text-decoration: none;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
 }
-html {
-    height: 100%;
-}
-/* =========================
-   СТИЛИ HEADER (Шапки)
-========================= */
+
+/* Шапка */
 header {
     display: flex;
     flex-direction: row;
@@ -43,6 +41,7 @@ header {
     z-index: 10;
 }
 
+/* Логотип и кнопка меню */
 header .logo-menu {
     display: flex;
     flex-direction: row;
@@ -58,8 +57,8 @@ header .logo a {
     font-size: 40px;
     font-weight: 700;
     color: var(--header-logo-color);
-    transition: color 0.4s ease;
     margin-right: 5px;
+    transition: color 0.4s ease;
 }
 
 header .logo a:hover {
@@ -76,6 +75,7 @@ header .menu-mobile-btn img {
     width: 40px;
 }
 
+/* Меню */
 header .menu {
     display: none;
 }
@@ -86,7 +86,7 @@ header .menu.active {
     top: 81px;
     width: 100%;
     background-color: var(--header-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px var(--menu-shadow);
     z-index: 10;
 }
 
@@ -106,26 +106,26 @@ header .menu .menu-block a {
     opacity: 1;
 }
 
-/* =========================
-   ОСТАЛЬНОЕ
-========================= */
+/* Горизонтальная линия */
 .head-line {
-    background-color: #dad8d8;
+    background-color: var(--line-color);
     height: 1px;
     position: relative;
     z-index: 10;
 }
 
-
+/* Мобильная версия */
 @media screen and (max-width: 1049px) {
     header .menu-block.active {
         background-color: var(--header-active-color);
     }
+
     header .menu-block.active a {
         color: var(--header-color);
     }
 }
 
+/* Десктопная версия */
 @media screen and (min-width: 1050px) {
     header .logo a {
         margin-right: 40px;
@@ -149,13 +149,13 @@ header .menu .menu-block a {
     }
 
     header .menu-block .menu-hover {
+        display: block;
         height: 10px;
         margin-bottom: 25px;
         background-color: var(--header-color);
         opacity: 0;
         transform: translateY(-10px);
         transition: background-color 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
-        display: block;
     }
 
     header .menu-block:hover .menu-hover {
@@ -164,10 +164,9 @@ header .menu .menu-block a {
         transform: translateY(0);
     }
 
-    header .menu .menu-block:hover a{
+    header .menu .menu-block:hover a {
         color: var(--header-text-hover-color);
     }
-    
 
     header .menu-block.active .menu-hover {
         background-color: var(--header-hover-color);

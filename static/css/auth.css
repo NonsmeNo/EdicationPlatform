@@ -1,4 +1,14 @@
 
+:root {
+    --white: #ffffff;
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+    --hover-color: #FF5959;
+    --hover-blue: #0764bb;
+    --error-color: #FF5959;
+    --success-color: #29d470;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,13 +21,9 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-:root {
-    --white: #ffffff;
-    --blue: #2E9AFF;
-    --light-pink: #f3ccd5;
-    --hover-color: #FF5959;
-}
 
+
+/* Основной контейнер */
 .content {
     background-image: linear-gradient(var(--blue), var(--light-pink));
     min-height: 100vh;
@@ -26,6 +32,7 @@ body {
     align-items: center;
 }
 
+/* Логотип */
 .content .logo {
     color: var(--white);
     font-size: 35px;
@@ -33,55 +40,53 @@ body {
     font-weight: 700;
 }
 
+/* Форма */
 .content form {
     background-color: var(--white);
     padding: 20px 30px;
     border: 5px solid rgba(50, 0, 251, 0.5);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(50, 0, 251, 0.3);
-    
     display: flex;
-    flex-direction: column; 
-    margin: 0 20px 20px 20px;  
-    min-width: 90%; 
+    flex-direction: column;
+    margin: 0 20px 20px 20px;
+    min-width: 90%;
 }
 
-.content form .form-title{
+.content form .form-title {
     font-size: 22px;
     font-weight: 600;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.content form .input-block {
-    font-size: 15px;
-    padding-bottom: 10px;
-}
-
+/* Блоки ввода */
 .content form .input-block {
     font-size: 15px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 10px;
+}
+
+.content form label {
+    margin-bottom: 5px;
 }
 
 .content form input {
     width: 100%;
     padding: 10px;
+    font-size: 15px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    font-size: 15px;
- }
-
- .content form label {
-    margin-bottom: 5px;
- }
-
- .content form input:focus {
-    outline: none;
-    border-color: #2E9AFF;
-    box-shadow: 0 0 15px rgba(123, 191, 255); 
 }
 
+.content form input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 15px rgba(123, 191, 255);
+}
+
+/* Кнопка отправки */
 .content form #submit-btn {
     margin-top: 15px;
     background-color: var(--blue);
@@ -89,7 +94,6 @@ body {
     color: var(--white);
     padding: 12px 0;
     font-size: 18px;
-
     transition: background-color 0.3s ease;
 }
 
@@ -97,86 +101,93 @@ body {
     background-color: var(--hover-color);
 }
 
+/* Подвал формы */
 .content form .form-footer {
     margin-top: 20px;
     text-align: center;
     font-size: 15px;
 }
 
-.content form .form-footer a{
+.content form .form-footer a {
     color: var(--blue);
     text-decoration: underline;
 }
 
-.content form .form-footer a:hover{
-    color: #0764bb;
+.content form .form-footer a:hover {
+    color: var(--hover-blue);
 }
 
-.content form .input-block .error-msg{
-    color: #FF5959;
+/* Ошибки валидации */
+.content form .input-block .error-msg {
+    color: var(--error-color);
 }
 
-.content form .input-block input.error-input{
-    border-color: #FF5959;
-}
-.content form .input-block input.error-input:focus{
-    box-shadow: 0 0 15px #FF5959; 
+.content form .input-block input.error-input {
+    border-color: var(--error-color);
 }
 
-.content .block-error,.block-success {
+.content form .input-block input.error-input:focus {
+    box-shadow: 0 0 15px var(--error-color);
+}
+
+/* Блоки ошибок и успеха */
+.content .block-error,
+.content .block-success {
     width: 80%;
     padding: 5px 10px;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     font-size: 16px;
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    color: #ffffff;
+    color: var(--white);
 }
 
 .content .block-error {
-    background-color: #FF5959;
-    border: 5px solid rgb(255, 89, 89);
+    background-color: var(--error-color);
+    border: 5px solid var(--error-color);
 }
 
 .content .block-success {
-    background-color: #29d470;
-    border: 5px solid #29d470;
+    background-color: var(--success-color);
+    border: 5px solid var(--success-color);
 }
 
-.content .block-error .msg,.block-success .msg{
+.content .block-error .msg,
+.content .block-success .msg {
     padding: 10px 5px 10px 0;
 }
-.content .block-error .close-btn{
+
+/* Кнопки закрытия */
+.content .block-error .close-btn,
+.content .block-success .close-btn {
     font-size: 20px;
-    background-color: #FF5959;
+    background: none;
     border: 0;
-    color: #ffffff;
+    color: var(--white);
 }
 
-.content .block-success .close-btn{
-    font-size: 20px;
-    background-color: #29d470;
-    border: 0;
-    color: #ffffff;
+.content .block-error .close-btn {
+    background-color: var(--error-color);
 }
 
-.content .block-error .close-btn:hover, 
+.content .block-success .close-btn {
+    background-color: var(--success-color);
+}
+
+.content .block-error .close-btn:hover,
 .content .block-success .close-btn:hover {
     color: #6b6b6b;
 }
 
-
-
-
- @media (min-width: 1050px) {
+/* Адаптив */
+@media (min-width: 1050px) {
     .content form {
-        width: 450px; 
-        min-width: 0; 
+        width: 450px;
+        min-width: 0;
         margin: 0;
     }
 
@@ -188,13 +199,12 @@ body {
         padding-bottom: 20px;
     }
 
-    .content .block-error, .block-success {
+    .content .block-error,
+    .content .block-success {
         position: absolute;
         top: 20px;
         right: 10px;
-        width: 340px; 
-        min-width: 0; 
+        width: 340px;
+        min-width: 0;
     }
-    
-    
 }
