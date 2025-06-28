@@ -234,9 +234,6 @@ def seed_themes():
         ]
         db.session.add_all(themes)
         db.session.commit()
-        print("Темы успешно добавлены.")
-    else:
-        print("Темы уже существуют в бд")
 
 def seed_templates():
     if Templates.query.count() == 0:
@@ -251,9 +248,6 @@ def seed_templates():
         ]
         db.session.add_all(templates)
         db.session.commit()
-        print("Шаблоны успешно добавлены.")
-    else:
-        print("Шаблоны уже существуют в бд")
 
 def seed_tasks():
     if Tasks.query.count() == 0:
@@ -264,9 +258,6 @@ def seed_tasks():
         ]
         db.session.add_all(tasks)
         db.session.commit()
-        print("Задачи успешно добавлены.")
-    else:
-        print("Задачи уже существуют в бд")
 
 with app.app_context():
     db.create_all()

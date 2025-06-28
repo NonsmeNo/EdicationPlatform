@@ -1,6 +1,9 @@
 
 
 :root {
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+
     --header-color: #ffffff;
     --header-logo-color: #696969;
     --header-text-color: #838181;
@@ -28,6 +31,10 @@ body {
     height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
+    background-image: linear-gradient(var(--blue), var(--light-pink));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; /* чтобы фон не двигался при скролле */
 }
 
 /* Шапка */

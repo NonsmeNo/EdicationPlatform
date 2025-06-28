@@ -1,23 +1,12 @@
 
 :root {
     --white: #ffffff;
-    --blue: #2E9AFF;
-    --light-pink: #f3ccd5;
     --text-color: #555;
     --hover-color: #FF5959;
     --divider-color: #979797;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
-}
-
 .content {
-    background-image: linear-gradient(var(--blue), var(--light-pink));
-    min-height: calc(100vh - 81px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

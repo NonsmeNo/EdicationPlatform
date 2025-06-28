@@ -9,12 +9,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
 
-
     {% block myhead %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/main/menu.js') }}" defer></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 
 
     <title>{% block title %}{% endblock %}</title>
@@ -57,16 +59,6 @@
 
     {% block body %}
     {% endblock %}
-    
-
-<script>
-    const btn = document.querySelector('.menu-mobile-btn');
-    const menu = document.querySelector('.menu');
-
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('active');
-    });
-</script>
 
 </body>
 </html>

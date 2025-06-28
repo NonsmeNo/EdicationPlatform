@@ -1,0 +1,14 @@
+:root {
+    --blue: #2E9AFF;
+    --light-pink: #f3ccd5;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content {
+    background-image: linear-gradient(var(--blue), var(--light-pink));
+}
