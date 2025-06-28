@@ -31,7 +31,8 @@ draw_axes();
 
 
 
-// 📌 КНОПКИ ДОБАВЛЕНИЯ РАЗЛИЧНЫХ ФУНКЦИЙ
+
+// Обработчики кнопок добавления разных функций
 
 // Построение графика y = f(x)
 document.getElementById('btn').addEventListener('click', () => {
@@ -117,7 +118,7 @@ document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
 	}
 });
 
-// 💾 КНОПКИ СОХРАНЕНИЯ И ОЧИСТКИ ГРАФИКА
+// Обработчики кнопок сохранения и очистки графика
 
 document.getElementById('savebtn').addEventListener('click', () => {
 	if (adds_func.length) {
@@ -150,9 +151,8 @@ document.getElementById('clearbtn').addEventListener('click', () => {
 
 
 
-// 🔍 МАСШТАБИРОВАНИЕ ГРАФИКА
+// масштабирование графика колесиком мыши 
 
-// масштабирование колесиком мыши 
 canv.addEventListener("wheel", (ev) => {
 	ev.preventDefault(); // отключаем прокрутку страницы
 
@@ -174,6 +174,9 @@ canv.addEventListener("wheel", (ev) => {
 
 let initialPinchDistance = null;
 let isPinching = false;
+
+
+// Масштабирование графика пальцами
 
 // Функция вычисления расстояния между двумя пальцами
 function getDistance(touch1, touch2) {
@@ -199,13 +202,13 @@ canv.addEventListener("touchmove", (ev) => {
 			const scaleFactor = currentDistance / initialPinchDistance;
 
 			if (scaleFactor > 1.05 && x_right - x_left > 2) {
-				// Пальцы разошлись → приближение
+				// Пальцы разошлись -> приближение
 				x_left += 1;
 				x_right -= 1;
 				initialPinchDistance = currentDistance;
 				redrawing();
 			} else if (scaleFactor < 0.95 && x_right < 1000) {
-				// Пальцы сошлись → отдаление
+				// Пальцы сошлись -> отдаление
 				x_left -= 1;
 				x_right += 1;
 				initialPinchDistance = currentDistance;
@@ -225,10 +228,11 @@ canv.addEventListener("touchend", (ev) => {
 	}
 });
 
-//**************************** */
 
 
+//*****************************/
 //ФУНКЦИИ
+
 function creat_block_func(type) {
 
 
@@ -620,7 +624,7 @@ function drow_start() {
 	});
 }
 
-// 🧮 Математические функции
+// Математические функции
 function abs(x){return Math.abs(x);}
 function acos(x){return Math.acos(x);}
 function acosh(x){return Math.acosh(x);}

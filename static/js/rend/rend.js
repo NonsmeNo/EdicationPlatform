@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-
-// 🔧 ОСНОВНЫЕ ПЕРЕМЕННЫЕ И НАСТРОЙКИ
 const canv = el('canvas');
 const btnShowGraph = el('btnShowGraph');
 const btnShowAnsw = el('btnShowAnsw');
@@ -14,17 +12,16 @@ const colors = ['#01AB9F', '#FF7A5A', '#EE82EE', '#9A80F6', '#82AFFB'];
 let randomNumber = Math.floor(Math.random() * 5);
 select_color = colors[randomNumber];
 
-// 👻 НАСТРОЙКА НАЧАЛЬНОГО ОТОБРАЖЕНИЯ ЭЛЕМЕНТОВ
 canv.style.display = 'none';
 answer.style.display = 'none';
 
-// 📐 КООРДИНАТНАЯ СИСТЕМА
+// Координатная система
 x_left = -10;
 x_right = 10;
 y_down = x_left;
 y_up = x_right;
 
-// 🖼️ ПОДГОТОВКА CANVAS
+// подготовка canvas
 canv.style.display = 'block';
 canv.width = canv.clientWidth;
 canv.height = canv.clientHeight;
@@ -38,9 +35,8 @@ drow_axes();
 
 
 
-// 🧪 ГЕНЕРАЦИЯ ЗАДАНИЯ
+// сгенерированное задание
 const [example_task, latex] = create_task();
-
 const MQ = MathQuill.getInterface(2); // v2 интерфейс
 
 // красивый вывод задания
@@ -49,10 +45,10 @@ const mathField = MQ.StaticMath(outputDiv);
 mathField.latex(latex);
 
 
-// -----------------------------------
-// СОБЫТИЯЯ
-// 💾 СОХРАНЕНИЕ ЗАДАНИЯ 
 
+// СОБЫТИЯ
+
+// Сохранение задания в базу данных
 const SaveButton = el('btnSave');
 if (btnSave) {
     SaveButton.addEventListener('click', () => {
@@ -68,7 +64,6 @@ if (btnSave) {
         })
         .then(response => response.json())
         .then(data => {
-            // Обработка ответа от сервера
             console.log('Task added successfully:', data);
             alert('Задание сохранено!')
         })
@@ -79,8 +74,7 @@ if (btnSave) {
 }
 
 
-// 🧠 ОТОБРАЖЕНИЕ ОТВЕТА ПРИ НАЖАТИИ КНОПКИ
-
+// Отображение ответа при нажатии кнопки
 btnShowAnsw.addEventListener('click', () => {
     if (answer.style.display == 'none'){
         answer.style.display = 'block';
@@ -101,7 +95,7 @@ btnShowAnsw.addEventListener('click', () => {
 });
 
 
-// 📊 ОТОБРАЖЕНИЕ ГРАФИКА ПРИ НАЖАТИИ КНОПКИ
+// Отображение графика при нажатии кнопки
 btnShowGraph.addEventListener('click', () => {
 
     // Показать canvas
@@ -124,7 +118,7 @@ btnShowGraph.addEventListener('click', () => {
 
 });
 
-// 🔍 МАСШТАБИРОВАНИЕ ГРАФИКА
+// Масштабирование графика
 canv.addEventListener("wheel", (ev) => {
     ev.preventDefault(); // отключаем прокрутку страницы
 
@@ -169,10 +163,10 @@ function getGraphEquation() {
 }
 
 
-//  ----------------------------
-// 🧩 ФУНКЦИИ
 
-// 🎲 сгенерировать случайное задание
+// ФУНКЦИИ
+
+// Сгенерировать случайное задание
 function create_task() {
     const task_template = template_value.value;
     const latex_template = template_latex.value;
@@ -276,7 +270,7 @@ function create_task() {
 
 
 
-// 🧮 Решение линейных уравнений
+// Решение линейных уравнений
 function findXLinear(eq, type) {
 
     let a, b, c, x;
@@ -320,7 +314,8 @@ function findXLinear(eq, type) {
 }
 
 
-// 📐 Решение квадратных уравнений
+
+// Решение квадратных уравнений
 // функция округления до 3 знаков после запятой
 function round3(num) {
     if (Number.isFinite(num) && num % 1 !== 0 && num.toString().split(".")[1]?.length > 3) {
@@ -381,7 +376,8 @@ function findXQuad(eq, type) {
 
 
 
-// 🌊 Решение тригонометрических уравнений
+
+// Решение тригонометрических уравнений
 function findXTrig(eq) {
     const MQ = MathQuill.getInterface(2);
     const answerDiv = document.getElementById("answer");
@@ -465,7 +461,8 @@ function findXTrig(eq) {
 
 
 
-// 🔄 Преобразование уравнения для шаблона
+
+// Преобразование уравнения для шаблона
 function formatEqTemplate(equation) {
     // Заменяем все символы '*' на '·'
     let formatted = equation.replace(/\*/g, '·');
@@ -479,7 +476,7 @@ function formatEqTemplate(equation) {
 
 
 
-// 🔄 Преобразование уравнения для графика
+// Преобразование уравнения для графика
 function convertEquation(eq) {
     // Изменяем "=" на "-" или "=-" "+"
     eq =eq.replace('=', '-').replace('--', '+');
@@ -493,9 +490,9 @@ return document.getElementById(id);
 }
 
 
-// 📈 Построение графика функции
 
 
+// Построение графика функции
 function draw_graph(str, color) {
 
 	y_down = x_left;
@@ -541,7 +538,7 @@ function draw_graph(str, color) {
 
 
 
-// ➕ Рисование координатных осей
+// Координатные оси
 function drow_axes(){
     ctx.globalAlpha = 1.0;
     //рисуем ось Х
@@ -564,7 +561,7 @@ function drow_axes(){
 }
 
 
-// 🔁 Преобразование координат
+// Преобразование координат
 function x2canv(x) {
     return (x-x_left)*width/(x_right - x_left);
 }
@@ -582,7 +579,7 @@ function canv2y(y_canv) {
 }
 
 
-// 🧭 Подписи координат при наведении курсора
+// Подписи координат при наведении курсора
 function drow_start() {
     ctx.font = "16px Arial";
 
@@ -600,7 +597,7 @@ function drow_start() {
 }
 
 
-// 🧮 Математические функции
+// Математические функции
 function abs(x){return Math.abs(x);}
 function acos(x){return Math.acos(x);}
 function acosh(x){return Math.acosh(x);}

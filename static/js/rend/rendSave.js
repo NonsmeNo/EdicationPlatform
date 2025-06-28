@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 
-// 🔧 ОСНОВНЫЕ ПЕРЕМЕННЫЕ И НАСТРОЙКИ
 const canv = el('canvas');
 const btnShowGraph = el('btnShowGraph');
 const btnShowAnsw = el('btnShowAnsw');
@@ -12,17 +11,16 @@ const colors = ['#01AB9F', '#FF7A5A', '#EE82EE', '#9A80F6', '#82AFFB'];
 let randomNumber = Math.floor(Math.random() * 5);
 select_color = colors[randomNumber];
 
-// 👻 НАСТРОЙКА НАЧАЛЬНОГО ОТОБРАЖЕНИЯ ЭЛЕМЕНТОВ
 canv.style.display = 'none';
 answer.style.display = 'none';
 
-// 📐 КООРДИНАТНАЯ СИСТЕМА
+// Координатная система
 x_left = -10;
 x_right = 10;
 y_down = x_left;
 y_up = x_right;
 
-// 🖼️ ПОДГОТОВКА CANVAS
+// подготовка canvas
 canv.style.display = 'block';
 canv.width = canv.clientWidth;
 canv.height = canv.clientHeight;
@@ -30,7 +28,6 @@ const width = canv.width;
 const height = canv.height;
 canv.style.display = 'none';
 
-//на старте
 const ctx = canv.getContext('2d');
 drow_start();
 drow_axes();
@@ -48,10 +45,10 @@ const mathField = MQ.StaticMath(outputDiv);
 mathField.latex(task_latex);
 
 
-// -----------------------------------
-// СОБЫТИЯЯ
 
-// 🧠 ОТОБРАЖЕНИЕ ОТВЕТА ПРИ НАЖАТИИ КНОПКИ
+// СОБЫТИЯ
+
+// Отображение ответа при нажатии кнопки
 btnShowAnsw.addEventListener('click', () => {
     if (answer.style.display == 'none'){
         answer.style.display = 'block';
@@ -72,7 +69,7 @@ btnShowAnsw.addEventListener('click', () => {
 });
 
 
-// 📊 ОТОБРАЖЕНИЕ ГРАФИКА ПРИ НАЖАТИИ КНОПКИ
+// Отображение графика при нажатии кнопки
 btnShowGraph.addEventListener('click', () => {
 
     // Показать canvas
@@ -93,7 +90,7 @@ btnShowGraph.addEventListener('click', () => {
 
 });
 
-// 🔍 МАСШТАБИРОВАНИЕ ГРАФИКА
+// Масштабирование графика
 canv.addEventListener("wheel", (ev) => {
     ev.preventDefault(); // отключаем прокрутку страницы
 
@@ -137,11 +134,13 @@ function getGraphEquation() {
     return str_graph;
 }
 
-//  ----------------------------
-// 🧩 ФУНКЦИИ
 
 
-// 🧮 Решение линейных уравнений
+
+
+// ФУНКЦИИ
+
+// Решение линейных уравнений
 function findXLinear(eq, type) {
 
     let a, b, c, x;
@@ -188,7 +187,7 @@ function findXLinear(eq, type) {
 
 
 
-// 📐 Решение квадратных уравнений
+// Решение квадратных уравнений
 
 function findXQuad(eq, type) {
     let a, b, c;
@@ -258,7 +257,7 @@ function findXQuad(eq, type) {
 
 
 
-// 🌊 Решение тригонометрических уравнений
+// Решение тригонометрических уравнений
 function findXTrig(eq) {
     const MQ = MathQuill.getInterface(2);
     const answerDiv = document.getElementById("answer");
@@ -344,7 +343,7 @@ function findXTrig(eq) {
 
 
 
-// 🔄 Преобразование уравнения для графика
+// Преобразование уравнения для графика
 function convertEquation(eq) {
     // Изменяем "=" на "-" или "=-" "+"
     eq =eq.replace('=', '-').replace('--', '+');
@@ -356,7 +355,7 @@ function convertEquation(eq) {
 
 
 
-// 📈 Построение графика функции
+// Построение графика функции
 
 function el(id){
     return document.getElementById( id );
@@ -407,7 +406,7 @@ function draw_graph(str, color) {
 }
 
 
-// ➕ Рисование координатных осей
+// Рисование координатных осей
 function drow_axes(){
     //рисуем ось Х
     y0_canv = y2canv(0)
@@ -428,7 +427,7 @@ function drow_axes(){
     ctx.stroke();
 }
 
-// 🔁 Преобразование координат
+// Преобразование координат
 function x2canv(x) {
     return (x-x_left)*width/(x_right - x_left);
 }
@@ -447,7 +446,7 @@ function canv2y(y_canv) {
 
 
 
-// 🧭 Подписи координат при наведении курсора
+// Подписи координат при наведении курсора
 function drow_start() {
     ctx.font = "16px Arial";
 
@@ -464,7 +463,7 @@ function drow_start() {
     });
 }
 
-// 🧮 Математические функции
+// Математические функции
 function abs(x){return Math.abs(x);}
 function acos(x){return Math.acos(x);}
 function acosh(x){return Math.acosh(x);}

@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ---------------------------------
     // Видимость клавиатуры 
+    
     const keyboard = document.querySelector('.keyboard');
     const keyboardBtn = document.getElementById('keyboard-icon-btn');
     const hideParamBtn = document.querySelector('.hide-param-btn');
