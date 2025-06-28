@@ -28,6 +28,7 @@ def load_user(user_id):
 # ----------------------------
 
 
+
 @app.route('/')
 def index():
     return render_template('index.html', current_path=request.path)
