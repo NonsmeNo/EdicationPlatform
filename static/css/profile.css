@@ -1,14 +1,172 @@
-:root {
-    --blue: #2E9AFF;
-    --light-pink: #f3ccd5;
+.profile-card-container {
+    display: flex;
+    justify-content: center;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.profile-card-block {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    background-color: white; 
+    margin: 30px 15px; 
+ 
+
+    display: flex;
+    flex-direction: column; 
+    padding: 30px;
+    width: 100%;
+    max-width: 900px;
 }
 
-.content {
-    background-image: linear-gradient(var(--blue), var(--light-pink));
+
+.profile-card {
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column; 
+    padding: 30px 0;
+    width: 100%;
+}
+
+
+
+
+/* Фото + имя */
+.profile-left {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.profile-name {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+
+
+
+
+/* Изменение данных */
+.profile-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.input-edit {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.input-group label {
+    font-weight: bold;
+    color: #444;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #f7f7f7;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 15px rgba(123, 191, 255);
+}
+
+
+.edit-btn {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+
+    margin-left: 20px;
+}
+
+.input-edit img{
+    width: 20px;
+    height: auto;
+}
+
+.edit-btn:hover {
+    background-color: #2384e2;
+}
+
+
+
+
+
+/* Кнопка выйти */
+.logout-btn {
+    background-color: var(--header-active-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100px;
+}
+
+.logout-btn:hover {
+    background-color: #e94e4e;
+}
+
+
+
+
+/* Адаптация десктоп */
+@media screen and (min-width: 1050px) {
+    .profile-card {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .profile-left {
+        margin-top: 20px;
+    }
+
+    .profile-right {
+        flex: 2;
+        justify-content: center;
+    }
+
+    .logout-btn {
+        margin-left: 30px;
+    }
+
+
 }

@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+import os
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from email_validator import validate_email, EmailNotValidError
+from werkzeug.utils import secure_filename
 
 from config import Config
 from models import db, Users, Themes, Tasks, Templates, SavedTasks
@@ -118,7 +120,7 @@ def register():
 
         # запись информации о новом пользователе в бд
         hash = generate_password_hash(password)
-        new_user = Users(name=name, email=email, password=hash)
+        new_user = Users(name=name, email=email, password=hash, img='img/profile.png')
         db.session.add(new_user)
         db.session.commit()
 
@@ -136,6 +138,52 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
+# Профиль
+
+# Изменение фотографии
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload_avatar', methods=['POST'])
+@login_required
+def upload_avatar():
+    file = request.files.get('avatar')
+    if not file or not allowed_file(file.filename):
+        return jsonify({'message': 'Файл не получен или формат не поддерживается'}), 400
+
+    ext = file.filename.rsplit('.', 1)[1].lower()
+    filename = secure_filename(f"user_{current_user.id}.{ext}")
+    path = os.path.join('static', 'img/users', filename)
+    file.save(path)
+
+    current_user.img = f"img/users/{filename}"
+    db.session.commit()
+
+    return jsonify({'message': 'Фото обновлено', 'filename': current_user.img})
+
+# Изменение имени/email/пароля
+@app.route('/update_profile_field', methods=['POST'])
+@login_required
+def update_profile_field():
+    data = request.get_json()
+    field = data.get('field')
+    value = data.get('value')
+
+    if field == 'логин':
+        current_user.name = value
+    elif field == 'email':
+        current_user.email = value
+    elif field == 'пароль':
+        # хеширование пароля
+        from werkzeug.security import generate_password_hash
+        current_user.password = generate_password_hash(value)
+    else:
+        return jsonify({'status': 'error', 'message': 'Недопустимое поле'}), 400
+
+    db.session.commit()
+    return jsonify({'status': 'ok'})
 
 
 # Графический калькулятор

@@ -1,17 +1,56 @@
 {% extends 'base.html' %}
-{% block title %}
-MathHelper - личный кабинет
-{% endblock %}
+{% block title %}MathHelper - Личный кабинет{% endblock %}
+
 {% block myhead %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-<script src="{{ url_for('static', filename='js/sloganSwitcher.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auth/profile.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 
-<div class="content">
-    Hi, {{ user.name }}!
-    <a href="/logout">Выйти из аккаунта</a>
+<div class="profile-card-container">
+    <div class="profile-card-block">
+        <div class="profile-card">
+            <div class="profile-left">
+                <img src="{{ url_for('static', filename=user.img) }}" alt="Profile Image" class="profile-img" id="profile-img" onclick="changeProfileImage()">
+                <h2 class="profile-name">{{ user.name }}</h2>
+            </div>
+            <div class="profile-right">
+                <div class="input-group">
+                    <label>Логин</label>
+                    <div class="input-edit">
+                        <input type="text" value="{{ user.name }}" readonly maxlength="30">
+                        <button class="edit-btn">
+                            <img src="{{ url_for('static', filename='img/pencil.png') }}" alt="Редактировать" class="edit-icon">
+                        </button>                        
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <div class="input-edit">
+                        <input type="email" value="{{ user.email }}" readonly maxlength="100">
+                        <button class="edit-btn">
+                            <img src="{{ url_for('static', filename='img/pencil.png') }}" alt="Редактировать" class="edit-icon">
+                        </button>                  
+                    </div>
+                </div>
+        
+                <div class="input-group">
+                    <label>Пароль</label>
+                    <div class="input-edit">
+                        <input type="password" value="********" readonly maxlength="50">
+                        <button class="edit-btn">
+                            <img src="{{ url_for('static', filename='img/pencil.png') }}" alt="Редактировать" class="edit-icon">
+                        </button>              
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <a href="/logout" class="logout-btn">Выйти</a>
+    </div>
 </div>
 
 {% endblock %}
+

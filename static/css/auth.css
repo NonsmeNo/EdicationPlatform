@@ -34,10 +34,18 @@ body {
 
 /* Логотип */
 .content .logo {
-    color: var(--white);
     font-size: 35px;
     padding: 20px;
     font-weight: 700;
+}
+
+.content .logo a{
+    color: var(--white);
+    text-decoration: none;
+}
+
+.content .logo a:hover{
+    color: rgb(47, 47, 47);
 }
 
 /* Форма */
@@ -101,7 +109,7 @@ body {
     background-color: var(--hover-color);
 }
 
-/* Подвал формы */
+/* Низ формы */
 .content form .form-footer {
     margin-top: 20px;
     text-align: center;
