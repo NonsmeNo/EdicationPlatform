@@ -153,7 +153,7 @@ def allowed_file(filename):
 def upload_avatar():
     print("Current working directory:", os.getcwd())
     print("App root path:", app.root_path)
-    
+
     file = request.files.get('avatar')
     if not file or not allowed_file(file.filename):
         return jsonify({'message': 'Файл не получен или формат не поддерживается'}), 400
@@ -161,17 +161,14 @@ def upload_avatar():
     ext = file.filename.rsplit('.', 1)[1].lower()
     filename = secure_filename(f"user_{current_user.id}.{ext}")
 
-    # Абсолютный путь до папки static/img/users внутри проекта
-    upload_folder = os.path.join(app.root_path, 'static', 'img', 'users')
 
-    # Создаем папку (если нет)
+    upload_folder = os.path.join(app.root_path, 'static', 'img', 'users')
     os.makedirs(upload_folder, exist_ok=True)
 
     path = os.path.join(upload_folder, filename)
 
     file.save(path)
 
-    # Путь, который будет использоваться в шаблонах для загрузки изображения (относительно static)
     current_user.img = f"img/users/{filename}"
     db.session.commit()
 
