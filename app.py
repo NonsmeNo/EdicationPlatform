@@ -142,6 +142,9 @@ def logout():
 
 # Профиль
 
+import os
+print("Текущая рабочая директория:", os.getcwd())
+
 # Изменение фотографии
 import logging
 logging.basicConfig(
