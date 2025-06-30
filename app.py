@@ -158,20 +158,22 @@ def upload_avatar():
     ext = file.filename.rsplit('.', 1)[1].lower()
     filename = secure_filename(f"user_{current_user.id}.{ext}")
 
-    # Папка для сохранения — относительно той папки, где запускается приложение
-    upload_folder = os.path.join('static', 'img', 'users')
+    # Абсолютный путь до папки static/img/users внутри проекта
+    upload_folder = os.path.join(app.root_path, 'static', 'img', 'users')
 
-    # Создаем папку (вместе с промежуточными, если нет)
+    # Создаем папку (если нет)
     os.makedirs(upload_folder, exist_ok=True)
 
     path = os.path.join(upload_folder, filename)
 
     file.save(path)
 
+    # Путь, который будет использоваться в шаблонах для загрузки изображения (относительно static)
     current_user.img = f"img/users/{filename}"
     db.session.commit()
 
     return jsonify({'message': 'Фото обновлено', 'filename': current_user.img})
+
 
 
 # Изменение имени/email/пароля
