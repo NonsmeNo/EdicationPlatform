@@ -143,7 +143,15 @@ def logout():
 # Профиль
 
 # Изменение фотографии
+import logging
+logging.basicConfig(
+    filename='upload_errors.log',  # можно указать полный путь, если надо
+    level=logging.ERROR,
+    format='%(asctime)s %(levelname)s: %(message)s'
+)
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -157,10 +165,19 @@ def upload_avatar():
     ext = file.filename.rsplit('.', 1)[1].lower()
     filename = secure_filename(f"user_{current_user.id}.{ext}")
     path = os.path.join('static', 'img/users', filename)
-    file.save(path)
-
-    current_user.img = f"img/users/{filename}"
-    db.session.commit()
+    
+    try:
+        file.save(path)
+    except Exception as e:
+        logging.error(f"Ошибка сохранения файла {filename} в {path}: {e}")
+        return jsonify({'message': 'Ошибка при сохранении файла'}), 500
+    
+    try:
+        current_user.img = f"img/users/{filename}"
+        db.session.commit()
+    except Exception as e:
+        logging.error(f"Ошибка обновления базы данных для пользователя {current_user.id}: {e}")
+        return jsonify({'message': 'Ошибка при обновлении данных пользователя'}), 500
 
     return jsonify({'message': 'Фото обновлено', 'filename': current_user.img})
 
