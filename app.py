@@ -151,6 +151,9 @@ def allowed_file(filename):
 @app.route('/upload_avatar', methods=['POST'])
 @login_required
 def upload_avatar():
+    print("Current working directory:", os.getcwd())
+    print("App root path:", app.root_path)
+    
     file = request.files.get('avatar')
     if not file or not allowed_file(file.filename):
         return jsonify({'message': 'Файл не получен или формат не поддерживается'}), 400
@@ -180,6 +183,7 @@ def upload_avatar():
 @app.route('/update_profile_field', methods=['POST'])
 @login_required
 def update_profile_field():
+    
     data = request.get_json()
     field = data.get('field')
     value = data.get('value')
