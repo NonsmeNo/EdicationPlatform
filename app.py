@@ -147,6 +147,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @app.route('/upload_avatar', methods=['POST'])
 @login_required
 def upload_avatar():
@@ -156,13 +157,22 @@ def upload_avatar():
 
     ext = file.filename.rsplit('.', 1)[1].lower()
     filename = secure_filename(f"user_{current_user.id}.{ext}")
-    path = os.path.join('/home/lera53rus/EdicationPlatform/static/img/users', filename)
+
+    # Папка для сохранения — относительно той папки, где запускается приложение
+    upload_folder = os.path.join('static', 'img', 'users')
+
+    # Создаем папку (вместе с промежуточными, если нет)
+    os.makedirs(upload_folder, exist_ok=True)
+
+    path = os.path.join(upload_folder, filename)
+
     file.save(path)
 
     current_user.img = f"img/users/{filename}"
     db.session.commit()
 
     return jsonify({'message': 'Фото обновлено', 'filename': current_user.img})
+
 
 # Изменение имени/email/пароля
 @app.route('/update_profile_field', methods=['POST'])
