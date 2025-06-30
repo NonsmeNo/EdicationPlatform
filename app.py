@@ -9,13 +9,13 @@ from werkzeug.utils import secure_filename
 from config import Config
 from models import db, Users, Themes, Tasks, Templates, SavedTasks
 
-# Создаем приложения Flask
+
 app = Flask(__name__)  
-app.config.from_object(Config)  # Загружаем конфигурацию
+app.config.from_object(Config)
 
 
 
-# Инициализируем SQLAlchemy и LoginManager
+# Инициализация SQLAlchemy и LoginManager
 db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
