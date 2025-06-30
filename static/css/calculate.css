@@ -4,17 +4,22 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: white;
 
 }
 
 /* БЛОК CANVAS */
 .content .canvas {
     width: 75%;
-    background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+
+    background-image: linear-gradient(var(--blue), var(--light-pink));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .content .canvas canvas {
@@ -39,7 +44,6 @@
         width: auto;
     }
 }
-
 
 
 
@@ -104,7 +108,7 @@
 }
 
 .content .parameters .header-param .select-btn {
-    width: 10%;
+    width: 50px;
     cursor: pointer;
 }
 
@@ -375,205 +379,243 @@
 
 
 
-
-
 /* КЛАВИАТУРА */
 
-/* кнопка клавиатуры */
+/* кнопка клавы */
 .parameters #keyboard-icon-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 20%;
-    border: 1px solid #a3a3a3;
-    background-color: #dfdddd;
-    color: #333;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s, background-color 0.2s;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 20%;
+	border: 1px solid #a3a3a3;
+	background-color: #dfdddd;
+	color: #333;
+	border-radius: 8px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: opacity 0.2s, background-color 0.2s;
 }
 
 .parameters #keyboard-icon-btn:hover {
-    opacity: 1;
-    background-color: #e0e0e0;
+	opacity: 1;
+	background-color: #e0e0e0;
 }
-
-.parameters #keyboard-icon-btn:hover img {
-    opacity: 1;
+.parameters #keyboard-icon-btn:hover img{
+	opacity: 1;
 }
 
 .parameters #keyboard-icon-btn img {
-    max-height: 60px;
-    width: auto;
-    pointer-events: none;
-    opacity: 0.7;
+	max-height: 60px;
+	width: auto;
+	pointer-events: none;
+	opacity: 0.7;
 }
 
 /* сама клавиатура */
 .keyboard {
-    width: 100%;
-    height: 200px;
-    background-color: #dfdddd;
-    position: absolute;
-    bottom: 0;
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    gap: 3%;
-    z-index: 9999;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
-    padding: 5px 10px;
-    transition: opacity 0.3s ease;
+	width: 100%;
+	height: 200px;
+	background-color: #dfdddd;
+	position: absolute;
+	bottom: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease;
+	z-index: 9999;
+	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+	padding: 5px 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 3%; /* расстояние между блоками */
+	pointer-events: none;
 }
 
 .keyboard.visible {
-    display: flex;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
 }
 
 /* Первый блок: 2 столбца, 4 строки */
 .keybord-block-1 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 6px;
-    width: 120px;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	gap: 6px;
+	width: 120px;
 }
 
 /* Второй блок: 4x4 */
 .keybord-block-2 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 6px;
-    width: 240px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	gap: 6px;
+	width: 240px;
 }
 
 /* Третий блок */
 .keybord-block-3 {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 1fr);
-    gap: 8px;
-    width: 100px;
-    position: relative;
-    z-index: 1000;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(4, 1fr);
+	gap: 8px;
+	width: 100px;
+
+	position: relative;
+	z-index: 1000;
 }
 
 .key-btn-col1 {
-    background-color: #bbb;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 16px;
-    cursor: pointer;
+	background-color: #bbb;
+	color: black;
+	border: none;
+	border-radius: 5px;
+	padding: 8px;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 .key-btn-col2 {
-    background-color: #ffffff;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 16px;
-    cursor: pointer;
+	background-color: #ffffff;
+	color: black;
+	border: none;
+	border-radius: 5px;
+	padding: 8px;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 .key-enter-btn {
-    background-color: #4da6ff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
+	background-color: #4da6ff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 8px;
+	font-size: 16px;
+	cursor: pointer;
+	width: 100%;
 }
 
 .keybord-nav-btns {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
+	display: flex;
+	justify-content: space-between;
+	gap: 6px;
 }
-
 .keybord-nav-btns button {
-    width: 48%;
-    border-radius: 6px;
-    border: none;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
+	flex: 1;
 }
 
-.keybord-nav-btns .left-btn {
-    background-color: #f2f2f2;
-    color: #333;
+.key-btn-col1,
+.key-btn-col2,
+.key-enter-btn,
+#keybord-func-btn {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	transition: transform 0.05s ease, box-shadow 0.05s ease;
 }
 
-.keybord-nav-btns .right-btn {
-    background-color: #4da6ff;
-    color: white;
+.key-btn-col1:active,
+.key-btn-col2:active,
+.key-enter-btn:active,
+#keybord-func-btn:active {
+	transform: translateY(1px);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.keybord-functions {
+	display: none;
+	grid-template-columns: repeat(2, 1fr); 
+	grid-template-rows: repeat(3, 1fr); 
+	gap: 6px;
+	position: absolute;
+	bottom: 102%;
+	padding: 10px 10px 20px 10px;
+	border-radius: 5px;
+	background-color: #dfdddd;
+	left: 50%;
+	transform: translateX(-50%);
+	box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
+@media (min-width: 1050px) {
+    body {
+        overflow: hidden;
+    }
+}
 
 @media (max-width: 1050px) {
-  .content {
-    flex-direction: column;
-    height: 100vh; /* чтобы занять весь экран */
-    overflow: hidden; /* спрятать скролл у основного контейнера */
-  }
+    .content {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
 
-  /* Блок canvas и параметры теперь идут вертикально */
-  .content .canvas {
-    width: 100%;
-    height: calc(60vh - 10px); /* примерно 60% высоты экрана */
-    margin-bottom: 10px;
-  }
 
-  .content .parameters {
-    width: 100%;
-    height: calc(40vh - 10px); /* оставшиеся 40% высоты */
-    min-height: 200px; /* минимальная высота параметров, можно менять */
-    box-shadow: none;
-    padding: 10px 15px;
-    overflow-y: auto; /* чтобы можно было скроллить, если контента много */
-  }
+    .content .canvas {
+        width: 100%;
+        padding: 20px 0;
+    }
 
-  /* Клавиатура — фиксирована внизу, не перекрывает параметры, которые прокручиваются */
-  .keyboard {
-    position: fixed; /* фиксируем клавиатуру */
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 200px; /* фиксированная высота */
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
-    padding: 5px 10px;
-    background-color: #dfdddd;
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    gap: 3%;
-    z-index: 9999;
-  }
+    .content .parameters {
+        width: 100%; 
+        box-shadow: none;
+        padding: 10px 15px;
+    }
 
-  .keyboard.visible {
-    display: flex;
-  }
+    .content .canvas .hide-param-btn {
+        display: none;
+    }
 
-  /* Убираем нижний паддинг у parameters, чтобы клавиатура не перекрывала контент */
-  .content .parameters {
-    padding-bottom: 210px; /* чуть больше высоты клавиатуры */
-  }
+    .parameters #keyboard-icon-btn {
+        display: none;
+    }
 
-  /* Кнопка клавиатуры */
-  .parameters #keyboard-icon-btn {
-    position: static; /* убираем absolute, чтобы кнопка была в потоке */
-    margin-top: 10px;
-    width: auto;
-    align-self: flex-end;
-  }
+    
+    .content .parameters {
+        padding-bottom: 250px; 
+    }
+
+
+    /*
+    .keyboard {
+        position: fixed; 
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 200px;
+        background-color: #dfdddd;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 9999;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+        padding: 5px 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3%;
+        pointer-events: none;
+        }
+
+    .keyboard.visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    } */
+
+
+}
+
+
+/* Адаптация горизонтальная */
+
+@media (max-width: 1050px) and (orientation: landscape) {
+    .content .canvas canvas {
+        width: 50%;
+        height: auto;
+    }
 }

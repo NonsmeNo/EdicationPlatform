@@ -136,6 +136,61 @@ function getGraphEquation() {
 
 
 
+// Масштабирование графика пальцами
+let initialPinchDistance = null;
+
+function getDistance(touches) {
+  const [touch1, touch2] = touches;
+  const dx = touch2.clientX - touch1.clientX;
+  const dy = touch2.clientY - touch1.clientY;
+  return Math.sqrt(dx*dx + dy*dy);
+}
+
+canv.addEventListener("touchstart", (ev) => {
+  if (ev.touches.length === 2) {
+    initialPinchDistance = getDistance(ev.touches);
+    ev.preventDefault();
+  }
+});
+
+canv.addEventListener("touchmove", (ev) => {
+  if (ev.touches.length === 2 && initialPinchDistance !== null) {
+    ev.preventDefault();
+
+    const currentDistance = getDistance(ev.touches);
+    const diff = currentDistance - initialPinchDistance;
+
+    if (Math.abs(diff) > 10) { // порог чтобы не реагировать на мелкие движения
+
+      if (diff > 0 && x_right > 1) {
+        // Приближение (пальцы раздвигаются)
+        x_left += 1;
+        x_right -= 1;
+      } else if (diff < 0) {
+        // Отдаление (пальцы сближаются)
+        x_left -= 1;
+        x_right += 1;
+      }
+
+      ctx.clearRect(0, 0, canv.width, canv.height);
+      drow_axes();
+
+      let str_graph = getGraphEquation();
+      draw_graph(str_graph, select_color);
+
+      initialPinchDistance = currentDistance; // обновляем начальное расстояние
+    }
+  }
+});
+
+canv.addEventListener("touchend", (ev) => {
+  if (ev.touches.length < 2) {
+    initialPinchDistance = null; // сбрасываем при уходе пальцев
+  }
+});
+
+
+
 
 
 // ФУНКЦИИ

@@ -224,7 +224,7 @@ footer a:hover {
 
 @media (max-width: 1050px) and (orientation: landscape) {
     .preview-block {
-        padding-top: 0;
+        padding: 20px 0;
     }
 
     .text2 p {

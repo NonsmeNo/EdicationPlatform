@@ -41,4 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Запрет фокуса и открытия системной клавиатуры на мобильных
+['math-field', 'func1-field', 'func2-field'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.setAttribute('tabindex', '-1'); // отключаем фокусировку клавишей Tab
+        el.addEventListener('touchstart', (e) => e.preventDefault()); // отключаем системную клавиатуру на телефоне
+        el.addEventListener('focus', (e) => e.preventDefault()); // доп. защита
+    }});
 });

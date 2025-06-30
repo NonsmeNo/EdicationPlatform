@@ -36,28 +36,39 @@ draw_axes();
 
 // Построение графика y = f(x)
 document.getElementById('btn').addEventListener('click', () => {
-	if (func_cnt < max_funcs) {
-		const str_func = el('func').textContent;
-			if (draw_graph_check(str_func, colors[func_cnt]))
-			{
-				if (func_cnt === 0) {
-					funk_block_class.style.display = 'block';
-				}
-				creat_block_func(1)
-				func_cnt++;
-			}
-	} else {
-		message_max();
-	}
+    if (func_cnt < max_funcs) {
+        const str_func = el('func').textContent;
+
+        if (!/\S/.test(str_func)) {
+            alert('Пожалуйста, введите функцию перед добавлением!');
+            return;
+        }
+
+        if (draw_graph_check(str_func, colors[func_cnt])) {
+            if (func_cnt === 0) {
+                funk_block_class.style.display = 'block';
+            }
+            creat_block_func(1);
+            func_cnt++;
+        }
+    } else {
+        message_max();
+    }
 });
 
-// Построение параметрического графика
 document.getElementById('param_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
 		const str_func1 = el('func1').textContent;
 		const str_func2 = el('func2').textContent;
 		const min_t = el('min_t').value;
 		const max_t = el('max_t').value;
+
+		// Проверка пустоты или пробелов в любом поле
+		if (!/\S/.test(str_func1) || !/\S/.test(str_func2) || !/\S/.test(min_t) || !/\S/.test(max_t)) {
+			alert('Пожалуйста, заполните все поля параметрической функции и диапазона t!');
+			return;
+		}
+
 		if (draw_parametric_check(str_func1, str_func2, min_t, max_t, colors[func_cnt])) {
 			if (func_cnt === 0) {
 				funk_block_class.style.display = 'block';
@@ -70,14 +81,26 @@ document.getElementById('param_btn').addEventListener('click', () => {
 	}
 });
 
+
 // Построение окружности по центру и радиусу
 document.getElementById('circle_centre_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
-		const str_func1 = `${el('x_centre').value}+${el('radius').value}*sin(t)`;
-		const str_func2 = `${el('y_centre').value}+${el('radius').value}*cos(t)`;
-		if (draw_parametric_check(str_func1, str_func2, 0, 10, colors[func_cnt])){
-			if (func_cnt === 0)
-				funk_block_class.style.display = 'block';	
+		const x_centre = el('x_centre').value;
+		const y_centre = el('y_centre').value;
+		const radius = el('radius').value;
+
+		if (!/\S/.test(x_centre) || !/\S/.test(y_centre) || !/\S/.test(radius)) {
+			alert('Пожалуйста, заполните центр круга и радиус!');
+			return;
+		}
+
+		const str_func1 = `${x_centre}+${radius}*sin(t)`;
+		const str_func2 = `${y_centre}+${radius}*cos(t)`;
+
+		if (draw_parametric_check(str_func1, str_func2, 0, 10, colors[func_cnt])) {
+			if (func_cnt === 0) {
+				funk_block_class.style.display = 'block';
+			}
 			creat_block_func(3);
 			func_cnt++;
 		}
@@ -86,12 +109,23 @@ document.getElementById('circle_centre_btn').addEventListener('click', () => {
 	}
 });
 
+
 // Построение эллипса по центру и осям
 document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
-		
-		const str_func1 = `${el('x_centre_ellips').value}+${el('ellips_a').value}*sin(t)`;
-		const str_func2 = `${el('y_centre_ellips').value}+${el('ellips_b').value}*cos(t)`;
+		const x_centre_ellips = el('x_centre_ellips').value;
+		const y_centre_ellips = el('y_centre_ellips').value;
+		const ellips_a = el('ellips_a').value;
+		const ellips_b = el('ellips_b').value;
+
+		if (!/\S/.test(x_centre_ellips) || !/\S/.test(y_centre_ellips) || !/\S/.test(ellips_a) || !/\S/.test(ellips_b)) {
+			alert('Пожалуйста, заполните все поля для эллипса!');
+			return;
+		}
+
+		const str_func1 = `${x_centre_ellips}+${ellips_a}*sin(t)`;
+		const str_func2 = `${y_centre_ellips}+${ellips_b}*cos(t)`;
+
 		if (draw_parametric_check(str_func1, str_func2, 0, 10, colors[func_cnt])) {
 			if (func_cnt === 0)
 				funk_block_class.style.display = 'block';
@@ -104,7 +138,8 @@ document.getElementById('ellipse_centre_btn').addEventListener('click', () => {
 	}
 });
 
-// Построение эллипса по фокусам и точке (только визуализация)
+
+// Построение эллипса по фокусам и точке 
 document.getElementById('ellipse_focus_btn').addEventListener('click', () => {
 	if (func_cnt < max_funcs) {
 		creat_block_func(5);
@@ -327,6 +362,130 @@ function creat_block_func(type) {
 return 0;
 
 }
+
+
+function creat_block_func(type) {
+    let func_block = document.createElement('div');
+    let block_color = document.createElement('div');
+    let input_func = document.createElement('div');
+    func_block.classList.add('func_block');
+    func_block.id = `b${func_cnt}`;
+    block_color.classList.add('color_func');
+    block_color.style.background = colors[func_cnt];
+
+    functions_print.append(func_block);
+    func_block.append(block_color);
+
+    input_func.classList.add('input_func');
+
+    if (type == 1) {
+        let latex_func = el('latex').textContent.trim();
+        if (!latex_func) {
+            alert('Введите функцию от x!');
+            return;
+        }
+        const func_display = document.createElement('div');
+        func_display.classList.add('mathquill-output');
+        func_display.innerHTML = `F(x) = ${latex_func}`;
+        const MQ = MathQuill.getInterface(2);
+        MQ.StaticMath(func_display);
+        input_func.append(func_display);
+        func_block.append(input_func);
+
+        let orig_func = el('func').textContent.trim();
+        if (!orig_func) {
+            alert('Функция не может быть пустой!');
+            return;
+        }
+        adds_func.push('1' + orig_func);
+
+    } else if (type == 2) {
+        let str_func1 = el('func1').textContent.trim();
+        let str_func2 = el('func2').textContent.trim();
+        let min_t = el('min_t').value.trim();
+        let max_t = el('max_t').value.trim();
+
+        if (!str_func1 || !str_func2 || !min_t || !max_t) {
+            alert('Заполните все поля для параметрической функции!');
+            return;
+        }
+
+        adds_func.push('2' + str_func1 + '%' + str_func2 + '%' + min_t + '%' + max_t);
+
+        let latex_func1 = el('func1-latex').textContent.trim();
+        let latex_func2 = el('func2-latex').textContent.trim();
+
+        const MQ = MathQuill.getInterface(2);
+
+        const func_display1 = document.createElement('div');
+        const func_display2 = document.createElement('div');
+        const range_display = document.createElement('div');
+
+        func_display1.classList.add('mathquill-output');
+        func_display2.classList.add('mathquill-output');
+        range_display.classList.add('mathquill-output');
+
+        func_display1.innerHTML = `x(t) = ${latex_func1},  `;
+        func_display2.innerHTML = `y(t) = ${latex_func2},  `;
+        range_display.innerHTML = `${min_t} \\le t \\le ${max_t}`;
+
+        MQ.StaticMath(func_display1);
+        MQ.StaticMath(func_display2);
+        MQ.StaticMath(range_display);
+
+        input_func.append(func_display1);
+        input_func.append(func_display2);
+        input_func.append(range_display);
+        func_block.append(input_func);
+
+    } else if (type == 3) {
+        let radius = el('radius').value.trim();
+        let x_centre = el('x_centre').value.trim();
+        let y_centre = el('y_centre').value.trim();
+
+        if (!radius || !x_centre || !y_centre) {
+            alert('Заполните радиус и координаты центра окружности!');
+            return;
+        }
+
+        input_func.innerHTML += `Окружность с радиусом ${radius}<br> и центром (${x_centre}, ${y_centre})`;
+        adds_func.push('3' + radius + '%' + x_centre + '%' + y_centre);
+        func_block.append(input_func);
+
+    } else if (type == 4) {
+        let ellips_a = el('ellips_a').value.trim();
+        let ellips_b = el('ellips_b').value.trim();
+        let x_centre_ellips = el('x_centre_ellips').value.trim();
+        let y_centre_ellips = el('y_centre_ellips').value.trim();
+
+        if (!ellips_a || !ellips_b || !x_centre_ellips || !y_centre_ellips) {
+            alert('Заполните все поля для эллипса!');
+            return;
+        }
+
+        input_func.innerHTML += `Эллипс с полуосями: a = ${ellips_a}, b = ${ellips_b}<br> и центром (${x_centre_ellips}, ${y_centre_ellips})`;
+        adds_func.push('4' + ellips_a + '%' + ellips_b + '%' + x_centre_ellips + '%' + y_centre_ellips);
+        func_block.append(input_func);
+
+    } else if (type == 5) {
+        let x = el('x_ellips').value.trim();
+        let y = el('y_ellips').value.trim();
+        let x_f1 = el('x_f1').value.trim();
+        let x_f2 = el('x_f2').value.trim();
+        let y_f1 = el('y_f1').value.trim();
+        let y_f2 = el('y_f2').value.trim();
+
+        if (!x || !y || !x_f1 || !x_f2 || !y_f1 || !y_f2) {
+            alert('Заполните все поля для эллипса с фокусами!');
+            return;
+        }
+
+        input_func.innerHTML += `Эллипс с фокусами: f1 = (${x_f1}, ${y_f1}) f2 = (${x_f2}, ${y_f2})<br> и точкой (${x}, ${y})`;
+        adds_func.push('5' + calc_ellipse_axes(x, y, x_f1, y_f1, x_f2, y_f2));
+        func_block.append(input_func);
+    }
+}
+
 
 function redrawing() {
 	ctx.clearRect(0, 0, canv.width, canv.height);

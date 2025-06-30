@@ -29,18 +29,27 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed; /* чтобы фон не двигался при скролле */
+
+    margin-top: 80px;
 }
 
 /* Шапка */
+
+
 header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: var(--header-color);
-    position: relative;
-    z-index: 10;
+    position: fixed; /* фиксирует хедер */
+    top: 0; /* прикрепляет к верху */
+    left: 0;
+    width: 100%; /* растягивает на всю ширину */
+    z-index: 1000; /* чтобы он был выше других элементов */
+    box-shadow: 0 2px 8px var(--menu-shadow); /* необязательная тень для отделения */
 }
+
 
 /* Логотип и кнопка меню */
 header .logo-menu {

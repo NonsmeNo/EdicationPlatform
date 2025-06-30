@@ -201,13 +201,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Собираем все нужные элементы
+    // Фокус для мобильной версии
+    
+    // все поля ввода
+    /*
     const triggerElements = [
         ...document.querySelectorAll('input.input-key'),
         document.getElementById('math-field'),
         document.getElementById('func1-field'),
         document.getElementById('func2-field')
-    ].filter(Boolean); // убираем null, если каких-то id нет
+    ].filter(Boolean);
+
 
     function showKeyboard() {
         if (window.innerWidth < 1050) {
@@ -221,11 +225,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Показываем клавиатуру при касании или клике на нужные элементы
-    triggerElements.forEach(el => {
-        el.addEventListener('touchstart', showKeyboard);
-        el.addEventListener('click', showKeyboard);
+// Показываем клавиатуру и ставим фокус
+triggerElements.forEach(el => {
+    el.addEventListener('touchstart', (e) => {
+        handleTrigger(e, el);
     });
+
+    el.addEventListener('click', (e) => {
+        handleTrigger(e, el);
+    });
+});
+
+function handleTrigger(e, el) {
+  if (window.innerWidth < 1050) {
+    keyboard.classList.add('visible');
+
+    if (el.id && fields[el.id]) {
+      activeMathField = fields[el.id];
+      activeMathField.focus();  // вызываем напрямую
+    }
+
+    if (el.tagName === 'INPUT') {
+      el.focus();
+      activeInputField = el;
+    }
+  }
+}
+
+
 
     // Скрываем клавиатуру при клике вне
     document.addEventListener('click', (e) => {
@@ -236,6 +263,36 @@ document.addEventListener('DOMContentLoaded', function () {
         ) {
             hideKeyboard();
         }
+    });*/
+
+
+
+    const triggerElements = [
+    ...document.querySelectorAll('input.input-key'),
+    document.getElementById('math-field'),
+    document.getElementById('func1-field'),
+    document.getElementById('func2-field')
+].filter(Boolean);
+
+triggerElements.forEach(el => {
+    el.addEventListener('click', () => {
+        if (el.id && fields[el.id]) {
+            fields[el.id].focus();   // MathQuill поле
+        } else if (el.tagName === 'INPUT') {
+            el.focus();              // Обычный input
+        }
     });
+
+    el.addEventListener('touchstart', () => {
+        if (el.id && fields[el.id]) {
+            fields[el.id].focus();
+        } else if (el.tagName === 'INPUT') {
+            el.focus();
+        }
+    });
+});
+
+
+    
     
 });
