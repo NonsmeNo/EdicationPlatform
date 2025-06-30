@@ -1,20 +1,16 @@
-
-
 .content {
     width: 100%;
     height: calc(100vh - 81px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
 }
 
 /* БЛОК CANVAS */
 .content .canvas {
     width: 75%;
-    margin: 0;
-    padding: 0;
     background-color: rgba(0, 0, 0, 0.1);
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -423,23 +419,18 @@
     background-color: #dfdddd;
     position: absolute;
     bottom: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 9999;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
-    padding: 5px 10px;
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: center;
     gap: 3%;
-    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    transition: opacity 0.3s ease;
 }
 
 .keyboard.visible {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    display: flex;
 }
 
 /* Первый блок: 2 столбца, 4 строки */
@@ -527,20 +518,62 @@
     color: white;
 }
 
-/* Мобильная клавиатура */
-@media (max-width: 480px) {
-    .content {
-        flex-direction: column;
-        height: auto;
-    }
-    .content .canvas {
-        width: 100%;
-        height: 60vh;
-        margin-bottom: 10px;
-    }
-    .content .parameters {
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-    }
+
+
+@media (max-width: 1050px) {
+  .content {
+    flex-direction: column;
+    height: 100vh; /* чтобы занять весь экран */
+    overflow: hidden; /* спрятать скролл у основного контейнера */
+  }
+
+  /* Блок canvas и параметры теперь идут вертикально */
+  .content .canvas {
+    width: 100%;
+    height: calc(60vh - 10px); /* примерно 60% высоты экрана */
+    margin-bottom: 10px;
+  }
+
+  .content .parameters {
+    width: 100%;
+    height: calc(40vh - 10px); /* оставшиеся 40% высоты */
+    min-height: 200px; /* минимальная высота параметров, можно менять */
+    box-shadow: none;
+    padding: 10px 15px;
+    overflow-y: auto; /* чтобы можно было скроллить, если контента много */
+  }
+
+  /* Клавиатура — фиксирована внизу, не перекрывает параметры, которые прокручиваются */
+  .keyboard {
+    position: fixed; /* фиксируем клавиатуру */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px; /* фиксированная высота */
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    background-color: #dfdddd;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3%;
+    z-index: 9999;
+  }
+
+  .keyboard.visible {
+    display: flex;
+  }
+
+  /* Убираем нижний паддинг у parameters, чтобы клавиатура не перекрывала контент */
+  .content .parameters {
+    padding-bottom: 210px; /* чуть больше высоты клавиатуры */
+  }
+
+  /* Кнопка клавиатуры */
+  .parameters #keyboard-icon-btn {
+    position: static; /* убираем absolute, чтобы кнопка была в потоке */
+    margin-top: 10px;
+    width: auto;
+    align-self: flex-end;
+  }
 }

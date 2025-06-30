@@ -22,13 +22,9 @@
     text-decoration: none;
 }
 
-html {
-    height: 100%;
-}
 
 body {
     font-family: 'Open Sans', sans-serif;
-    height: 100%;
     background-image: linear-gradient(var(--blue), var(--light-pink));
     background-repeat: no-repeat;
     background-size: cover;

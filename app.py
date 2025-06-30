@@ -10,12 +10,13 @@ from config import Config
 from models import db, Users, Themes, Tasks, Templates, SavedTasks
 
 
+
+
 app = Flask(__name__)  
 app.config.from_object(Config)
 
 
-
-# Инициализация SQLAlchemy и LoginManager
+# Инициализация LoginManager
 db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
