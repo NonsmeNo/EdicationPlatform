@@ -63,26 +63,40 @@ document.addEventListener('DOMContentLoaded', function () {
       }
   }
 
-  Object.keys(fields).forEach(fieldId => {
-      const fieldSpan = document.getElementById(fieldId);
-      if (!fieldSpan) return;
 
-      const mathField = MQ.MathField(fieldSpan, {
-          spaceBehavesLikeTab: true,
-          handlers: {
-              edit: function () {
-                  updateOutput(fieldId, mathField);
-              }
-          }
-      });
+Object.keys(fields).forEach(fieldId => {
+    const fieldSpan = document.getElementById(fieldId);
+    if (!fieldSpan) return;
 
-      fields[fieldId] = mathField;
+    const mathField = MQ.MathField(fieldSpan, {
+        spaceBehavesLikeTab: true,
+        handlers: {
+            edit: function () {
+                updateOutput(fieldId, mathField);
+            }
+        }
+    });
 
-      // Устанавливаем активное поле
-      fieldSpan.addEventListener('mousedown', () => {
-          activeMathField = mathField;
-      });
-  });
+    fields[fieldId] = mathField;
+
+    // Устанавливаем начальные примеры
+    if (fieldId === 'math-field') {
+        mathField.latex('sin(x)');
+        updateOutput(fieldId, mathField);
+    }
+    if (fieldId === 'func1-field') {
+        mathField.latex('cos(t)');
+        updateOutput(fieldId, mathField);
+    }
+    if (fieldId === 'func2-field') {
+        mathField.latex('sin(t)');
+        updateOutput(fieldId, mathField);
+    }
+
+    fieldSpan.addEventListener('mousedown', () => {
+        activeMathField = mathField;
+    });
+});
 
   // Для input полей
   document.querySelectorAll('input[type="number"], input[type="text"]').forEach(inputField => {
@@ -91,7 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 
-  // Обработка нажатий кастомной клавиатуры
+
+  // Обработка нажатий клавиатуры
   document.querySelectorAll('.keyboard button').forEach(button => {
       button.addEventListener('click', () => {
           if (!activeInputField && !activeMathField) return;
@@ -143,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   const newPos = Math.max(0, Math.min(value.length, start + shift));
                   activeInputField.setSelectionRange(newPos, newPos);
               } else if (latex) {
-                  // Проверка на безопасный символ
                   const isSafe = /^[a-zA-Z0-9πe+\-*/.=]$/.test(latex);
                   if (!isSafe) return;
 
@@ -152,10 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   const newPos = start + latex.length;
                   activeInputField.setSelectionRange(newPos, newPos);
               }
-
-              // Важно восстанавливать фокус и курсор
               activeInputField.focus();
-              // Устанавливаем курсор в новую позицию
               activeInputField.setSelectionRange(start + latex.length, start + latex.length);
           }
       });
@@ -198,74 +209,6 @@ document.addEventListener('DOMContentLoaded', function () {
     keyboardFuncBtn.addEventListener('click', () => {
         keyboardFunc.style.display = keyboardFunc.style.display === 'grid' ? 'none' : 'grid';
     });  
-
-
-
-    // Фокус для мобильной версии
-    
-    // все поля ввода
-    /*
-    const triggerElements = [
-        ...document.querySelectorAll('input.input-key'),
-        document.getElementById('math-field'),
-        document.getElementById('func1-field'),
-        document.getElementById('func2-field')
-    ].filter(Boolean);
-
-
-    function showKeyboard() {
-        if (window.innerWidth < 1050) {
-            keyboard.classList.add('visible');
-        }
-    }
-
-    function hideKeyboard() {
-        if (window.innerWidth < 1050) {
-            keyboard.classList.remove('visible');
-        }
-    }
-
-// Показываем клавиатуру и ставим фокус
-triggerElements.forEach(el => {
-    el.addEventListener('touchstart', (e) => {
-        handleTrigger(e, el);
-    });
-
-    el.addEventListener('click', (e) => {
-        handleTrigger(e, el);
-    });
-});
-
-function handleTrigger(e, el) {
-  if (window.innerWidth < 1050) {
-    keyboard.classList.add('visible');
-
-    if (el.id && fields[el.id]) {
-      activeMathField = fields[el.id];
-      activeMathField.focus();  // вызываем напрямую
-    }
-
-    if (el.tagName === 'INPUT') {
-      el.focus();
-      activeInputField = el;
-    }
-  }
-}
-
-
-
-    // Скрываем клавиатуру при клике вне
-    document.addEventListener('click', (e) => {
-        if (
-            window.innerWidth < 1050 &&
-            !keyboard.contains(e.target) &&
-            !triggerElements.some(el => el.contains(e.target))
-        ) {
-            hideKeyboard();
-        }
-    });*/
-
-
 
     const triggerElements = [
     ...document.querySelectorAll('input.input-key'),
